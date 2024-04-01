@@ -1,0 +1,70 @@
+module.exports = {
+  extends: ['airbnb', 'airbnb/hooks', 'airbnb-typescript', 'prettier'],
+  rules: {
+    'react/react-in-jsx-scope': 'off',
+    'no-restricted-imports': [
+      'error',
+      {
+        paths: [
+          {
+            name: 'react',
+            importNames: ['default'],
+            message: 'React를 import할 필요가 없습니다.',
+          },
+        ],
+      },
+    ],
+    curly: ['error', 'multi'],
+    'import/order': [
+      'error',
+      {
+        groups: [
+          'builtin',
+          'external',
+          'internal',
+          ['parent', 'sibling', 'index'],
+        ],
+        pathGroups: [
+          {
+            pattern: 'expo-router',
+            group: 'builtin',
+            position: 'before',
+          },
+          {
+            pattern: 'react',
+            group: 'external',
+            position: 'before',
+          },
+          {
+            pattern: 'react-native',
+            group: 'external',
+            position: 'before',
+          },
+          {
+            pattern: '#store/*',
+            group: 'internal',
+            position: 'after',
+          },
+          {
+            pattern: '#pages/*',
+            group: 'internal',
+            position: 'after',
+          },
+          {
+            pattern: '#components/*',
+            group: 'internal',
+            position: 'after',
+          },
+        ],
+        pathGroupsExcludedImportTypes: ['react', 'react-native'],
+        'newlines-between': 'always',
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+      },
+    ],
+    'no-console': 'off',
+    quotes: ['error', 'single'],
+  },
+};
