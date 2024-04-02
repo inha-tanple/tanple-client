@@ -4,9 +4,9 @@ import { router } from 'expo-router'
 
 import { useState } from 'react'
 import { View, StyleSheet } from 'react-native'
-import { Button, Text, TextInput } from 'react-native-paper'
+import { Button, TextInput } from 'react-native-paper'
 
-import Logo from '#assets/images/carbon-logo.svg'
+import LogoTitle from '#assets/logo'
 
 import useAuthStore from '#store/useAuthStore'
 
@@ -22,15 +22,7 @@ export default function Login() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.logoConT}>
-        <Logo />
-        <Text
-          variant="headlineMedium"
-          style={{ fontWeight: 'bold', marginLeft: 10 }}
-        >
-          Bullet Zero
-        </Text>
-      </View>
+      <LogoTitle size={27} />
       <View style={styles.textConT}>
         <TextInput
           value={email}
@@ -65,7 +57,12 @@ export default function Login() {
           mode="contained"
           buttonColor="#E6F7E6"
           textColor="#369536"
-          style={{ height: 45, borderRadius: 8 }}
+          style={{
+            height: 45,
+            borderWidth: 0.2,
+            borderColor: '#49A66D',
+            borderRadius: 8,
+          }}
         >
           회원가입
         </Button>
@@ -80,11 +77,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     bottom: 30,
-  },
-  logoConT: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: 300,
   },
   textConT: {
     display: 'flex',

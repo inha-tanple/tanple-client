@@ -1,10 +1,20 @@
+// Main.tsx
+
+import { Link } from 'expo-router'
+
 import { View } from 'react-native'
-import { Text } from 'react-native-paper'
 
 export default function Main() {
   return (
-    <View>
-      <Text>Example Modal. Click outside this area to diaasmiss.</Text>
+    <View
+      style={{
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <Link href="/test/">Go to Test</Link>
     </View>
   )
 }

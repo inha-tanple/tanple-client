@@ -1,16 +1,13 @@
-// App.tsx
+// index.tsx
 
-import { View } from 'react-native'
 import { PaperProvider } from 'react-native-paper'
 
 import Main from '#components/Main'
 
-export default function App() {
+export default function Home() {
   return (
     <PaperProvider>
-      <View>
-        <Main />
-      </View>
+      <Main />
     </PaperProvider>
   )
 }
