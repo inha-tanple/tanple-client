@@ -31,10 +31,10 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: '#52A672',
+        tabBarActiveTintColor: 'black',
         tabBarStyle: {
-          height: Platform.OS === 'ios' ? 80 : 65,
-          borderRadius: 15,
+          height: Platform.OS === 'ios' ? 75 : 60,
+          borderRadius: 20,
           paddingBottom: 10,
           paddingTop: 10,
         },
@@ -47,7 +47,8 @@ export default function TabLayout() {
           headerTitle: '',
           tabBarLabelStyle: { fontSize: 13 },
           tabBarIcon: ({ color }) => (
-            <Ionicons size={28} name="bag-handle-outline" color={color} />
+            // <Ionicons size={28} name="bag-handle-outline" color={color} />
+            <Ionicons size={28} name="bag-handle" color={color} />
           ),
           headerLeft: () => <LogoTitle size={16} />,
           headerRight: MessageIcon,
@@ -60,7 +61,7 @@ export default function TabLayout() {
           headerTitle: '',
           tabBarLabelStyle: { fontSize: 13 },
           tabBarIcon: ({ color }) => (
-            <Ionicons size={28} name="home-outline" color={color} />
+            <Ionicons size={28} name="home" color={color} />
           ),
           headerLeft: () => <LogoTitle size={16} />,
           headerRight: MessageIcon,
