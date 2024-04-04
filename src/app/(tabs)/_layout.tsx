@@ -1,13 +1,16 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/no-unstable-nested-components */
 import { Redirect, Tabs, router } from 'expo-router'
 
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { useState } from 'react'
-import { Platform } from 'react-native'
+import { Platform, TouchableOpacity } from 'react-native'
 
 import LogoTitle from '#assets/logo'
 
 import useAuthStore from '#store/useAuthStore'
+
+import AnimeIcon from '#components/AnimeIcon'
 
 export default function TabLayout() {
   const { isAuth } = useAuthStore()
@@ -19,11 +22,11 @@ export default function TabLayout() {
   function MessageIcon() {
     return (
       <MaterialIcons
+        onPress={() => router.navigate('/message/')}
         name={message ? 'mark-unread-chat-alt' : 'chat'}
         size={28}
         color="#C6C6C6"
         style={{ marginRight: 10 }}
-        onPress={() => router.navigate('/message/')}
       />
     )
   }
@@ -34,9 +37,10 @@ export default function TabLayout() {
         tabBarActiveTintColor: 'black',
         tabBarStyle: {
           height: Platform.OS === 'ios' ? 75 : 60,
-          borderRadius: 20,
-          paddingBottom: 10,
-          paddingTop: 10,
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
+          paddingBottom: Platform.OS === 'ios' ? 15 : 5,
+          paddingTop: 5,
         },
       }}
     >
@@ -47,11 +51,13 @@ export default function TabLayout() {
           headerTitle: '',
           tabBarLabelStyle: { fontSize: 13 },
           tabBarIcon: ({ color }) => (
-            // <Ionicons size={28} name="bag-handle-outline" color={color} />
-            <Ionicons size={28} name="bag-handle" color={color} />
+            <AnimeIcon>
+              <Ionicons size={28} name="bag-handle" color={color} />
+            </AnimeIcon>
           ),
           headerLeft: () => <LogoTitle size={16} />,
           headerRight: MessageIcon,
+          tabBarButton: (props) => <TouchableOpacity {...props} />,
         }}
       />
       <Tabs.Screen
@@ -61,10 +67,13 @@ export default function TabLayout() {
           headerTitle: '',
           tabBarLabelStyle: { fontSize: 13 },
           tabBarIcon: ({ color }) => (
-            <Ionicons size={28} name="home" color={color} />
+            <AnimeIcon>
+              <Ionicons size={28} name="home" color={color} />
+            </AnimeIcon>
           ),
           headerLeft: () => <LogoTitle size={16} />,
           headerRight: MessageIcon,
+          tabBarButton: (props) => <TouchableOpacity {...props} />,
         }}
       />
       <Tabs.Screen
@@ -74,10 +83,13 @@ export default function TabLayout() {
           headerTitle: '',
           tabBarLabelStyle: { fontSize: 13 },
           tabBarIcon: ({ color }) => (
-            <Ionicons size={28} name="menu" color={color} />
+            <AnimeIcon>
+              <Ionicons size={28} name="menu" color={color} />
+            </AnimeIcon>
           ),
           headerLeft: () => <LogoTitle size={16} />,
           headerRight: MessageIcon,
+          tabBarButton: (props) => <TouchableOpacity {...props} />,
         }}
       />
     </Tabs>
