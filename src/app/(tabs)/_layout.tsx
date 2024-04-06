@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/no-unstable-nested-components */
-import { Redirect, Tabs, router } from 'expo-router'
+import { Tabs, router } from 'expo-router'
 
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { useState } from 'react'
@@ -8,14 +8,9 @@ import { Platform, TouchableOpacity } from 'react-native'
 
 import LogoTitle from '#assets/logo'
 
-import useAuthStore from '#store/useAuthStore'
-
 import AnimeIcon from '#components/AnimeIcon'
 
 export default function TabLayout() {
-  const { isAuth } = useAuthStore()
-  if (!isAuth) return <Redirect href="/login/" />
-
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   const [message, setMessage] = useState(false)
 

@@ -40,7 +40,7 @@ module.exports = {
         ],
       },
     ],
-    curly: ['error', 'multi'],
+    // curly: ['error', 'multi'],
     'import/order': [
       'error',
       {
@@ -105,5 +105,6 @@ module.exports = {
     ],
     'react/jsx-no-bind': 'off',
     'no-use-before-define': 'off',
+    'spaced-comment': 'off',
   },
 }

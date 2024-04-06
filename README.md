@@ -1,4 +1,4 @@
-# 탄소 거래 플래폼
+# 탄소 거래 플랫폼
 
 ## 정보
 
@@ -13,11 +13,15 @@ React Native Paper 사용
 svg 설정
 <br/>
 
-## 이용
+## 이용시
 
 ```
 // expo-env.d.ts
 /// <reference types="expo/types" />
 
 // NOTE: This file should not be edited and should be in your git ignore
+```
+
+```
+// .env & env.d.ts 파일 설정
 ```
