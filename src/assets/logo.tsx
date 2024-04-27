@@ -16,6 +16,7 @@ export default function LogoTitle({ size }: { size: number }) {
         alignItems: 'center',
         width: 300,
       }}
+      activeOpacity={1}
     >
       <Logo style={{ marginLeft: 10 }} />
       <Text style={{ fontSize: size, fontWeight: 'bold', marginLeft: 5 }}>

@@ -52,7 +52,9 @@ export default function TabLayout() {
           ),
           headerLeft: () => <LogoTitle size={16} />,
           headerRight: MessageIcon,
-          tabBarButton: (props) => <TouchableOpacity {...props} />,
+          tabBarButton: (props) => (
+            <TouchableOpacity {...props} activeOpacity={1} />
+          ),
         }}
       />
       <Tabs.Screen
@@ -68,7 +70,9 @@ export default function TabLayout() {
           ),
           headerLeft: () => <LogoTitle size={16} />,
           headerRight: MessageIcon,
-          tabBarButton: (props) => <TouchableOpacity {...props} />,
+          tabBarButton: (props) => (
+            <TouchableOpacity {...props} activeOpacity={1} />
+          ),
         }}
       />
       <Tabs.Screen
@@ -84,7 +88,9 @@ export default function TabLayout() {
           ),
           headerLeft: () => <LogoTitle size={16} />,
           headerRight: MessageIcon,
-          tabBarButton: (props) => <TouchableOpacity {...props} />,
+          tabBarButton: (props) => (
+            <TouchableOpacity {...props} activeOpacity={1} />
+          ),
         }}
       />
     </Tabs>

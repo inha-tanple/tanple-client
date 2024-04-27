@@ -2,11 +2,11 @@
 
 import { Stack } from 'expo-router'
 
-import { PaperProvider, Text } from 'react-native-paper'
+import { Text, View } from 'react-native'
 
 export default function Test() {
   return (
-    <PaperProvider>
+    <View>
       <Stack.Screen
         options={{
           headerShown: true,
@@ -17,6 +17,6 @@ export default function Test() {
         }}
       />
       <Text>Test</Text>
-    </PaperProvider>
+    </View>
   )
 }

@@ -5,8 +5,7 @@ import { router } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import LottieView from 'lottie-react-native'
 import { useRef } from 'react'
-import { View, Text } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { View, Text, TouchableOpacity } from 'react-native'
 
 import Exchange from '#assets/anime/exchange.json'
 

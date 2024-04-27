@@ -41,7 +41,9 @@
     "react-native-vector-icons": "^10.0.3",
     "react-native-web": "~0.19.6",
     "zustand": "^4.5.2",
-    "lottie-react-native": "6.5.1"
+    "lottie-react-native": "6.5.1",
+    "expo-linear-gradient": "~12.7.2",
+    "expo-image-picker": "~14.7.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
