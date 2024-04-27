@@ -15,12 +15,13 @@ import { Button } from 'react-native-paper'
 
 import GoogleIcon from '#assets/images/GoogleIcon.svg'
 
-import useAuthStore from '#store/useAuthStore'
+import { useAuthStore, useInitStore } from '#store/useAuthStore'
 
 WebBrowser.maybeCompleteAuthSession()
 
 export default function GoogleButton() {
   const { userInfo, setUserInfo } = useAuthStore()
+  const { setIsInit } = useInitStore()
 
   const config = {
     expoClientId: EXPO_CLIENT_ID,
@@ -42,6 +43,7 @@ export default function GoogleButton() {
       const user = await res.json()
       await AsyncStorage.setItem('user', JSON.stringify(user))
 
+      setIsInit(false)
       setUserInfo(user)
     } catch (error) {
       console.error('Failed to fetch user data:', response)

@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 
+// useAuthStore
 interface UserInfo {
   email: string
   family_name: string
@@ -19,6 +20,9 @@ interface UserInfo {
 interface AuthState {
   userInfo: UserInfo | null
   setUserInfo: (info: UserInfo | null) => void
+  // personInfo dev temp
+  personInfo: boolean | null
+  setPersonInfo: (info: boolean | null) => void
 }
 
 const useAuthStore = create(
@@ -26,6 +30,8 @@ const useAuthStore = create(
     (set) => ({
       userInfo: null,
       setUserInfo: (info) => set({ userInfo: info }),
+      personInfo: null,
+      setPersonInfo: (info) => set({ personInfo: info }),
     }),
     {
       name: 'user-storage',
@@ -34,4 +40,23 @@ const useAuthStore = create(
   ),
 )
 
-export default useAuthStore
+// useInitStore
+interface InitState {
+  isInit: boolean
+  setIsInit: (data: boolean) => void
+}
+
+const useInitStore = create(
+  persist<InitState>(
+    (set) => ({
+      isInit: true,
+      setIsInit: (data) => set({ isInit: data }),
+    }),
+    {
+      name: 'initial-storage',
+      storage: createJSONStorage(() => AsyncStorage),
+    },
+  ),
+)
+
+export { useAuthStore, useInitStore }

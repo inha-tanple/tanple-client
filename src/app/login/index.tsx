@@ -36,7 +36,7 @@ export default function Login() {
       </View> */}
       <View style={styles.buttonConT}>
         <GoogleButton />
-        <Button
+        {/* <Button
           // onPress={}
           mode="contained"
           buttonColor="#E6F7E6"
@@ -51,7 +51,7 @@ export default function Login() {
           }}
         >
           기타 로그인
-        </Button>
+        </Button> */}
       </View>
     </View>
   )

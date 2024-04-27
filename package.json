@@ -40,7 +40,8 @@
     "react-native-svg": "^15.1.0",
     "react-native-vector-icons": "^10.0.3",
     "react-native-web": "~0.19.6",
-    "zustand": "^4.5.2"
+    "zustand": "^4.5.2",
+    "lottie-react-native": "6.5.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
