@@ -43,7 +43,6 @@ export default function GoogleButton() {
       const user = await res.json()
       await AsyncStorage.setItem('user', JSON.stringify(user))
 
-      setIsInit(false)
       setUserInfo(user)
     } catch (error) {
       console.error('Failed to fetch user data:', response)
@@ -69,6 +68,7 @@ export default function GoogleButton() {
 
   useEffect(() => {
     if (Object.keys(userInfo || {}).length) {
+      setIsInit(false)
       console.log(userInfo)
       router.navigate('/')
     }

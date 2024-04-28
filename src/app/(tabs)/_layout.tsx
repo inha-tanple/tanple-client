@@ -31,10 +31,10 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: 'black',
         tabBarStyle: {
-          height: Platform.OS === 'ios' ? 75 : 60,
+          height: Platform.OS === 'ios' ? 75 : 75,
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
-          paddingBottom: Platform.OS === 'ios' ? 15 : 5,
+          paddingBottom: Platform.OS === 'ios' ? 15 : 15,
           paddingTop: 5,
         },
       }}

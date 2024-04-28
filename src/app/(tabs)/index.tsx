@@ -7,17 +7,22 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { PaperProvider } from 'react-native-paper'
 
+import { shadowStyle } from '#constants/styles'
+
 import { useAuthStore, useInitStore } from '#store/useAuthStore'
 
 export default function Home() {
   const { userInfo, personInfo, setUserInfo, setPersonInfo } = useAuthStore()
-  const { isInit } = useInitStore()
+  const { isInit, setIsInit } = useInitStore()
 
   // dev temp Error
   if (isInit === true && Object.keys(userInfo || {}).length > 0) {
     setUserInfo(null)
     setPersonInfo(false)
   }
+
+  // android deployment error ?
+  if (Object.keys(userInfo || {}).length > 0) setIsInit(false)
 
   if (isInit === true) {
     return <Redirect href="/onboard/1" />
@@ -142,14 +147,11 @@ export default function Home() {
 
 const styles = StyleSheet.create({
   container: {
+    ...shadowStyle,
     borderRadius: 20,
     marginBottom: 15,
     padding: 20,
     backgroundColor: 'white',
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

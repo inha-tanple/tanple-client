@@ -14,6 +14,8 @@ import {
 } from 'react-native'
 import { Modal, Portal, Button, PaperProvider } from 'react-native-paper'
 
+import { shadowStyle } from '#constants/styles'
+
 interface ImageInfo {
   uri: string
   name: string
@@ -102,6 +104,7 @@ export default function Confirm() {
         />
         <View
           style={{
+            ...shadowStyle,
             width: 360,
             height: 480,
             backgroundColor: 'white',
@@ -111,12 +114,19 @@ export default function Confirm() {
             alignItems: 'center',
           }}
         >
-          <FlatList
-            data={images}
-            renderItem={renderImageItem}
-            keyExtractor={(item) => item.uri}
-            contentContainerStyle={styles.imageList}
-          />
+          {images.length <= 0 && (
+            <Text style={{ color: '#808080' }}>
+              아래의 업로드하기 버튼을 클릭해 주세요
+            </Text>
+          )}
+          {images.length > 0 && (
+            <FlatList
+              data={images}
+              renderItem={renderImageItem}
+              keyExtractor={(item) => item.uri}
+              contentContainerStyle={styles.imageList}
+            />
+          )}
           <TouchableOpacity onPress={pickImage} style={styles.uploadButton}>
             <Text style={styles.uploadButtonText}>업로드하기</Text>
           </TouchableOpacity>
@@ -239,8 +249,11 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
+    position: 'absolute',
+    bottom: 0,
     backgroundColor: '#EAEAEA',
-    borderBottomEndRadius: 20,
+    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 20,
     marginTop: 20,
   },
   uploadButtonText: {
