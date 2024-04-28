@@ -76,14 +76,14 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="menu"
+        name="asset"
         options={{
-          title: '메뉴',
+          title: '자산',
           headerTitle: '',
           tabBarLabelStyle: { fontSize: 13 },
           tabBarIcon: ({ color }) => (
             <AnimeIcon>
-              <Ionicons size={28} name="menu" color={color} />
+              <Ionicons size={28} name="card" color={color} />
             </AnimeIcon>
           ),
           headerLeft: () => <LogoTitle size={16} />,

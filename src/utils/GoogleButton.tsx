@@ -8,6 +8,7 @@ import {
   WEB_CLIENT_ID,
 } from '@env'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { makeRedirectUri } from 'expo-auth-session'
 import * as Google from 'expo-auth-session/providers/google'
 import * as WebBrowser from 'expo-web-browser'
 import { useEffect } from 'react'
@@ -23,7 +24,13 @@ export default function GoogleButton() {
   const { userInfo, setUserInfo } = useAuthStore()
   const { setIsInit } = useInitStore()
 
+  const redictUri = makeRedirectUri({
+    scheme: 'com.gwjun.bullet',
+    path: '/',
+  })
+
   const config = {
+    redictUri,
     expoClientId: EXPO_CLIENT_ID,
     androidClientId: ANDROID_CLIENT_ID,
     iosClientId: IOS_CLIENT_ID,

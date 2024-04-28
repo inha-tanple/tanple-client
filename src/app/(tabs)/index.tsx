@@ -22,7 +22,7 @@ export default function Home() {
   }
 
   // android deployment error ?
-  if (Object.keys(userInfo || {}).length > 0) setIsInit(false)
+  // if (Object.keys(userInfo || {}).length > 0) setIsInit(false)
 
   if (isInit === true) {
     return <Redirect href="/onboard/1" />
@@ -98,6 +98,7 @@ export default function Home() {
             }}
           >
             <TouchableOpacity
+              onPress={() => router.push('/product/')}
               style={{
                 width: 180,
                 flexGrow: 1,

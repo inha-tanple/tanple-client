@@ -77,7 +77,10 @@ export default function Confirm() {
 
   return (
     <PaperProvider>
-      <View style={{ flex: 1, alignItems: 'center', top: 130 }}>
+      <Text style={{ color: '#808080', top: 90, left: 51 }}>
+        영수증 사진을 업로드 해주세요
+      </Text>
+      <View style={{ flex: 1, alignItems: 'center', top: 115 }}>
         <Stack.Screen
           options={{
             headerShown: true,
@@ -89,13 +92,9 @@ export default function Confirm() {
                     fontSize: 20,
                     fontWeight: 'bold',
                     marginRight: 220,
-                    marginTop: 10,
                   }}
                 >
                   사진 제출하기
-                </Text>
-                <Text style={{ color: '#808080', marginTop: 6 }}>
-                  영수증 사진을 업로드 해주세요
                 </Text>
               </View>
             ),
@@ -251,7 +250,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
     bottom: 0,
-    backgroundColor: '#EAEAEA',
+    backgroundColor: '#D9D9D9',
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
     marginTop: 20,

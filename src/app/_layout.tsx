@@ -13,6 +13,22 @@ export default function AppLayout() {
         }}
       >
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="product/goods"
+          options={{
+            presentation: 'modal',
+            headerShown: true,
+            headerTransparent: true,
+          }}
+        />
+        <Stack.Screen
+          name="product/foods"
+          options={{
+            presentation: 'modal',
+            headerShown: true,
+            headerTransparent: true,
+          }}
+        />
       </Stack>
     </GestureHandlerRootView>
   )
