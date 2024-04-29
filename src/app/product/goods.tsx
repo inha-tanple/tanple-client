@@ -6,7 +6,7 @@ import { Stack } from 'expo-router'
 // import { Ionicons } from '@expo/vector-icons'
 
 import { useState } from 'react'
-import { Text, View } from 'react-native'
+import { Platform, Text, View } from 'react-native'
 import { PaperProvider, Searchbar } from 'react-native-paper'
 
 import { shadowStyle } from '#constants/styles'
@@ -16,7 +16,13 @@ export default function Goods() {
 
   return (
     <PaperProvider>
-      <View style={{ flex: 1, alignItems: 'center', top: 70 }}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          top: Platform.OS === 'ios' ? 70 : 90,
+        }}
+      >
         <Stack.Screen
           options={{
             headerTitle: '친환경물품',

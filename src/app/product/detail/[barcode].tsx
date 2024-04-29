@@ -3,7 +3,13 @@
 import { Stack, router, useLocalSearchParams } from 'expo-router'
 
 import { Ionicons } from '@expo/vector-icons'
-import { Text, TouchableOpacity, View, StyleSheet } from 'react-native'
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+  Platform,
+} from 'react-native'
 
 export default function DetailScreen() {
   const { id } = useLocalSearchParams()
@@ -53,7 +59,13 @@ export default function DetailScreen() {
           ),
         }}
       />
-      <View style={{ flex: 1, padding: 20, top: 60 }}>
+      <View
+        style={{
+          flex: 1,
+          padding: 20,
+          top: Platform.OS === 'ios' ? 60 : 80,
+        }}
+      >
         <View style={styles.container}>
           <Text style={styles.title}>제품 정보</Text>
 

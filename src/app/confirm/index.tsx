@@ -1,4 +1,6 @@
+/* eslint-disable react/no-unstable-nested-components */
 // Confirm.tsx
+
 import { Stack } from 'expo-router'
 
 import { Ionicons } from '@expo/vector-icons'
@@ -11,8 +13,16 @@ import {
   View,
   StyleSheet,
   FlatList,
+  Alert,
+  Platform,
 } from 'react-native'
-import { Modal, Portal, Button, PaperProvider } from 'react-native-paper'
+import {
+  Modal,
+  Portal,
+  Button,
+  PaperProvider,
+  Dialog,
+} from 'react-native-paper'
 
 import { shadowStyle } from '#constants/styles'
 
@@ -22,28 +32,111 @@ interface ImageInfo {
   size: number
 }
 
+interface CustomImagePickerAsset extends ImagePicker.ImagePickerAsset {
+  filesize?: number
+}
+
 export default function Confirm() {
   const [images, setImages] = useState<ImageInfo[]>([])
-
-  const [visible, setVisible] = useState(false)
-  const showModal = () => setVisible(true)
-  const hideModal = () => setVisible(false)
+  const [submitModal, setSubmitModal] = useState(false)
+  const [alertModal, setAlertModal] = useState(false)
 
   const pickImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
+    if (Platform.OS === 'ios') {
+      Alert.alert(
+        '업로드 방법 선택',
+        '카메라로 사진을 찍거나 갤러리에서 이미지를 선택해 주세요.',
+        [
+          {
+            text: '카메라',
+            onPress: async () => {
+              const result = await ImagePicker.launchCameraAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1,
+              })
+
+              if (!result.canceled) {
+                const newImage = {
+                  uri: result.assets[0].uri,
+                  name: result.assets[0].fileName || '',
+                  size: result.assets[0].fileSize || 0,
+                }
+                setImages([...images, newImage])
+              }
+            },
+          },
+          {
+            text: '갤러리',
+            onPress: async () => {
+              const result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsMultipleSelection: true,
+                quality: 1,
+              })
+
+              if (!result.canceled) {
+                const newImages = result.assets.map((asset) => ({
+                  uri: asset.uri,
+                  name: asset.fileName || '',
+                  size: asset.fileSize || 0,
+                }))
+                setImages([...images, ...newImages])
+              }
+            },
+          },
+          {
+            text: '취소',
+            style: 'cancel',
+          },
+        ],
+      )
+    } else {
+      setAlertModal(true)
+    }
+  }
+
+  const handleCamera = async () => {
+    const result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsMultipleSelection: true,
+      allowsEditing: true,
+      aspect: [4, 3],
       quality: 1,
     })
 
     if (!result.canceled) {
-      const newImages = result.assets.map((asset) => ({
+      const asset = result.assets[0] as CustomImagePickerAsset
+      const newImage = {
         uri: asset.uri,
         name: asset.fileName || '',
-        size: asset.fileSize || 0,
+        size: asset.filesize || 0,
+      }
+      setImages([...images, newImage])
+    }
+
+    setAlertModal(false)
+  }
+
+  const handleGallery = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsMultipleSelection: true,
+      quality: 1,
+      // exif: true,
+    })
+
+    if (!result.canceled) {
+      console.log(result.assets)
+      const newImages = result.assets.map((asset: CustomImagePickerAsset) => ({
+        uri: asset.uri,
+        name: asset.fileName || '',
+        size: asset.filesize || 0,
       }))
       setImages([...images, ...newImages])
     }
+
+    setAlertModal(false)
   }
 
   const removeImage = (uri: string) => {
@@ -77,22 +170,29 @@ export default function Confirm() {
 
   return (
     <PaperProvider>
-      <Text style={{ color: '#808080', top: 90, left: 51 }}>
+      <Text
+        style={{
+          color: '#808080',
+          top: Platform.OS === 'ios' ? 90 : 70,
+          left: Platform.OS === 'ios' ? 51 : 73,
+        }}
+      >
         영수증 사진을 업로드 해주세요
       </Text>
-      <View style={{ flex: 1, alignItems: 'center', top: 115 }}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          top: Platform.OS === 'ios' ? 115 : 95,
+        }}
+      >
         <Stack.Screen
           options={{
             headerShown: true,
-            // eslint-disable-next-line react/no-unstable-nested-components
             headerTitle: () => (
               <View>
                 <Text
-                  style={{
-                    fontSize: 20,
-                    fontWeight: 'bold',
-                    marginRight: 220,
-                  }}
+                  style={{ fontSize: 20, fontWeight: 'bold', marginRight: 220 }}
                 >
                   사진 제출하기
                 </Text>
@@ -131,7 +231,7 @@ export default function Confirm() {
           </TouchableOpacity>
         </View>
         <Button
-          onPress={showModal}
+          onPress={() => setSubmitModal(true)}
           mode="contained"
           buttonColor="#5DB476"
           disabled={Object.keys(images).length <= 0}
@@ -149,8 +249,8 @@ export default function Confirm() {
         </Button>
         <Portal>
           <Modal
-            visible={visible}
-            onDismiss={hideModal}
+            visible={submitModal}
+            onDismiss={() => setSubmitModal(false)}
             contentContainerStyle={{
               alignSelf: 'center',
               width: 300,
@@ -160,22 +260,27 @@ export default function Confirm() {
               borderRadius: 10,
             }}
           >
-            <Text style={{ bottom: 10, textAlign: 'center' }}>
+            <Text
+              style={{
+                bottom: 10,
+                fontSize: 16,
+                fontWeight: '500',
+                textAlign: 'center',
+              }}
+            >
               제출하시겠습니까?
             </Text>
             <View
               style={{
                 position: 'absolute',
                 bottom: 0,
-                height: 40,
+                height: 50,
                 width: 300,
                 flexDirection: 'row',
               }}
             >
               <TouchableOpacity
-                onPress={() => {
-                  setVisible(false)
-                }}
+                onPress={() => setSubmitModal(false)}
                 style={{
                   flexGrow: 1,
                   alignItems: 'center',
@@ -200,6 +305,32 @@ export default function Confirm() {
               </TouchableOpacity>
             </View>
           </Modal>
+          <Dialog
+            visible={Platform.OS === 'android' && alertModal}
+            onDismiss={() => setAlertModal(false)}
+            style={{ backgroundColor: 'white' }}
+          >
+            <Dialog.Title>업로드 방법 선택</Dialog.Title>
+            <Dialog.Content>
+              <Text>
+                카메라로 사진을 찍거나 갤러리에서 이미지를 선택해 주세요.
+              </Text>
+            </Dialog.Content>
+            <Dialog.Actions>
+              <Button onPress={handleCamera} labelStyle={{ color: '#2A7CFF' }}>
+                카메라
+              </Button>
+              <Button onPress={handleGallery} labelStyle={{ color: '#2A7CFF' }}>
+                갤러리
+              </Button>
+              <Button
+                onPress={() => setAlertModal(false)}
+                labelStyle={{ color: 'black' }}
+              >
+                취소
+              </Button>
+            </Dialog.Actions>
+          </Dialog>
         </Portal>
       </View>
     </PaperProvider>

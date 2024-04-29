@@ -11,6 +11,7 @@ import {
   StyleSheet,
   FlatList,
   TouchableOpacity,
+  Platform,
 } from 'react-native'
 import { Button, PaperProvider, Searchbar } from 'react-native-paper'
 
@@ -67,10 +68,22 @@ export default function Product() {
 
   return (
     <PaperProvider>
-      <Text style={{ color: '#808080', top: 90, left: 51 }}>
+      <Text
+        style={{
+          color: '#808080',
+          top: Platform.OS === 'ios' ? 90 : 70,
+          left: Platform.OS === 'ios' ? 51 : 73,
+        }}
+      >
         친환경 인증 물품들을 즐겨찾기에 추가할 수 있어요
       </Text>
-      <View style={{ flex: 1, alignItems: 'center', top: 115 }}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          top: Platform.OS === 'ios' ? 115 : 95,
+        }}
+      >
         <Stack.Screen
           options={{
             headerShown: true,
@@ -138,7 +151,7 @@ export default function Product() {
           style={{
             ...shadowStyle,
             width: 360,
-            height: 550,
+            height: 530,
             backgroundColor: 'white',
             borderRadius: 10,
             marginBottom: 30,
