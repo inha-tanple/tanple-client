@@ -41,8 +41,7 @@ export default function AppLayout() {
           name="webview/[keyword]"
           options={{
             presentation: 'modal',
-            // headerShown: true,
-            headerTransparent: true,
+            headerShown: true,
           }}
         />
       </Stack>
