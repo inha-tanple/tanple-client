@@ -1,5 +1,6 @@
 import { Stack } from 'expo-router'
 
+import { Platform } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 export default function AppLayout() {
@@ -41,7 +42,7 @@ export default function AppLayout() {
           name="webview/[keyword]"
           options={{
             presentation: 'modal',
-            headerShown: true,
+            headerShown: Platform.OS !== 'ios',
           }}
         />
       </Stack>

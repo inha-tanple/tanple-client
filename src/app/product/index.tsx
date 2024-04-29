@@ -4,7 +4,7 @@
 import { Stack, router } from 'expo-router'
 
 // import { Ionicons } from '@expo/vector-icons'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Text,
   View,
@@ -21,7 +21,14 @@ import { ProductType } from '#constants/types'
 
 export default function Product() {
   const [searchQuery, setSearchQuery] = useState('')
-  const [favorites] = useState(products)
+  const [items, setItems] = useState(products)
+
+  useEffect(() => {
+    const filtered = products.filter((product) =>
+      product.productName.toLowerCase().includes(searchQuery.toLowerCase()),
+    )
+    setItems(filtered)
+  }, [searchQuery])
 
   const renderProductItem = ({ item }: { item: ProductType }) => (
     <TouchableOpacity
@@ -159,14 +166,14 @@ export default function Product() {
             alignItems: 'center',
           }}
         >
-          {favorites.length <= 0 && (
+          {items.length <= 0 && (
             <Text style={{ color: '#808080' }}>
               아래의 업로드하기 버튼을 클릭해 주세요
             </Text>
           )}
-          {favorites.length > 0 && (
+          {items.length > 0 && (
             <FlatList
-              data={favorites}
+              data={items}
               renderItem={renderProductItem}
               keyExtractor={(item) => item.barcode}
               contentContainerStyle={styles.productList}

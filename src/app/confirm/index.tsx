@@ -25,11 +25,13 @@ import {
 } from 'react-native-paper'
 
 import { shadowStyle } from '#constants/styles'
+import uploadImages from '#utils/UploadImages'
 
 interface ImageInfo {
   uri: string
   name: string
   size: number
+  mimeType: string
 }
 
 interface CustomImagePickerAsset extends ImagePicker.ImagePickerAsset {
@@ -62,6 +64,7 @@ export default function Confirm() {
                   uri: result.assets[0].uri,
                   name: result.assets[0].fileName || '',
                   size: result.assets[0].fileSize || 0,
+                  mimeType: result.assets[0].mimeType || '',
                 }
                 setImages([...images, newImage])
               }
@@ -77,10 +80,12 @@ export default function Confirm() {
               })
 
               if (!result.canceled) {
+                console.log(result.assets)
                 const newImages = result.assets.map((asset) => ({
                   uri: asset.uri,
                   name: asset.fileName || '',
                   size: asset.fileSize || 0,
+                  mimeType: result.assets[0].mimeType || '',
                 }))
                 setImages([...images, ...newImages])
               }
@@ -111,6 +116,7 @@ export default function Confirm() {
         uri: asset.uri,
         name: asset.fileName || '',
         size: asset.filesize || 0,
+        mimeType: result.assets[0].mimeType || '',
       }
       setImages([...images, newImage])
     }
@@ -123,15 +129,14 @@ export default function Confirm() {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsMultipleSelection: true,
       quality: 1,
-      // exif: true,
     })
 
     if (!result.canceled) {
-      console.log(result.assets)
       const newImages = result.assets.map((asset: CustomImagePickerAsset) => ({
         uri: asset.uri,
         name: asset.fileName || '',
         size: asset.filesize || 0,
+        mimeType: result.assets[0].mimeType || '',
       }))
       setImages([...images, ...newImages])
     }
@@ -165,7 +170,7 @@ export default function Confirm() {
   )
 
   function handleSubmit() {
-    console.log(images)
+    uploadImages(images)
   }
 
   return (
