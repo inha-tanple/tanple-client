@@ -29,6 +29,14 @@ export default function AppLayout() {
             headerTransparent: true,
           }}
         />
+        <Stack.Screen
+          name="product/detail/[barcode]"
+          options={{
+            presentation: 'modal',
+            headerShown: true,
+            headerTransparent: true,
+          }}
+        />
       </Stack>
     </GestureHandlerRootView>
   )

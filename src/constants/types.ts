@@ -3,7 +3,7 @@ export interface ProductType {
   company: string
   productName: string
   price: string
-  taxNumber: string
+  taxNumber?: string
   taxIncludedPrice: string
   category: string
   taxRate: string

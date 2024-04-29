@@ -5,7 +5,13 @@ import { Stack, router } from 'expo-router'
 
 // import { Ionicons } from '@expo/vector-icons'
 import { useState } from 'react'
-import { Text, View, StyleSheet, FlatList } from 'react-native'
+import {
+  Text,
+  View,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native'
 import { Button, PaperProvider, Searchbar } from 'react-native-paper'
 
 import products from '#constants/dummy'
@@ -14,40 +20,49 @@ import { ProductType } from '#constants/types'
 
 export default function Product() {
   const [searchQuery, setSearchQuery] = useState('')
-  const [favorites, setFavorites] = useState(products)
+  const [favorites] = useState(products)
 
   const renderProductItem = ({ item }: { item: ProductType }) => (
-    <View style={{ marginBottom: 15 }}>
-      <Text style={styles.productName}>{item.productName}</Text>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        <Text style={{ fontSize: 14, marginBottom: 5, color: '#808080' }}>
-          가격
-        </Text>
-        <Text style={{ fontSize: 15, marginBottom: 5 }}>{item.price}원</Text>
-      </View>
+    <TouchableOpacity
+      onPress={() => {
+        router.push({
+          pathname: '/product/detail/[barcode]',
+          params: { barcode: item.barcode },
+        })
+      }}
+    >
+      <View style={{ marginBottom: 15 }}>
+        <Text style={styles.productName}>{item.productName}</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <Text style={{ fontSize: 14, marginBottom: 5, color: '#808080' }}>
+            가격
+          </Text>
+          <Text style={{ fontSize: 15, marginBottom: 5 }}>{item.price}원</Text>
+        </View>
 
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        <Text style={{ fontSize: 14, marginBottom: 5, color: '#808080' }}>
-          적립률
-        </Text>
-        <Text style={{ fontSize: 15, marginBottom: 5 }}>{item.taxRate}</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <Text style={{ fontSize: 14, marginBottom: 5, color: '#808080' }}>
+            적립률
+          </Text>
+          <Text style={{ fontSize: 15, marginBottom: 5 }}>{item.taxRate}</Text>
+        </View>
+        <View
+          style={{ height: 1, backgroundColor: '#EAEAEA', marginVertical: 2 }}
+        />
       </View>
-      <View
-        style={{ height: 1, backgroundColor: '#EAEAEA', marginVertical: 2 }}
-      />
-    </View>
+    </TouchableOpacity>
   )
 
   return (
@@ -83,7 +98,7 @@ export default function Product() {
           style={{
             ...shadowStyle,
             width: 360,
-            height: 45,
+            height: 60,
             marginBottom: 15,
             backgroundColor: 'white',
             borderRadius: 10,
