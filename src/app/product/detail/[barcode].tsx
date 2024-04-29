@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unstable-nested-components */
 // [barcode].tsx
-import { Stack, useLocalSearchParams } from 'expo-router'
+import { Stack, router, useLocalSearchParams } from 'expo-router'
 
 import { Ionicons } from '@expo/vector-icons'
 import { Text, TouchableOpacity, View, StyleSheet } from 'react-native'
@@ -53,7 +53,6 @@ export default function DetailScreen() {
           ),
         }}
       />
-
       <View style={{ flex: 1, padding: 20, top: 60 }}>
         <View style={styles.container}>
           <Text style={styles.title}>제품 정보</Text>
@@ -103,6 +102,24 @@ export default function DetailScreen() {
             <Text>{product.taxRate}</Text>
           </View>
         </View>
+        <TouchableOpacity
+          onPress={() => {
+            router.push({
+              pathname: '/webview/[keyword]',
+              params: { keyword: product.productName },
+            })
+          }}
+          style={{
+            ...styles.container,
+            backgroundColor: '#CBD8DA',
+            padding: 15,
+            alignItems: 'center',
+          }}
+        >
+          <Text style={{ fontSize: 15, fontWeight: '600' }}>
+            구글 검색 페이지로 이동
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   )

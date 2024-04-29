@@ -98,7 +98,7 @@ export default function Product() {
           style={{
             ...shadowStyle,
             width: 360,
-            height: 60,
+            height: 45,
             marginBottom: 15,
             backgroundColor: 'white',
             borderRadius: 10,

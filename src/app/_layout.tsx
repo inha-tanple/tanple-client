@@ -37,6 +37,14 @@ export default function AppLayout() {
             headerTransparent: true,
           }}
         />
+        <Stack.Screen
+          name="webview/[keyword]"
+          options={{
+            presentation: 'modal',
+            // headerShown: true,
+            headerTransparent: true,
+          }}
+        />
       </Stack>
     </GestureHandlerRootView>
   )
