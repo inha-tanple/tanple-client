@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
-// Goods.tsx
+// Favorite.tsx
 
 import { Stack } from 'expo-router'
 
@@ -9,7 +9,7 @@ import { PaperProvider, Searchbar } from 'react-native-paper'
 
 import { shadowStyle } from '#constants/styles'
 
-export default function Goods() {
+export default function Favorite() {
   const [searchQuery, setSearchQuery] = useState('')
 
   return (
@@ -23,7 +23,7 @@ export default function Goods() {
       >
         <Stack.Screen
           options={{
-            headerTitle: '친환경물품',
+            headerTitle: '즐겨찾기 목록',
             headerTitleStyle: { fontSize: 20, fontWeight: 'bold' },
           }}
         />
