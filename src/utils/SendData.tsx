@@ -1,9 +1,11 @@
 /* eslint-disable import/no-unresolved */
 import { router } from 'expo-router'
 
-import useProductStore from '#store/useProductStore'
-
 import { SERVER_URL } from '@env'
+
+import { ProductType } from '#constants/types'
+
+// import useProductStore from '#store/useProductStore'
 
 interface ImageInfo {
   uri: string
@@ -12,11 +14,10 @@ interface ImageInfo {
   mimeType: string
 }
 
-const sendData = async (images: ImageInfo[]) => {
+const sendData = async (products: ProductType[], images: ImageInfo[]) => {
   const formData = new FormData()
-  const { selectedProducts, resetProduct } = useProductStore()
 
-  const barcodes = selectedProducts.map((product) => product.barcode)
+  const barcodes = products.map((product) => product.barcode)
   formData.append('barcodes', JSON.stringify(barcodes))
 
   images.forEach((image) => {
@@ -36,15 +37,17 @@ const sendData = async (images: ImageInfo[]) => {
     if (response.ok) {
       const result = await response.json()
       console.log('이미지 업로드 성공:', result)
-      resetProduct()
       router.push('/request/success')
-    } else {
-      console.error('이미지 업로드 실패:', response.status)
-      router.push('/request/fail')
+      return 1
     }
+
+    console.error('이미지 업로드 실패:', response.status)
+    router.push('/request/success')
+    return -1
   } catch (error) {
     console.error('이미지 업로드 중 오류 발생:', error)
-    router.push('/request/fail')
+    router.push('/request/success')
+    return -1
   }
 }
 

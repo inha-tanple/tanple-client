@@ -6,6 +6,7 @@ import {
   IOS_CLIENT_ID,
   EXPO_CLIENT_ID,
   WEB_CLIENT_ID,
+  SERVER_URL,
 } from '@env'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { makeRedirectUri } from 'expo-auth-session'
@@ -37,9 +38,9 @@ export default function GoogleButton() {
     webClientId: WEB_CLIENT_ID,
   }
 
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  const [request, response, promptAsync] = Google.useAuthRequest(config)
+  const [, response, promptAsync] = Google.useAuthRequest(config)
 
+  // backend temp code
   const getUserInfo = async (token: unknown) => {
     try {
       const res = await fetch('https://www.googleapis.com/userinfo/v2/me', {
@@ -49,10 +50,31 @@ export default function GoogleButton() {
       })
       const user = await res.json()
       await AsyncStorage.setItem('user', JSON.stringify(user))
-
       setUserInfo(user)
     } catch (error) {
       console.error('Failed to fetch user data:', response)
+    }
+  }
+
+  const getUserInfoFromBackend = async (token: string) => {
+    try {
+      const res = await fetch(`${SERVER_URL}/api/auth/google`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ access_token: token }),
+      })
+
+      if (res.ok) {
+        const user = await res.json()
+        await AsyncStorage.setItem('user', JSON.stringify(user))
+        setUserInfo(user)
+      } else {
+        console.error('Failed to fetch user data from backend:', response)
+      }
+    } catch (error) {
+      console.error('Error fetching user data from backend:', error)
     }
   }
 
@@ -62,6 +84,7 @@ export default function GoogleButton() {
         const { authentication } = response
         if (authentication?.accessToken) {
           await getUserInfo(authentication.accessToken)
+          // await getUserInfoFromBackend(authentication.accessToken)
         }
       }
     } catch (error) {

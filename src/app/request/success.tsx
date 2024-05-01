@@ -32,10 +32,10 @@ export default function Success() {
         제출 성공
       </Text>
       <Text style={{ fontSize: 15, fontWeight: '600', marginBottom: 7 }}>
-        심사까지는 일주일 정도의 기간이 소요되요
+        심사까지는 2주 정도의 기간이 소요되요
       </Text>
       <Text style={{ fontSize: 15, fontWeight: '600' }}>
-        크레딧 이용 현황에서 확인할 수 있어요!
+        크레딧 이용 현황에서 세부정보를 확인할 수 있어요!
       </Text>
       <Button
         onPress={() => router.replace('/')}

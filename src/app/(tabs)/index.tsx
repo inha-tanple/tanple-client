@@ -13,16 +13,13 @@ import { useAuthStore, useInitStore } from '#store/useAuthStore'
 
 export default function Home() {
   const { userInfo, personInfo, setUserInfo, setPersonInfo } = useAuthStore()
-  const { isInit, setIsInit } = useInitStore()
+  const { isInit } = useInitStore()
 
   // dev temp Error
   if (isInit === true && Object.keys(userInfo || {}).length > 0) {
     setUserInfo(null)
     setPersonInfo(false)
   }
-
-  // android deployment error ?
-  // if (Object.keys(userInfo || {}).length > 0) setIsInit(false)
 
   if (isInit === true) {
     return <Redirect href="/onboard/1" />

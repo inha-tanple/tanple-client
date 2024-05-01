@@ -27,6 +27,8 @@ import {
 import { shadowStyle } from '#constants/styles'
 import sendData from '#utils/SendData'
 
+import useProductStore from '#store/useProductStore'
+
 interface ImageInfo {
   uri: string
   name: string
@@ -42,6 +44,8 @@ export default function ConfirmImage() {
   const [images, setImages] = useState<ImageInfo[]>([])
   const [submitModal, setSubmitModal] = useState(false)
   const [alertModal, setAlertModal] = useState(false)
+
+  const { selectedProducts, resetProduct } = useProductStore()
 
   const pickImage = async () => {
     if (Platform.OS === 'ios') {
@@ -169,8 +173,8 @@ export default function ConfirmImage() {
     </>
   )
 
-  function handleSubmit() {
-    sendData(images)
+  const handleSubmit = async () => {
+    if ((await sendData(selectedProducts, images)) > 0) resetProduct()
   }
 
   return (
