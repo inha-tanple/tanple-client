@@ -31,3 +31,31 @@ svg 설정
 ```
 // eas.json 파일 설정
 ```
+
+## Getting Started
+
+### Pre-requisites
+
+- [Node.js](https://nodejs.org/en/) version xx.xx or higher
+- [Expo CLI](https://docs.expo.dev/workflow/expo-cli/) version x.x.x or higher
+- [Android Studio](https://developer.android.com/studio) (for Android development environment)
+- [Xcode](https://developer.apple.com/xcode/) (for iOS development environment)
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/inha-tanple/tanple-client.git
+```
+
+2. Navigate to the project directory:
+```bash
+cd tanple-client
+```
+
+3. Install dependencies:
+```bash
+npm install
+```
+
+### Use
