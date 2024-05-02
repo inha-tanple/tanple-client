@@ -49,6 +49,7 @@ export default function Home() {
           }}
         >
           <TouchableOpacity
+            onPress={() => router.push('/credit/')}
             style={{ height: 70, width: 360, ...styles.container }}
             activeOpacity={1}
           >

@@ -53,6 +53,13 @@ export default function AppLayout() {
             headerShown: Platform.OS !== 'ios',
           }}
         />
+        <Stack.Screen
+          name="credit/detail/[id]"
+          options={{
+            presentation: 'modal',
+            headerShown: Platform.OS !== 'ios',
+          }}
+        />
       </Stack>
     </GestureHandlerRootView>
   )
