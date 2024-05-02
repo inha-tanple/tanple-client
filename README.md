@@ -1,45 +1,18 @@
-# 탄소 거래 플랫폼
-
-## 정보
-
-Expo SDK 50.0.14
-<br/>
-Expo Router 사용
-<br/>
-Airbnb ESLint & Prettier 사용
-<br/>
-React Native Paper 사용
-<br/>
-svg 설정
-<br/>
-
-## 이용시
-
-```
-// expo-env.d.ts
-/// <reference types="expo/types" />
-
-// NOTE: This file should not be edited and should be in your git ignore
-```
-
-```
-// .env & env.d.ts 파일 설정
-```
-
-## 빌드시
-
-```
-// eas.json 파일 설정
-```
+# Carbon Exchange Flatform
 
 ## Getting Started
 
-### Pre-requisites
+### Information
 
-- [Node.js](https://nodejs.org/en/) version xx.xx or higher
-- [Expo CLI](https://docs.expo.dev/workflow/expo-cli/) version x.x.x or higher
-- [Android Studio](https://developer.android.com/studio) (for Android development environment)
-- [Xcode](https://developer.apple.com/xcode/) (for iOS development environment)
+```
+React Native 0.73.6
+Expo SDK 50.0.14
+Expo Router
+Airbnb ESLint & Prettier
+React Native Paper
+```
+
+<br/>
 
 ### Installation
 
@@ -58,4 +31,69 @@ cd tanple-client
 npm install
 ```
 
-### Use
+<br/>
+
+### Usage
+
+
+1. Make [.env] file in root directory
+<br/>
+Since this app works based on Google OAuth, you need to get the client id from the console page to phrase.
+```bash
+## google Ouath 2.0 client ID
+ANDROID_CLIENT_ID=
+IOS_CLIENT_ID=
+EXPO_CLIENT_ID=
+WEB_CLIENT_ID=
+
+## your backend server URL
+SERVER_URL=
+```
+
+2. Make [env.d.ts] file in root directory
+```ts
+declare module '@env' {
+  export const ANDROID_CLIENT_ID: string
+  export const IOS_CLIENT_ID: string
+  export const EXPO_CLIENT_ID: string
+  export const WEB_CLIENT_ID: string
+  export const SERVER_URL: string
+}
+```
+
+3. Make [expo-env.d.ts] file in root directory
+```ts
+/// <reference types="expo/types" />
+
+// NOTE: This file should not be edited and should be in your git ignore
+```
+
+<br/>
+
+### Build
+You can build it by creating an [eas.json] file and adding env option.
+```json
+{
+  "cli": {
+    "version": ">= 7.6.2"
+  },
+  "build": {
+    "preview": {
+      "distribution": "internal",
+      "env": {
+        "ANDROID_CLIENT_ID": ,
+        "IOS_CLIENT_ID": ,
+        "EXPO_CLIENT_ID": ,
+        "WEB_CLIENT_ID": 
+      },
+      "ios": {
+        "simulator": true
+      }
+    },
+    "production": {}
+  },
+  "submit": {
+    "production": {}
+  }
+}
+```
