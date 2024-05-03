@@ -41,13 +41,13 @@ npm install
 1. Make [.env] file in root directory
 
 ```bash
-## google Ouath 2.0 client ID
+# google Ouath 2.0 client ID
 ANDROID_CLIENT_ID=
 IOS_CLIENT_ID=
 EXPO_CLIENT_ID=
 WEB_CLIENT_ID=
 
-## your backend server URL
+# your backend server URL
 SERVER_URL=
 ```
 
@@ -101,4 +101,18 @@ You can build it by creating an [eas.json] file and adding env option.
     "production": {}
   }
 }
+```
+
+```bash
+# run on ios simulator
+npm run ios
+
+# run on android emulator
+npm run android
+
+# build android
+eas build -p android --profile preview
+
+# build ios
+eas build -p ios --profile preview
 ```

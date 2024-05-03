@@ -175,6 +175,7 @@ export default function ConfirmImage() {
 
   const handleSubmit = async () => {
     if ((await sendData(selectedProducts, images)) > 0) resetProduct()
+    setSubmitModal(false)
   }
 
   return (

@@ -38,7 +38,7 @@ export default function Success() {
         크레딧 이용 현황에서 세부정보를 확인할 수 있어요!
       </Text>
       <Button
-        onPress={() => router.replace('/')}
+        onPress={() => router.replace('/home')}
         mode="contained"
         buttonColor="#5DB476"
         style={{

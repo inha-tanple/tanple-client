@@ -31,7 +31,7 @@ export default function AppLayout() {
           }}
         />
         <Stack.Screen
-          name="product/favorite"
+          name="product/full"
           options={{
             presentation: 'modal',
             headerShown: true,

@@ -23,7 +23,7 @@ export default function Favorite() {
       >
         <Stack.Screen
           options={{
-            headerTitle: '즐겨찾기 목록',
+            headerTitle: '전체 목록',
             headerTitleStyle: { fontSize: 20, fontWeight: 'bold' },
           }}
         />

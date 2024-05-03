@@ -156,7 +156,7 @@ export default function Product() {
             선택 초기화
           </Button>
           <Button
-            onPress={() => router.push('/product/favorite')}
+            onPress={() => router.push('/product/full')}
             mode="contained"
             buttonColor="#B3D567"
             style={{
@@ -165,7 +165,7 @@ export default function Product() {
               marginLeft: 10,
             }}
           >
-            즐겨찾기 목록
+            전체 목록
           </Button>
         </View>
 
