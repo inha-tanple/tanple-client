@@ -117,6 +117,7 @@ export default function Asset() {
             alignItems: 'center',
           }}
           activeOpacity={1}
+          onPress={() => router.push('/credit/analysis')}
         >
           {/* <LottieView
             style={{
