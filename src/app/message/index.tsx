@@ -7,9 +7,11 @@ import { TouchableOpacity, View, Text } from 'react-native'
 import { useAuthStore, useInitStore } from '#store/useAuthStore'
 
 export default function Message() {
-  const { setUserInfo } = useAuthStore()
-  const { setIsInit } = useInitStore()
+  const { userInfo, personInfo, setUserInfo } = useAuthStore()
+  const { isInit, setIsInit } = useInitStore()
 
+  console.log(userInfo)
+  console.log(isInit)
   return (
     <View
       style={{
@@ -29,6 +31,11 @@ export default function Message() {
         }}
       />
 
+      <View>
+        {userInfo ? <Text>{userInfo.email}</Text> : <Text>false</Text>}
+        {personInfo ? <Text>true</Text> : <Text>false</Text>}
+        {isInit ? <Text>true</Text> : <Text>false</Text>}
+      </View>
       <TouchableOpacity
         onPress={() => {
           setUserInfo(null)
@@ -44,6 +51,14 @@ export default function Message() {
         }}
       >
         <Text>init</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          setIsInit(false)
+          router.replace('/')
+        }}
+      >
+        <Text>init-false</Text>
       </TouchableOpacity>
     </View>
   )

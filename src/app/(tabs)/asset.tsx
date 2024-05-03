@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-pascal-case */
 /* eslint-disable react/no-unstable-nested-components */
 // Asset.tsx
 
@@ -5,11 +6,10 @@ import { router } from 'expo-router'
 
 import { Ionicons } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
-import LottieView from 'lottie-react-native'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { PaperProvider } from 'react-native-paper'
 
-import Coin from '#assets/anime/coin.json'
+import Coin from '#assets/images/coin.svg'
 import { shadowStyle } from '#constants/styles'
 
 export default function Asset() {
@@ -77,6 +77,8 @@ export default function Asset() {
               flexDirection: 'row',
               justifyContent: 'space-between',
               backgroundColor: 'white',
+              borderBottomLeftRadius: 20,
+              borderBottomRightRadius: 20,
             }}
           >
             <TouchableOpacity
@@ -116,7 +118,7 @@ export default function Asset() {
           }}
           activeOpacity={1}
         >
-          <LottieView
+          {/* <LottieView
             style={{
               width: 60,
               height: 60,
@@ -124,7 +126,8 @@ export default function Asset() {
             }}
             source={Coin}
             autoPlay
-          />
+          /> */}
+          <Coin style={{ marginRight: 15 }} />
           <View>
             <Text style={{ fontSize: 13, color: '#808080', marginBottom: 3 }}>
               5월에 적립한 크레딧

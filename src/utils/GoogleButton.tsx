@@ -8,7 +8,6 @@ import {
   WEB_CLIENT_ID,
   SERVER_URL,
 } from '@env'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { makeRedirectUri } from 'expo-auth-session'
 import * as Google from 'expo-auth-session/providers/google'
 import * as WebBrowser from 'expo-web-browser'
@@ -27,7 +26,7 @@ export default function GoogleButton() {
 
   const redictUri = makeRedirectUri({
     scheme: 'com.gwjun.bullet',
-    path: '/',
+    path: '/home',
   })
 
   const config = {
@@ -49,7 +48,6 @@ export default function GoogleButton() {
         },
       })
       const user = await res.json()
-      await AsyncStorage.setItem('user', JSON.stringify(user))
       setUserInfo(user)
     } catch (error) {
       console.error('Failed to fetch user data:', response)
@@ -68,7 +66,6 @@ export default function GoogleButton() {
 
       if (res.ok) {
         const user = await res.json()
-        await AsyncStorage.setItem('user', JSON.stringify(user))
         setUserInfo(user)
       } else {
         console.error('Failed to fetch user data from backend:', response)
@@ -100,7 +97,7 @@ export default function GoogleButton() {
     if (Object.keys(userInfo || {}).length) {
       setIsInit(false)
       console.log(userInfo)
-      router.navigate('/')
+      router.navigate('/home')
     }
   }, [userInfo])
 

@@ -113,7 +113,7 @@ export default function Credit() {
                     style={{
                       height: 1,
                       width: '100%',
-                      backgroundColor: '#808080',
+                      backgroundColor: '#DEDEDE',
                       marginBottom: 10,
                     }}
                   />
@@ -211,7 +211,7 @@ export default function Credit() {
                     style={{
                       height: 1,
                       width: '100%',
-                      backgroundColor: '#808080',
+                      backgroundColor: '#DEDEDE',
                       marginBottom: 10,
                     }}
                   />
@@ -284,6 +284,8 @@ export default function Credit() {
               flexDirection: 'row',
               justifyContent: 'space-between',
               backgroundColor: 'white',
+              borderBottomLeftRadius: 20,
+              borderBottomRightRadius: 20,
             }}
           >
             <TouchableOpacity
@@ -313,7 +315,7 @@ export default function Credit() {
           style={{
             ...shadowStyle,
             width: 360,
-            height: 530,
+            height: Platform.OS === 'ios' ? 530 : 500,
             backgroundColor: 'white',
             borderRadius: 20,
             padding: 15,
@@ -328,12 +330,12 @@ export default function Credit() {
               {
                 value: 'history',
                 label: '거래내역',
-                style: { borderRadius: 10 },
+                style: { borderColor: '#DEDEDE' },
               },
               {
                 value: 'progress',
                 label: '처리 중',
-                style: { borderRadius: 10 },
+                style: { borderColor: '#DEDEDE' },
               },
             ]}
             style={{ marginBottom: 20 }}

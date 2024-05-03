@@ -9,7 +9,7 @@ import Logo from '#assets/images/carbon-logo.svg'
 export default function LogoTitle({ size }: { size: number }) {
   return (
     <TouchableOpacity
-      onPress={() => router.navigate('/')}
+      onPress={() => router.navigate('/home')}
       style={{
         display: 'flex',
         flexDirection: 'row',

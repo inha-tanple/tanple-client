@@ -17,16 +17,19 @@ React Native Paper
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/inha-tanple/tanple-client.git
 ```
 
 2. Navigate to the project directory:
+
 ```bash
 cd tanple-client
 ```
 
 3. Install dependencies:
+
 ```bash
 npm install
 ```
@@ -35,10 +38,8 @@ npm install
 
 ### Usage
 
-
 1. Make [.env] file in root directory
-<br/>
-Since this app works based on Google OAuth, you need to get the client id from the console page to phrase.
+
 ```bash
 ## google Ouath 2.0 client ID
 ANDROID_CLIENT_ID=
@@ -51,6 +52,7 @@ SERVER_URL=
 ```
 
 2. Make [env.d.ts] file in root directory
+
 ```ts
 declare module '@env' {
   export const ANDROID_CLIENT_ID: string
@@ -62,6 +64,7 @@ declare module '@env' {
 ```
 
 3. Make [expo-env.d.ts] file in root directory
+
 ```ts
 /// <reference types="expo/types" />
 
@@ -71,7 +74,9 @@ declare module '@env' {
 <br/>
 
 ### Build
+
 You can build it by creating an [eas.json] file and adding env option.
+
 ```json
 {
   "cli": {
@@ -84,7 +89,7 @@ You can build it by creating an [eas.json] file and adding env option.
         "ANDROID_CLIENT_ID": ,
         "IOS_CLIENT_ID": ,
         "EXPO_CLIENT_ID": ,
-        "WEB_CLIENT_ID": 
+        "WEB_CLIENT_ID":
       },
       "ios": {
         "simulator": true

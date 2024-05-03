@@ -44,7 +44,7 @@ export default function Login() {
 
   function handleSubmit() {
     setPersonInfo(true)
-    router.replace('/')
+    router.replace('/home')
   }
 
   return (

@@ -1,9 +1,12 @@
 // useAuthStore.ts
 
 /* eslint-disable no-unused-vars */
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { MMKV } from 'react-native-mmkv'
+
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
+
+const storage = new MMKV()
 
 // useAuthStore
 interface UserInfo {
@@ -16,7 +19,6 @@ interface UserInfo {
   picture: string
   verified_email: boolean
 }
-
 interface AuthState {
   userInfo: UserInfo | null
   setUserInfo: (info: UserInfo | null) => void
@@ -35,7 +37,18 @@ const useAuthStore = create(
     }),
     {
       name: 'user-storage',
-      storage: createJSONStorage(() => AsyncStorage),
+      storage: {
+        getItem: (name) => {
+          const value = storage.getString(name)
+          return value ? JSON.parse(value) : null
+        },
+        setItem: (name, value) => {
+          storage.set(name, JSON.stringify(value))
+        },
+        removeItem: (name) => {
+          storage.delete(name)
+        },
+      },
     },
   ),
 )
@@ -54,7 +67,18 @@ const useInitStore = create(
     }),
     {
       name: 'initial-storage',
-      storage: createJSONStorage(() => AsyncStorage),
+      storage: createJSONStorage(() => ({
+        getItem: (name) => {
+          const value = storage.getString(name)
+          return value ? JSON.parse(value) : null
+        },
+        setItem: (name, value) => {
+          storage.set(name, JSON.stringify(value))
+        },
+        removeItem: (name) => {
+          storage.delete(name)
+        },
+      })),
     },
   ),
 )
