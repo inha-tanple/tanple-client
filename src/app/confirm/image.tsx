@@ -118,7 +118,7 @@ export default function ConfirmImage() {
       const asset = result.assets[0] as CustomImagePickerAsset
       const newImage = {
         uri: asset.uri,
-        name: asset.fileName || '',
+        name: asset.fileName || `카메라 ${images.length + 1}`,
         size: asset.filesize || 0,
         mimeType: result.assets[0].mimeType || '',
       }
@@ -180,20 +180,11 @@ export default function ConfirmImage() {
 
   return (
     <PaperProvider>
-      <Text
-        style={{
-          color: '#808080',
-          top: Platform.OS === 'ios' ? 90 : 70,
-          left: Platform.OS === 'ios' ? 51 : 73,
-        }}
-      >
-        영수증 사진을 업로드 해주세요
-      </Text>
       <View
         style={{
           flex: 1,
           alignItems: 'center',
-          top: Platform.OS === 'ios' ? 115 : 95,
+          top: '13%',
         }}
       >
         <Stack.Screen
@@ -214,8 +205,8 @@ export default function ConfirmImage() {
         <View
           style={{
             ...shadowStyle,
-            width: 360,
-            height: 480,
+            width: '90%',
+            height: '60%',
             backgroundColor: 'white',
             borderRadius: 20,
             marginBottom: 30,
@@ -234,6 +225,7 @@ export default function ConfirmImage() {
               renderItem={renderImageItem}
               keyExtractor={(item) => item.uri}
               contentContainerStyle={styles.imageList}
+              style={{ width: '100%', paddingHorizontal: 10 }}
             />
           )}
           <TouchableOpacity onPress={pickImage} style={styles.uploadButton}>
@@ -263,10 +255,9 @@ export default function ConfirmImage() {
             onDismiss={() => setSubmitModal(false)}
             contentContainerStyle={{
               alignSelf: 'center',
-              width: 300,
+              width: '75%',
               height: 200,
               backgroundColor: 'white',
-              padding: 20,
               borderRadius: 10,
             }}
           >
@@ -284,8 +275,8 @@ export default function ConfirmImage() {
               style={{
                 position: 'absolute',
                 bottom: 0,
-                height: 50,
-                width: 300,
+                height: 45,
+                width: '100%',
                 flexDirection: 'row',
               }}
             >
@@ -356,7 +347,7 @@ const styles = StyleSheet.create({
     height: 50,
     marginVertical: 25,
     flexDirection: 'row',
-    width: 320,
+    width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
@@ -385,7 +376,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   uploadButton: {
-    width: 360,
+    width: '100%',
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',

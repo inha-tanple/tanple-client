@@ -53,7 +53,7 @@ export default function Login() {
         style={{
           fontSize: 19,
           fontWeight: 'bold',
-          width: 300,
+          width: '75%',
           marginTop: 100,
           marginBottom: 50,
         }}
@@ -150,17 +150,19 @@ const styles = StyleSheet.create({
   textConT: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
+    width: '100%',
     gap: 20,
   },
   textInput: {
-    width: 300,
+    width: '75%',
     height: 45,
     backgroundColor: 'white',
   },
   buttonConT: {
     display: 'flex',
     flexDirection: 'column',
-    width: 300,
+    width: '75%',
     gap: 15,
     marginTop: 20,
   },

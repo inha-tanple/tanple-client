@@ -24,16 +24,17 @@ export default function Onboard2() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          width: '100%',
           marginTop: 140,
           marginBottom: 50,
         }}
       >
         <Text
           style={{
+            width: '70%',
             textAlign: 'center',
             fontSize: 23,
             fontWeight: 'bold',
-            width: 270,
             marginBottom: 35,
           }}
         >
@@ -45,7 +46,7 @@ export default function Onboard2() {
             fontSize: 13,
             color: '#808080',
             textAlign: 'center',
-            width: 270,
+            width: '70%',
           }}
         >
           발급 받은 크레딧으로 환전, 거래, 기부등의 행위를 할 수 있어요
@@ -55,11 +56,10 @@ export default function Onboard2() {
       <LottieView
         ref={animation}
         style={{
-          width: 250,
-          height: 250,
+          width: '70%',
+          height: '30%',
           marginBottom: 50,
         }}
-        // source={Trade}
         source={Exchange}
         autoPlay
       />
@@ -69,7 +69,7 @@ export default function Onboard2() {
           position: 'absolute',
           bottom: 230,
           flexDirection: 'row',
-          width: 300,
+          width: '75%',
           justifyContent: 'space-between',
         }}
       >

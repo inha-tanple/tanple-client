@@ -14,7 +14,7 @@ export default function LogoTitle({ size }: { size: number }) {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        width: 300,
+        width: '75%',
       }}
       activeOpacity={1}
     >

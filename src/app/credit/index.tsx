@@ -122,7 +122,7 @@ export default function Credit() {
             ))}
           </View>
         )}
-        contentContainerStyle={{ paddingRight: 16 }}
+        contentContainerStyle={{ paddingRight: 15 }}
       />
     </View>
   )
@@ -220,7 +220,7 @@ export default function Credit() {
             ))}
           </View>
         )}
-        contentContainerStyle={{ paddingRight: 16 }}
+        contentContainerStyle={{ paddingRight: 15 }}
       />
     </View>
   )
@@ -231,7 +231,7 @@ export default function Credit() {
         style={{
           flex: 1,
           alignItems: 'center',
-          top: Platform.OS === 'ios' ? 115 : 95,
+          top: '13%',
         }}
       >
         <Stack.Screen
@@ -260,9 +260,9 @@ export default function Credit() {
           end={{ x: 1, y: 0 }}
           style={{
             ...shadowStyle,
-            width: 360,
+            width: '90%',
             height: 150,
-            padding: 25,
+            paddingTop: 25,
             borderRadius: 20,
             marginBottom: 15,
           }}
@@ -314,11 +314,12 @@ export default function Credit() {
         <View
           style={{
             ...shadowStyle,
-            width: 360,
-            height: Platform.OS === 'ios' ? 530 : 500,
+            width: '90%',
+            height: Platform.OS === 'ios' ? '62%' : '64%',
             backgroundColor: 'white',
             borderRadius: 20,
-            padding: 15,
+            paddingVertical: 15,
+            paddingLeft: 15,
             alignItems: 'center',
           }}
         >
@@ -338,7 +339,7 @@ export default function Credit() {
                 style: { borderColor: '#DEDEDE' },
               },
             ]}
-            style={{ marginBottom: 20 }}
+            style={{ marginBottom: 20, paddingRight: 15 }}
           />
           {value === 'history' ? historyContent : progressContent}
         </View>
@@ -352,6 +353,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 15,
+    paddingHorizontal: 25,
   },
   titleStyle: {
     color: 'white',
@@ -367,7 +369,7 @@ const styles = StyleSheet.create({
     bottom: 5,
   },
   buttonStyle: {
-    width: 180,
+    width: '50%',
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -375,9 +377,7 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    paddingVertical: 16,
-    paddingLeft: 16,
-    width: 350,
+    width: '100%',
   },
   itemContainer: {
     flexDirection: 'row',

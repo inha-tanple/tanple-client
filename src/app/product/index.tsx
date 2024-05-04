@@ -11,12 +11,15 @@ import {
   FlatList,
   TouchableOpacity,
   Platform,
+  Dimensions,
 } from 'react-native'
 import { Button, PaperProvider, Searchbar } from 'react-native-paper'
 
 import products from '#constants/dummy'
 import { shadowStyle } from '#constants/styles'
 import { ProductType } from '#constants/types'
+
+const screenHeight = Dimensions.get('window').height
 
 export default function Product() {
   const [searchQuery, setSearchQuery] = useState('')
@@ -74,20 +77,11 @@ export default function Product() {
 
   return (
     <PaperProvider>
-      <Text
-        style={{
-          color: '#808080',
-          top: Platform.OS === 'ios' ? 90 : 70,
-          left: Platform.OS === 'ios' ? 51 : 73,
-        }}
-      >
-        친환경 인증 물품들을 즐겨찾기에 추가할 수 있어요
-      </Text>
       <View
         style={{
           flex: 1,
           alignItems: 'center',
-          top: Platform.OS === 'ios' ? 115 : 95,
+          top: screenHeight * 0.13,
         }}
       >
         <Stack.Screen
@@ -116,7 +110,7 @@ export default function Product() {
           value={searchQuery}
           style={{
             ...shadowStyle,
-            width: 360,
+            width: '90%',
             height: 45,
             marginBottom: 15,
             backgroundColor: 'white',
@@ -126,7 +120,7 @@ export default function Product() {
           placeholderTextColor="gray"
         />
 
-        <View style={{ flexDirection: 'row', marginBottom: 15, width: 360 }}>
+        <View style={{ flexDirection: 'row', marginBottom: 15, width: '90%' }}>
           <Button
             onPress={() => router.push('/product/goods')}
             mode="contained"
@@ -156,8 +150,9 @@ export default function Product() {
         <View
           style={{
             ...shadowStyle,
-            width: 360,
-            height: 530,
+            width: '90%',
+            height:
+              Platform.OS === 'ios' ? screenHeight * 0.68 : screenHeight * 0.73,
             backgroundColor: 'white',
             borderRadius: 10,
             marginBottom: 30,
@@ -176,6 +171,7 @@ export default function Product() {
               renderItem={renderProductItem}
               keyExtractor={(item) => item.barcode}
               contentContainerStyle={styles.productList}
+              style={{ width: '100%' }}
             />
           )}
         </View>
@@ -197,7 +193,7 @@ const styles = StyleSheet.create({
   productList: {
     paddingVertical: 20,
     paddingHorizontal: 20,
-    width: 360,
+    width: '100%',
     justifyContent: 'flex-start',
   },
   productName: {

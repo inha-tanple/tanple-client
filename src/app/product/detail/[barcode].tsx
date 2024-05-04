@@ -63,7 +63,7 @@ export default function DetailScreen() {
         style={{
           flex: 1,
           padding: 20,
-          top: Platform.OS === 'ios' ? 60 : 80,
+          top: Platform.OS === 'ios' ? '8%' : '12%',
         }}
       >
         <View style={styles.container}>

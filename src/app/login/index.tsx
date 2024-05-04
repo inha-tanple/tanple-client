@@ -70,14 +70,14 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   textInput: {
-    width: 300,
+    width: '75%',
     height: 45,
     backgroundColor: 'white',
   },
   buttonConT: {
     display: 'flex',
     flexDirection: 'column',
-    width: 300,
+    width: '75%',
     gap: 15,
     marginTop: 20,
   },

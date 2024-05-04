@@ -23,16 +23,17 @@ export default function Onboard3() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          width: '100%',
           marginTop: 140,
           marginBottom: 70,
         }}
       >
         <Text
           style={{
+            width: '70%',
             textAlign: 'center',
             fontSize: 23,
             fontWeight: 'bold',
-            width: 270,
             marginBottom: 35,
           }}
         >
@@ -44,7 +45,7 @@ export default function Onboard3() {
             fontSize: 13,
             color: '#808080',
             textAlign: 'center',
-            width: 270,
+            width: '70%',
           }}
         >
           거래하기
@@ -53,8 +54,8 @@ export default function Onboard3() {
 
       <LottieView
         style={{
-          width: 250,
-          height: 250,
+          width: '70%',
+          height: '30%',
           marginBottom: 50,
         }}
         source={Trade}
@@ -66,7 +67,7 @@ export default function Onboard3() {
           position: 'absolute',
           bottom: 230,
           flexDirection: 'row',
-          width: 300,
+          width: '75%',
           justifyContent: 'flex-start',
         }}
       >
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
     bottom: 150,
     display: 'flex',
     flexDirection: 'column',
-    width: 300,
+    width: '75%',
     gap: 15,
     marginTop: 20,
   },

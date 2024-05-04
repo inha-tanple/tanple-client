@@ -4,10 +4,12 @@
 import { Stack } from 'expo-router'
 
 import { useState } from 'react'
-import { Platform, Text, View } from 'react-native'
+import { Dimensions, Platform, Text, View } from 'react-native'
 import { PaperProvider, Searchbar } from 'react-native-paper'
 
 import { shadowStyle } from '#constants/styles'
+
+const screenHeight = Dimensions.get('window').height
 
 export default function Goods() {
   const [searchQuery, setSearchQuery] = useState('')
@@ -18,7 +20,8 @@ export default function Goods() {
         style={{
           flex: 1,
           alignItems: 'center',
-          top: Platform.OS === 'ios' ? 70 : 90,
+          top:
+            Platform.OS === 'ios' ? screenHeight * 0.09 : screenHeight * 0.13,
         }}
       >
         <Stack.Screen
@@ -34,7 +37,7 @@ export default function Goods() {
           value={searchQuery}
           style={{
             ...shadowStyle,
-            width: 360,
+            width: '90%',
             height: 45,
             marginBottom: 15,
             backgroundColor: 'white',
@@ -47,8 +50,9 @@ export default function Goods() {
         <View
           style={{
             ...shadowStyle,
-            width: 360,
-            height: 600,
+            width: '90%',
+            height:
+              Platform.OS === 'ios' ? screenHeight * 0.7 : screenHeight * 0.8,
             backgroundColor: 'white',
             borderRadius: 10,
             marginBottom: 30,

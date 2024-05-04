@@ -11,6 +11,7 @@ import {
   FlatList,
   TouchableOpacity,
   Platform,
+  Dimensions,
 } from 'react-native'
 import { Button, PaperProvider, Searchbar } from 'react-native-paper'
 
@@ -19,6 +20,8 @@ import { shadowStyle } from '#constants/styles'
 import { ProductType } from '#constants/types'
 
 import useProductStore from '#store/useProductStore'
+
+const screenHeight = Dimensions.get('window').height
 
 export default function Product() {
   const [searchQuery, setSearchQuery] = useState('')
@@ -45,10 +48,7 @@ export default function Product() {
         style={{ paddingHorizontal: 5, paddingBottom: 5 }}
       >
         <View
-          style={[
-            { padding: 10, borderRadius: 10 },
-            isSelected && styles.selectedProductItem,
-          ]}
+          style={[{ padding: 10 }, isSelected && styles.selectedProductItem]}
         >
           <Text style={styles.productName}>{item.productName}</Text>
           <View
@@ -90,20 +90,11 @@ export default function Product() {
 
   return (
     <PaperProvider>
-      <Text
-        style={{
-          color: '#808080',
-          top: Platform.OS === 'ios' ? 90 : 70,
-          left: Platform.OS === 'ios' ? 51 : 73,
-        }}
-      >
-        인증할 물품들을 선택해 주세요
-      </Text>
       <View
         style={{
           flex: 1,
           alignItems: 'center',
-          top: Platform.OS === 'ios' ? 115 : 95,
+          top: screenHeight * 0.13,
         }}
       >
         <Stack.Screen
@@ -132,7 +123,7 @@ export default function Product() {
           value={searchQuery}
           style={{
             ...shadowStyle,
-            width: 360,
+            width: '90%',
             height: 45,
             marginBottom: 15,
             backgroundColor: 'white',
@@ -142,7 +133,7 @@ export default function Product() {
           placeholderTextColor="gray"
         />
 
-        <View style={{ flexDirection: 'row', marginBottom: 15, width: 360 }}>
+        <View style={{ flexDirection: 'row', marginBottom: 15, width: '90%' }}>
           <Button
             onPress={resetProduct}
             mode="contained"
@@ -172,8 +163,9 @@ export default function Product() {
         <View
           style={{
             ...shadowStyle,
-            width: 360,
-            height: 530,
+            width: '90%',
+            height:
+              Platform.OS === 'ios' ? screenHeight * 0.68 : screenHeight * 0.73,
             backgroundColor: 'white',
             borderRadius: 10,
             marginBottom: 30,
@@ -192,6 +184,7 @@ export default function Product() {
               renderItem={renderProductItem}
               keyExtractor={(item) => item.barcode}
               contentContainerStyle={styles.productList}
+              style={{ width: '100%' }}
             />
           )}
         </View>
@@ -228,7 +221,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   productList: {
-    width: 360,
     justifyContent: 'flex-start',
     paddingTop: 5,
   },
@@ -242,5 +234,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 9,
     borderColor: '#808080',
+    borderRadius: 10,
   },
 })

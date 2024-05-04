@@ -43,6 +43,7 @@ export default function Home() {
       >
         <View
           style={{
+            height: '80%',
             display: 'flex',
             alignItems: 'center',
             marginTop: 15,
@@ -50,7 +51,7 @@ export default function Home() {
         >
           <TouchableOpacity
             onPress={() => router.push('/credit/')}
-            style={{ height: 70, width: 360, ...styles.container }}
+            style={{ height: '14%', width: '90%', ...styles.container }}
             activeOpacity={1}
           >
             <Text style={{ fontSize: 17, fontWeight: '700' }}>크레딧 현황</Text>
@@ -58,7 +59,7 @@ export default function Home() {
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={{ height: 70, width: 360, ...styles.container }}
+            style={{ height: '14%', width: '90%', ...styles.container }}
             activeOpacity={1}
           >
             <Text style={{ fontSize: 17, fontWeight: '700' }}>거래 현황</Text>
@@ -66,18 +67,19 @@ export default function Home() {
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={{ height: 300, width: 360, ...styles.container }}
+            style={{ height: '50%', width: '90%', ...styles.container }}
             activeOpacity={1}
           >
             <Text style={{ fontSize: 17, fontWeight: '700' }}>temp</Text>
+            <Ionicons size={20} name="chevron-forward" />
           </TouchableOpacity>
         </View>
 
         <View
           style={{
             ...styles.container,
-            height: 90,
-            width: 360,
+            height: '14%',
+            width: '90%',
             position: 'relative',
             bottom: 0,
             padding: 0,
@@ -90,7 +92,7 @@ export default function Home() {
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
             style={{
-              width: 360,
+              width: '100%',
               height: '100%',
               flexDirection: 'row',
             }}

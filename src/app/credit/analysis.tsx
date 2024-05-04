@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable dot-notation */
 /* eslint-disable react/no-unstable-nested-components */
 // Credit.tsx
@@ -5,6 +6,7 @@
 import { Stack, router } from 'expo-router'
 
 import { Ionicons } from '@expo/vector-icons'
+import { useState } from 'react'
 import {
   Text,
   View,
@@ -12,9 +14,10 @@ import {
   TouchableOpacity,
   StyleSheet,
   FlatList,
+  Dimensions,
 } from 'react-native'
 import { Calendar, LocaleConfig } from 'react-native-calendars'
-import { DateData, MarkedDates } from 'react-native-calendars/src/types'
+import { MarkedDates } from 'react-native-calendars/src/types'
 import { LineChart } from 'react-native-chart-kit'
 import { PaperProvider } from 'react-native-paper'
 
@@ -22,10 +25,12 @@ import { shadowStyle } from '#constants/styles'
 
 import { currentMonthData, lastMonthData } from './analDummy'
 import { creditData, creditDataType } from './creditDummy'
-import { useState } from 'react'
+
+const screenWidth = Dimensions.get('window').width
 
 export default function Analysis() {
-  const [selectedDate, setSelectedDate] = useState('')
+  const today = new Date().toISOString().slice(0, 10)
+  const [selectedDate, setSelectedDate] = useState(today)
 
   const chartConfig = {
     backgroundGradientFrom: '#fff',
@@ -89,10 +94,6 @@ export default function Analysis() {
           container: {
             backgroundColor: 'white',
             elevation: 2,
-          },
-          text: {
-            color: 'blue',
-            fontWeight: 'bold',
           },
         },
       }
@@ -215,7 +216,7 @@ export default function Analysis() {
         style={{
           flex: 1,
           alignItems: 'center',
-          top: Platform.OS === 'ios' ? 115 : 95,
+          top: '13%',
         }}
       >
         <Stack.Screen
@@ -241,8 +242,8 @@ export default function Analysis() {
         <View
           style={{
             ...shadowStyle,
-            width: 360,
-            height: 140,
+            width: '90%',
+            height: '16%',
             backgroundColor: 'white',
             padding: 15,
             borderRadius: 20,
@@ -269,7 +270,7 @@ export default function Analysis() {
           <View
             style={{
               flexDirection: 'row',
-              width: 320,
+              width: '95%',
               justifyContent: 'space-between',
             }}
           >
@@ -304,9 +305,6 @@ export default function Analysis() {
 
         <Calendar
           markedDates={getMarkedDates() as MarkedDates}
-          onDayPress={(day) => {
-            console.log('day pressed')
-          }}
           renderHeader={() => null}
           onMonthChange={(month) => {
             console.log('month changed', month)
@@ -321,6 +319,10 @@ export default function Analysis() {
             const point = currentMonthData.find(
               (p) => p.date === date?.dateString,
             )
+
+            const isSelected = date?.dateString === selectedDate
+            const isToday = date?.dateString === today
+
             return (
               <TouchableOpacity
                 onPress={() => setSelectedDate(date?.dateString || '')}
@@ -329,7 +331,15 @@ export default function Analysis() {
                 <Text
                   style={{
                     textAlign: 'center',
-                    color: state === 'disabled' ? 'gray' : 'black',
+                    color:
+                      state === 'disabled'
+                        ? 'gray'
+                        : isSelected
+                          ? isToday
+                            ? '#3979EF'
+                            : '#75C4ED'
+                          : 'black',
+                    fontWeight: isSelected ? (isToday ? '600' : '600') : '400',
                   }}
                 >
                   {date?.day}
@@ -354,7 +364,7 @@ export default function Analysis() {
           }}
           style={{
             ...shadowStyle,
-            width: 360,
+            width: screenWidth * 0.9,
             paddingHorizontal: 20,
             paddingBottom: 20,
             borderRadius: 20,
@@ -364,11 +374,10 @@ export default function Analysis() {
         <View
           style={{
             ...shadowStyle,
-            width: 360,
-            height: Platform.OS === 'ios' ? 220 : 200,
+            width: '90%',
+            height: Platform.OS === 'ios' ? '28%' : '31%',
             backgroundColor: 'white',
             borderRadius: 20,
-            padding: 15,
             alignItems: 'center',
             justifyContent: 'center',
           }}
@@ -385,7 +394,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 16,
     paddingLeft: 16,
-    width: 350,
+    width: '100%',
   },
   itemContainer: {
     flexDirection: 'row',

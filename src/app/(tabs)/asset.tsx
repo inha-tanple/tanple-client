@@ -28,17 +28,22 @@ export default function Asset() {
           end={{ x: 1, y: 0 }}
           style={{
             ...shadowStyle,
-            width: 360,
+            width: '90%',
             height: 150,
-            padding: 20,
             borderRadius: 20,
             marginBottom: 20,
           }}
         >
-          <View style={{ height: 65, justifyContent: 'space-between' }}>
+          <View
+            style={{
+              height: 100,
+              padding: 20,
+              justifyContent: 'space-between',
+            }}
+          >
             <TouchableOpacity
               onPress={() => router.push('/credit/')}
-              style={{ flexDirection: 'row' }}
+              style={{ flexDirection: 'row', paddingBottom: 10 }}
               activeOpacity={1}
             >
               <Text
@@ -107,8 +112,8 @@ export default function Asset() {
         <TouchableOpacity
           style={{
             ...shadowStyle,
-            width: 360,
-            height: 100,
+            width: '90%',
+            height: '15%',
             backgroundColor: 'white',
             borderRadius: 20,
             padding: 15,
@@ -153,7 +158,7 @@ export default function Asset() {
 
 const styles = StyleSheet.create({
   buttonStyle: {
-    width: 180,
+    width: '50%',
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',

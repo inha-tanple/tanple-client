@@ -20,29 +20,29 @@ export default function Onboard1() {
       <View
         style={{
           display: 'flex',
-          alignItems: 'center',
           justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
           marginTop: 120,
           marginBottom: 30,
         }}
       >
-        <View
+        <Text
           style={{
-            display: 'flex',
-            width: 270,
-            marginBottom: 20,
+            width: '70%',
+            marginBottom: 25,
+            fontSize: 23,
+            fontWeight: 'bold',
           }}
         >
-          <Text style={{ fontSize: 23, fontWeight: 'bold' }}>
-            물품 목록을 확인하고
-          </Text>
-        </View>
+          물품 목록을 확인하고
+        </Text>
 
         <View
           style={{
             display: 'flex',
             alignItems: 'flex-end',
-            width: 270,
+            width: '70%',
             marginBottom: 25,
           }}
         >
@@ -56,7 +56,7 @@ export default function Onboard1() {
             fontSize: 13,
             color: '#808080',
             textAlign: 'center',
-            width: 270,
+            width: '70%',
           }}
         >
           구매 영수증을 찍어서 인증 받으면 크레딧을 발급 받을수 있어요
@@ -65,8 +65,8 @@ export default function Onboard1() {
 
       <LottieView
         style={{
-          width: 250,
-          height: 250,
+          width: '70%',
+          height: '30%',
           marginBottom: 50,
         }}
         source={Receipts}
@@ -78,7 +78,7 @@ export default function Onboard1() {
           position: 'absolute',
           bottom: 230,
           flexDirection: 'row',
-          width: 300,
+          width: '75%',
           justifyContent: 'flex-end',
         }}
       >
