@@ -1,4 +1,4 @@
-# Carbon Exchange Flatform
+# Carbon Credit Exchange Platform
 
 ## Getting Started
 
