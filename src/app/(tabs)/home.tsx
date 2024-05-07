@@ -5,11 +5,9 @@ import { Redirect, router } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { PaperProvider } from 'react-native-paper'
 
 import { shadowStyle } from '#constants/styles'
-
-import { useAuthStore, useInitStore } from '#store/useAuthStore'
+import { useAuthStore, useInitStore } from '#store/client/useAuthStore'
 
 export default function Home() {
   const { userInfo, personInfo, setUserInfo, setPersonInfo } = useAuthStore()
@@ -32,117 +30,115 @@ export default function Home() {
   if (personInfo === false) return <Redirect href="/login/person" />
 
   return (
-    <PaperProvider>
+    <View
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        height: '100%',
+      }}
+    >
       <View
         style={{
+          height: '80%',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between',
-          height: '100%',
+          marginTop: 15,
         }}
       >
-        <View
-          style={{
-            height: '80%',
-            display: 'flex',
-            alignItems: 'center',
-            marginTop: 15,
-          }}
+        <TouchableOpacity
+          onPress={() => router.push('/credit/')}
+          style={{ height: '14%', width: '90%', ...styles.container }}
+          activeOpacity={1}
         >
-          <TouchableOpacity
-            onPress={() => router.push('/credit/')}
-            style={{ height: '14%', width: '90%', ...styles.container }}
-            activeOpacity={1}
-          >
-            <Text style={{ fontSize: 17, fontWeight: '700' }}>크레딧 현황</Text>
-            <Ionicons size={20} name="chevron-forward" />
-          </TouchableOpacity>
+          <Text style={{ fontSize: 17, fontWeight: '700' }}>크레딧 현황</Text>
+          <Ionicons size={20} name="chevron-forward" />
+        </TouchableOpacity>
 
-          <TouchableOpacity
-            style={{ height: '14%', width: '90%', ...styles.container }}
-            activeOpacity={1}
-          >
-            <Text style={{ fontSize: 17, fontWeight: '700' }}>거래 현황</Text>
-            <Ionicons size={20} name="chevron-forward" />
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={{ height: '50%', width: '90%', ...styles.container }}
-            activeOpacity={1}
-          >
-            <Text style={{ fontSize: 17, fontWeight: '700' }}>temp</Text>
-            <Ionicons size={20} name="chevron-forward" />
-          </TouchableOpacity>
-        </View>
-
-        <View
-          style={{
-            ...styles.container,
-            height: '14%',
-            width: '90%',
-            position: 'relative',
-            bottom: 0,
-            padding: 0,
-            marginBottom: 30,
-            overflow: 'hidden',
-          }}
+        <TouchableOpacity
+          style={{ height: '14%', width: '90%', ...styles.container }}
+          activeOpacity={1}
         >
-          <LinearGradient
-            colors={['#64BA7D', '#338874']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            style={{
-              width: '100%',
-              height: '100%',
-              flexDirection: 'row',
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => router.push('/product/')}
-              style={{
-                width: 180,
-                flexGrow: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-              activeOpacity={1}
-            >
-              <Text style={{ fontSize: 18, fontWeight: '700', color: 'white' }}>
-                물품 목록
-              </Text>
-            </TouchableOpacity>
-            <View
-              style={{
-                width: 1,
-                height: '70%',
-                backgroundColor: 'white',
-                alignSelf: 'center',
-              }}
-            />
-            <TouchableOpacity
-              onPress={() => router.push('/confirm/')}
-              style={{
-                width: 180,
-                flexGrow: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-              activeOpacity={1}
-            >
-              <Text
-                style={{
-                  fontSize: 18,
-                  fontWeight: '700',
-                  color: 'white',
-                }}
-              >
-                인증하기
-              </Text>
-            </TouchableOpacity>
-          </LinearGradient>
-        </View>
+          <Text style={{ fontSize: 17, fontWeight: '700' }}>거래 현황</Text>
+          <Ionicons size={20} name="chevron-forward" />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{ height: '50%', width: '90%', ...styles.container }}
+          activeOpacity={1}
+        >
+          <Text style={{ fontSize: 17, fontWeight: '700' }}>temp</Text>
+          <Ionicons size={20} name="chevron-forward" />
+        </TouchableOpacity>
       </View>
-    </PaperProvider>
+
+      <View
+        style={{
+          ...styles.container,
+          height: '14%',
+          width: '90%',
+          position: 'relative',
+          bottom: 0,
+          padding: 0,
+          marginBottom: 30,
+          overflow: 'hidden',
+        }}
+      >
+        <LinearGradient
+          colors={['#64BA7D', '#338874']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={{
+            width: '100%',
+            height: '100%',
+            flexDirection: 'row',
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => router.push('/product/')}
+            style={{
+              width: 180,
+              flexGrow: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            activeOpacity={1}
+          >
+            <Text style={{ fontSize: 18, fontWeight: '700', color: 'white' }}>
+              물품 목록
+            </Text>
+          </TouchableOpacity>
+          <View
+            style={{
+              width: 1,
+              height: '70%',
+              backgroundColor: 'white',
+              alignSelf: 'center',
+            }}
+          />
+          <TouchableOpacity
+            onPress={() => router.push('/confirm/')}
+            style={{
+              width: 180,
+              flexGrow: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            activeOpacity={1}
+          >
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: '700',
+                color: 'white',
+              }}
+            >
+              인증하기
+            </Text>
+          </TouchableOpacity>
+        </LinearGradient>
+      </View>
+    </View>
   )
 }
 

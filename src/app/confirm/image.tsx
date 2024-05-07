@@ -1,11 +1,11 @@
 /* eslint-disable react/no-unstable-nested-components */
 // Confirm.tsx
 
-import { Stack } from 'expo-router'
+import { Stack, router } from 'expo-router'
 
 import { Ionicons } from '@expo/vector-icons'
 import * as ImagePicker from 'expo-image-picker'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Text,
   Image,
@@ -16,18 +16,11 @@ import {
   Alert,
   Platform,
 } from 'react-native'
-import {
-  Modal,
-  Portal,
-  Button,
-  PaperProvider,
-  Dialog,
-} from 'react-native-paper'
+import { Modal, Portal, Button, Dialog } from 'react-native-paper'
 
 import { shadowStyle } from '#constants/styles'
-import sendData from '#utils/SendData'
-
-import useProductStore from '#store/useProductStore'
+import useProductStore from '#store/client/useProductStore'
+import useUploadImages from '#store/server/useUploadImages'
 
 interface ImageInfo {
   uri: string
@@ -46,6 +39,7 @@ export default function ConfirmImage() {
   const [alertModal, setAlertModal] = useState(false)
 
   const { selectedProducts, resetProduct } = useProductStore()
+  const { mutate, isPending, isError, isSuccess } = useUploadImages()
 
   const pickImage = async () => {
     if (Platform.OS === 'ios') {
@@ -173,168 +167,172 @@ export default function ConfirmImage() {
     </>
   )
 
-  const handleSubmit = async () => {
-    if ((await sendData(selectedProducts, images)) > 0) resetProduct()
-    setSubmitModal(false)
-  }
+  useEffect(() => {
+    if (isError) {
+      router.push('/request/fail')
+      setSubmitModal(false)
+    }
+    if (isSuccess) {
+      router.push('/request/success')
+      resetProduct()
+    }
+  }, [isError, isSuccess])
 
   return (
-    <PaperProvider>
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        top: '13%',
+      }}
+    >
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: () => (
+            <View>
+              <Text
+                style={{ fontSize: 20, fontWeight: 'bold', marginRight: 220 }}
+              >
+                사진 제출하기
+              </Text>
+            </View>
+          ),
+          headerTransparent: true,
+        }}
+      />
       <View
         style={{
-          flex: 1,
+          ...shadowStyle,
+          width: '90%',
+          height: '60%',
+          backgroundColor: 'white',
+          borderRadius: 20,
+          marginBottom: 30,
+          justifyContent: 'center',
           alignItems: 'center',
-          top: '13%',
         }}
       >
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            headerTitle: () => (
-              <View>
-                <Text
-                  style={{ fontSize: 20, fontWeight: 'bold', marginRight: 220 }}
-                >
-                  사진 제출하기
-                </Text>
-              </View>
-            ),
-            headerTransparent: true,
-          }}
-        />
-        <View
-          style={{
-            ...shadowStyle,
-            width: '90%',
-            height: '60%',
+        {images.length <= 0 && (
+          <Text style={{ color: '#808080' }}>
+            아래의 업로드하기 버튼을 클릭해 주세요
+          </Text>
+        )}
+        {images.length > 0 && (
+          <FlatList
+            data={images}
+            renderItem={renderImageItem}
+            keyExtractor={(item) => item.uri}
+            contentContainerStyle={styles.imageList}
+            style={{ width: '100%', paddingHorizontal: 10 }}
+          />
+        )}
+        <TouchableOpacity onPress={pickImage} style={styles.uploadButton}>
+          <Text style={styles.uploadButtonText}>업로드하기</Text>
+        </TouchableOpacity>
+      </View>
+      <Button
+        onPress={() => setSubmitModal(true)}
+        mode="contained"
+        buttonColor="#5DB476"
+        disabled={Object.keys(images).length <= 0}
+        style={{
+          height: 45,
+          width: 250,
+          borderWidth: 0.2,
+          borderColor: '#49A66D',
+          borderRadius: 20,
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        제출하기
+      </Button>
+      <Portal>
+        <Modal
+          visible={submitModal}
+          onDismiss={() => setSubmitModal(false)}
+          contentContainerStyle={{
+            alignSelf: 'center',
+            width: '75%',
+            height: 200,
             backgroundColor: 'white',
-            borderRadius: 20,
-            marginBottom: 30,
-            justifyContent: 'center',
-            alignItems: 'center',
+            borderRadius: 10,
           }}
         >
-          {images.length <= 0 && (
-            <Text style={{ color: '#808080' }}>
-              아래의 업로드하기 버튼을 클릭해 주세요
-            </Text>
-          )}
-          {images.length > 0 && (
-            <FlatList
-              data={images}
-              renderItem={renderImageItem}
-              keyExtractor={(item) => item.uri}
-              contentContainerStyle={styles.imageList}
-              style={{ width: '100%', paddingHorizontal: 10 }}
-            />
-          )}
-          <TouchableOpacity onPress={pickImage} style={styles.uploadButton}>
-            <Text style={styles.uploadButtonText}>업로드하기</Text>
-          </TouchableOpacity>
-        </View>
-        <Button
-          onPress={() => setSubmitModal(true)}
-          mode="contained"
-          buttonColor="#5DB476"
-          disabled={Object.keys(images).length <= 0}
-          style={{
-            height: 45,
-            width: 250,
-            borderWidth: 0.2,
-            borderColor: '#49A66D',
-            borderRadius: 20,
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
-          제출하기
-        </Button>
-        <Portal>
-          <Modal
-            visible={submitModal}
-            onDismiss={() => setSubmitModal(false)}
-            contentContainerStyle={{
-              alignSelf: 'center',
-              width: '75%',
-              height: 200,
-              backgroundColor: 'white',
-              borderRadius: 10,
+          <Text
+            style={{
+              bottom: 10,
+              fontSize: 16,
+              fontWeight: '500',
+              textAlign: 'center',
             }}
           >
-            <Text
-              style={{
-                bottom: 10,
-                fontSize: 16,
-                fontWeight: '500',
-                textAlign: 'center',
-              }}
-            >
-              제출하시겠습니까?
-            </Text>
-            <View
-              style={{
-                position: 'absolute',
-                bottom: 0,
-                height: 45,
-                width: '100%',
-                flexDirection: 'row',
-              }}
-            >
-              <TouchableOpacity
-                onPress={() => setSubmitModal(false)}
-                style={{
-                  flexGrow: 1,
-                  alignItems: 'center',
-                  borderBottomLeftRadius: 10,
-                  justifyContent: 'center',
-                  backgroundColor: '#EAEAEA',
-                }}
-              >
-                <Text>취소</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={handleSubmit}
-                style={{
-                  flexGrow: 1,
-                  alignItems: 'center',
-                  borderBottomRightRadius: 10,
-                  justifyContent: 'center',
-                  backgroundColor: '#49A66D',
-                }}
-              >
-                <Text style={{ color: 'white' }}>제출</Text>
-              </TouchableOpacity>
-            </View>
-          </Modal>
-          <Dialog
-            visible={Platform.OS === 'android' && alertModal}
-            onDismiss={() => setAlertModal(false)}
-            style={{ backgroundColor: 'white' }}
+            {isPending ? '제출 중' : '제출하시겠습니까?'}
+          </Text>
+          <View
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              height: 45,
+              width: '100%',
+              flexDirection: 'row',
+            }}
           >
-            <Dialog.Title>업로드 방법 선택</Dialog.Title>
-            <Dialog.Content>
-              <Text>
-                카메라로 사진을 찍거나 갤러리에서 이미지를 선택해 주세요.
-              </Text>
-            </Dialog.Content>
-            <Dialog.Actions>
-              <Button onPress={handleCamera} labelStyle={{ color: '#2A7CFF' }}>
-                카메라
-              </Button>
-              <Button onPress={handleGallery} labelStyle={{ color: '#2A7CFF' }}>
-                갤러리
-              </Button>
-              <Button
-                onPress={() => setAlertModal(false)}
-                labelStyle={{ color: 'black' }}
-              >
-                취소
-              </Button>
-            </Dialog.Actions>
-          </Dialog>
-        </Portal>
-      </View>
-    </PaperProvider>
+            <TouchableOpacity
+              onPress={() => setSubmitModal(false)}
+              style={{
+                flexGrow: 1,
+                alignItems: 'center',
+                borderBottomLeftRadius: 10,
+                justifyContent: 'center',
+                backgroundColor: '#EAEAEA',
+              }}
+            >
+              <Text>취소</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => mutate({ selectedProducts, images })}
+              style={{
+                flexGrow: 1,
+                alignItems: 'center',
+                borderBottomRightRadius: 10,
+                justifyContent: 'center',
+                backgroundColor: '#49A66D',
+              }}
+            >
+              <Text style={{ color: 'white' }}>제출</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+        <Dialog
+          visible={Platform.OS === 'android' && alertModal}
+          onDismiss={() => setAlertModal(false)}
+          style={{ backgroundColor: 'white' }}
+        >
+          <Dialog.Title>업로드 방법 선택</Dialog.Title>
+          <Dialog.Content>
+            <Text>
+              카메라로 사진을 찍거나 갤러리에서 이미지를 선택해 주세요.
+            </Text>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={handleCamera} labelStyle={{ color: '#2A7CFF' }}>
+              카메라
+            </Button>
+            <Button onPress={handleGallery} labelStyle={{ color: '#2A7CFF' }}>
+              갤러리
+            </Button>
+            <Button
+              onPress={() => setAlertModal(false)}
+              labelStyle={{ color: 'black' }}
+            >
+              취소
+            </Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
+    </View>
   )
 }
 

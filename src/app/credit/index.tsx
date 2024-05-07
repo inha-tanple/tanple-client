@@ -13,7 +13,7 @@ import {
   Platform,
   FlatList,
 } from 'react-native'
-import { PaperProvider, SegmentedButtons } from 'react-native-paper'
+import { SegmentedButtons } from 'react-native-paper'
 
 import { shadowStyle } from '#constants/styles'
 
@@ -226,125 +226,123 @@ export default function Credit() {
   )
 
   return (
-    <PaperProvider>
-      <View
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        top: '13%',
+      }}
+    >
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: () => (
+            <View>
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                  marginRight: 220,
+                }}
+              >
+                크레딧 이용 현황
+              </Text>
+            </View>
+          ),
+          headerTransparent: true,
+        }}
+      />
+
+      <LinearGradient
+        colors={['#64BA7D', '#338874']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
         style={{
-          flex: 1,
-          alignItems: 'center',
-          top: '13%',
+          ...shadowStyle,
+          width: '90%',
+          height: 150,
+          paddingTop: 25,
+          borderRadius: 20,
+          marginBottom: 15,
         }}
       >
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            headerTitle: () => (
-              <View>
-                <Text
-                  style={{
-                    fontSize: 20,
-                    fontWeight: 'bold',
-                    marginRight: 220,
-                  }}
-                >
-                  크레딧 이용 현황
-                </Text>
-              </View>
-            ),
-            headerTransparent: true,
-          }}
-        />
-
-        <LinearGradient
-          colors={['#64BA7D', '#338874']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-          style={{
-            ...shadowStyle,
-            width: '90%',
-            height: 150,
-            paddingTop: 25,
-            borderRadius: 20,
-            marginBottom: 15,
-          }}
-        >
-          <View style={styles.contentStyle}>
-            <Text style={styles.titleStyle}>총 보유 크레딧</Text>
-            <Text style={styles.valueStyle}>10,000p</Text>
-          </View>
-          <View style={styles.contentStyle}>
-            <Text style={styles.titleStyle}>5월 적립 크레딧</Text>
-            <Text style={styles.valueStyle}>2,000p</Text>
-          </View>
-
-          <View
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              height: 45,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              backgroundColor: 'white',
-              borderBottomLeftRadius: 20,
-              borderBottomRightRadius: 20,
-            }}
-          >
-            <TouchableOpacity
-              // onPress={() => router.push('/product/')}
-              style={styles.buttonStyle}
-            >
-              <Text style={{ fontSize: 18 }}>기부하기</Text>
-            </TouchableOpacity>
-            <View
-              style={{
-                width: 1,
-                height: '70%',
-                backgroundColor: '#808080',
-                alignSelf: 'center',
-              }}
-            />
-            <TouchableOpacity
-              // onPress={() => router.push('/confirm/')}
-              style={styles.buttonStyle}
-            >
-              <Text style={{ fontSize: 18 }}>환전하기</Text>
-            </TouchableOpacity>
-          </View>
-        </LinearGradient>
+        <View style={styles.contentStyle}>
+          <Text style={styles.titleStyle}>총 보유 크레딧</Text>
+          <Text style={styles.valueStyle}>10,000p</Text>
+        </View>
+        <View style={styles.contentStyle}>
+          <Text style={styles.titleStyle}>5월 적립 크레딧</Text>
+          <Text style={styles.valueStyle}>2,000p</Text>
+        </View>
 
         <View
           style={{
-            ...shadowStyle,
-            width: '90%',
-            height: Platform.OS === 'ios' ? '62%' : '64%',
+            position: 'absolute',
+            bottom: 0,
+            height: 45,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
             backgroundColor: 'white',
-            borderRadius: 20,
-            paddingVertical: 15,
-            paddingLeft: 15,
-            alignItems: 'center',
+            borderBottomLeftRadius: 20,
+            borderBottomRightRadius: 20,
           }}
         >
-          <SegmentedButtons
-            theme={{ colors: { secondaryContainer: '#DDF0E8' } }}
-            value={value}
-            onValueChange={setValue}
-            buttons={[
-              {
-                value: 'history',
-                label: '거래내역',
-                style: { borderColor: '#DEDEDE' },
-              },
-              {
-                value: 'progress',
-                label: '처리 중',
-                style: { borderColor: '#DEDEDE' },
-              },
-            ]}
-            style={{ marginBottom: 20, paddingRight: 15 }}
+          <TouchableOpacity
+            // onPress={() => router.push('/product/')}
+            style={styles.buttonStyle}
+          >
+            <Text style={{ fontSize: 18 }}>기부하기</Text>
+          </TouchableOpacity>
+          <View
+            style={{
+              width: 1,
+              height: '70%',
+              backgroundColor: '#808080',
+              alignSelf: 'center',
+            }}
           />
-          {value === 'history' ? historyContent : progressContent}
+          <TouchableOpacity
+            // onPress={() => router.push('/confirm/')}
+            style={styles.buttonStyle}
+          >
+            <Text style={{ fontSize: 18 }}>환전하기</Text>
+          </TouchableOpacity>
         </View>
+      </LinearGradient>
+
+      <View
+        style={{
+          ...shadowStyle,
+          width: '90%',
+          height: Platform.OS === 'ios' ? '62%' : '64%',
+          backgroundColor: 'white',
+          borderRadius: 20,
+          paddingVertical: 15,
+          paddingLeft: 15,
+          alignItems: 'center',
+        }}
+      >
+        <SegmentedButtons
+          theme={{ colors: { secondaryContainer: '#DDF0E8' } }}
+          value={value}
+          onValueChange={setValue}
+          buttons={[
+            {
+              value: 'history',
+              label: '거래내역',
+              style: { borderColor: '#DEDEDE' },
+            },
+            {
+              value: 'progress',
+              label: '처리 중',
+              style: { borderColor: '#DEDEDE' },
+            },
+          ]}
+          style={{ marginBottom: 20, paddingRight: 15 }}
+        />
+        {value === 'history' ? historyContent : progressContent}
       </View>
-    </PaperProvider>
+    </View>
   )
 }
 

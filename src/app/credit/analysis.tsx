@@ -19,7 +19,6 @@ import {
 import { Calendar, LocaleConfig } from 'react-native-calendars'
 import { MarkedDates } from 'react-native-calendars/src/types'
 import { LineChart } from 'react-native-chart-kit'
-import { PaperProvider } from 'react-native-paper'
 
 import { shadowStyle } from '#constants/styles'
 
@@ -211,181 +210,177 @@ export default function Analysis() {
   }
 
   return (
-    <PaperProvider>
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          top: '13%',
-        }}
-      >
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            headerTitle: () => (
-              <View>
-                <Text
-                  style={{
-                    fontSize: 20,
-                    fontWeight: 'bold',
-                    marginRight: 220,
-                  }}
-                >
-                  상세 분석
-                </Text>
-              </View>
-            ),
-            headerTransparent: true,
-          }}
-        />
-
-        <View
-          style={{
-            ...shadowStyle,
-            width: '90%',
-            height: '16%',
-            backgroundColor: 'white',
-            padding: 15,
-            borderRadius: 20,
-            marginBottom: 15,
-            alignItems: 'center',
-          }}
-        >
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginBottom: 20,
-            }}
-          >
-            <Ionicons size={18} name="caret-back-outline" />
-            <Text
-              style={{ fontSize: 16, fontWeight: '600', marginHorizontal: 8 }}
-            >
-              5월
-            </Text>
-            <Ionicons size={18} name="caret-forward-outline" />
-          </View>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              width: '95%',
-              justifyContent: 'space-between',
-            }}
-          >
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        top: '13%',
+      }}
+    >
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: () => (
             <View>
               <Text
-                style={{ fontSize: 20, fontWeight: '600', marginBottom: 5 }}
+                style={{
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                  marginRight: 220,
+                }}
               >
-                2,000p
-              </Text>
-              <Text style={{ fontSize: 12, color: '#808080' }}>
-                지난달보다 1,000p 더 적립했어요
+                상세 분석
               </Text>
             </View>
+          ),
+          headerTransparent: true,
+        }}
+      />
 
-            <LineChart
-              data={data}
-              width={200}
-              height={100}
-              chartConfig={chartConfig}
-              bezier
-              withVerticalLines={false}
-              withHorizontalLines={false}
-              withVerticalLabels={false}
-              withHorizontalLabels={false}
-              withDots={false}
-              withShadow={false}
-              transparent
-              style={{ marginLeft: -30, marginTop: -30 }}
-            />
-          </View>
-        </View>
-
-        <Calendar
-          markedDates={getMarkedDates() as MarkedDates}
-          renderHeader={() => null}
-          onMonthChange={(month) => {
-            console.log('month changed', month)
-          }}
-          hideExtraDays
-          hideArrows
-          disableMonthChange
-          hideDayNames={false}
-          disableAllTouchEventsForDisabledDays
-          markingType="custom"
-          dayComponent={({ date, state }) => {
-            const point = currentMonthData.find(
-              (p) => p.date === date?.dateString,
-            )
-
-            const isSelected = date?.dateString === selectedDate
-            const isToday = date?.dateString === today
-
-            return (
-              <TouchableOpacity
-                onPress={() => setSelectedDate(date?.dateString || '')}
-                style={{ alignItems: 'center' }}
-              >
-                <Text
-                  style={{
-                    textAlign: 'center',
-                    color:
-                      state === 'disabled'
-                        ? 'gray'
-                        : isSelected
-                          ? isToday
-                            ? '#3979EF'
-                            : '#75C4ED'
-                          : 'black',
-                    fontWeight: isSelected ? (isToday ? '600' : '600') : '400',
-                  }}
-                >
-                  {date?.day}
-                </Text>
-
-                {point && (
-                  <>
-                    {point.plus && (
-                      <Text style={{ fontSize: 12, color: 'green' }}>
-                        +{point.plus}
-                      </Text>
-                    )}
-                    {point.minus && (
-                      <Text style={{ fontSize: 12, color: '#808080' }}>
-                        -{point.minus}
-                      </Text>
-                    )}
-                  </>
-                )}
-              </TouchableOpacity>
-            )
-          }}
-          style={{
-            ...shadowStyle,
-            width: screenWidth * 0.9,
-            paddingHorizontal: 20,
-            paddingBottom: 20,
-            borderRadius: 20,
-            marginBottom: 15,
-          }}
-        />
+      <View
+        style={{
+          ...shadowStyle,
+          width: '90%',
+          height: '16%',
+          backgroundColor: 'white',
+          padding: 15,
+          borderRadius: 20,
+          marginBottom: 15,
+          alignItems: 'center',
+        }}
+      >
         <View
           style={{
-            ...shadowStyle,
-            width: '90%',
-            height: Platform.OS === 'ios' ? '28%' : '31%',
-            backgroundColor: 'white',
-            borderRadius: 20,
+            flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'center',
+            marginBottom: 20,
           }}
         >
-          {dateContent(selectedDate)}
+          <Ionicons size={18} name="caret-back-outline" />
+          <Text
+            style={{ fontSize: 16, fontWeight: '600', marginHorizontal: 8 }}
+          >
+            5월
+          </Text>
+          <Ionicons size={18} name="caret-forward-outline" />
+        </View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '95%',
+            justifyContent: 'space-between',
+          }}
+        >
+          <View>
+            <Text style={{ fontSize: 20, fontWeight: '600', marginBottom: 5 }}>
+              2,000p
+            </Text>
+            <Text style={{ fontSize: 12, color: '#808080' }}>
+              지난달보다 1,000p 더 적립했어요
+            </Text>
+          </View>
+
+          <LineChart
+            data={data}
+            width={200}
+            height={100}
+            chartConfig={chartConfig}
+            bezier
+            withVerticalLines={false}
+            withHorizontalLines={false}
+            withVerticalLabels={false}
+            withHorizontalLabels={false}
+            withDots={false}
+            withShadow={false}
+            transparent
+            style={{ marginLeft: -30, marginTop: -30 }}
+          />
         </View>
       </View>
-    </PaperProvider>
+
+      <Calendar
+        markedDates={getMarkedDates() as MarkedDates}
+        renderHeader={() => null}
+        onMonthChange={(month) => {
+          console.log('month changed', month)
+        }}
+        hideExtraDays
+        hideArrows
+        disableMonthChange
+        hideDayNames={false}
+        disableAllTouchEventsForDisabledDays
+        markingType="custom"
+        dayComponent={({ date, state }) => {
+          const point = currentMonthData.find(
+            (p) => p.date === date?.dateString,
+          )
+
+          const isSelected = date?.dateString === selectedDate
+          const isToday = date?.dateString === today
+
+          return (
+            <TouchableOpacity
+              onPress={() => setSelectedDate(date?.dateString || '')}
+              style={{ alignItems: 'center' }}
+            >
+              <Text
+                style={{
+                  textAlign: 'center',
+                  color:
+                    state === 'disabled'
+                      ? 'gray'
+                      : isSelected
+                        ? isToday
+                          ? '#3979EF'
+                          : '#75C4ED'
+                        : 'black',
+                  fontWeight: isSelected ? (isToday ? '600' : '600') : '400',
+                }}
+              >
+                {date?.day}
+              </Text>
+
+              {point && (
+                <>
+                  {point.plus && (
+                    <Text style={{ fontSize: 12, color: 'green' }}>
+                      +{point.plus}
+                    </Text>
+                  )}
+                  {point.minus && (
+                    <Text style={{ fontSize: 12, color: '#808080' }}>
+                      -{point.minus}
+                    </Text>
+                  )}
+                </>
+              )}
+            </TouchableOpacity>
+          )
+        }}
+        style={{
+          ...shadowStyle,
+          width: screenWidth * 0.9,
+          paddingHorizontal: 20,
+          paddingBottom: 20,
+          borderRadius: 20,
+          marginBottom: 15,
+        }}
+      />
+      <View
+        style={{
+          ...shadowStyle,
+          width: '90%',
+          height: Platform.OS === 'ios' ? '28%' : '31%',
+          backgroundColor: 'white',
+          borderRadius: 20,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        {dateContent(selectedDate)}
+      </View>
+    </View>
   )
 }
 

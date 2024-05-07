@@ -4,7 +4,7 @@ import { Stack, router } from 'expo-router'
 
 import { TouchableOpacity, View, Text } from 'react-native'
 
-import { useAuthStore, useInitStore } from '#store/useAuthStore'
+import { useAuthStore, useInitStore } from '#store/client/useAuthStore'
 
 export default function Message() {
   const { userInfo, personInfo, setUserInfo } = useAuthStore()

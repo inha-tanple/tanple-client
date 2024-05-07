@@ -13,13 +13,12 @@ import {
   Platform,
   Dimensions,
 } from 'react-native'
-import { Button, PaperProvider, Searchbar } from 'react-native-paper'
+import { Button, Searchbar } from 'react-native-paper'
 
 import products from '#constants/dummy'
 import { shadowStyle } from '#constants/styles'
 import { ProductType } from '#constants/types'
-
-import useProductStore from '#store/useProductStore'
+import useProductStore from '#store/client/useProductStore'
 
 const screenHeight = Dimensions.get('window').height
 
@@ -89,7 +88,7 @@ export default function Product() {
   }
 
   return (
-    <PaperProvider>
+    <>
       <View
         style={{
           flex: 1,
@@ -206,7 +205,7 @@ export default function Product() {
       >
         {selectedProducts.length}개의 물품 선택하기
       </Button>
-    </PaperProvider>
+    </>
   )
 }
 

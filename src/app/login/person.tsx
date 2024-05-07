@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import { Button, TextInput } from 'react-native-paper'
 
-import { useAuthStore } from '#store/useAuthStore'
+import { useAuthStore } from '#store/client/useAuthStore'
 
 export default function Login() {
   const { userInfo, setUserInfo, setPersonInfo } = useAuthStore()

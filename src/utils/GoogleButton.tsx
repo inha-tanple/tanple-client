@@ -15,8 +15,7 @@ import { useEffect } from 'react'
 import { Button } from 'react-native-paper'
 
 import GoogleIcon from '#assets/images/GoogleIcon.svg'
-
-import { useAuthStore, useInitStore } from '#store/useAuthStore'
+import { useAuthStore, useInitStore } from '#store/client/useAuthStore'
 
 WebBrowser.maybeCompleteAuthSession()
 
