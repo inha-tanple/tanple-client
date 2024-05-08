@@ -39,7 +39,7 @@ export default function ConfirmImage() {
   const [alertModal, setAlertModal] = useState(false)
 
   const { selectedProducts, resetProduct } = useProductStore()
-  const { mutate, isPending, isError, isSuccess } = useUploadImages()
+  const { mutate, isPending, isError, isSuccess, reset } = useUploadImages()
 
   const pickImage = async () => {
     if (Platform.OS === 'ios') {
@@ -176,6 +176,7 @@ export default function ConfirmImage() {
       router.push('/request/success')
       resetProduct()
     }
+    reset()
   }, [isError, isSuccess])
 
   return (

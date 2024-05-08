@@ -2,22 +2,26 @@
 
 import { router } from 'expo-router'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import { Button, TextInput } from 'react-native-paper'
 
 import { useAuthStore } from '#store/client/useAuthStore'
+import usePersonQuery from '#store/server/useMember'
+
+import Skeleton from '#components/Skeleton'
 
 export default function Login() {
   const { userInfo, setUserInfo, setPersonInfo } = useAuthStore()
+  const { mutate, isSuccess, isError, isPending } = usePersonQuery()
 
   const [name, setName] = useState<string>()
   const [number, setNumber] = useState<string>()
   const [birth, setBirth] = useState<string>()
 
-  const [isNameValid, setIsNameValid] = useState<boolean>(true)
-  const [isNumberValid, setIsNumberValid] = useState<boolean>(true)
-  const [isBirthValid, setIsBirthValid] = useState<boolean>(true)
+  const [isNameValid, setIsNameValid] = useState<boolean>(false)
+  const [isNumberValid, setIsNumberValid] = useState<boolean>(false)
+  const [isBirthValid, setIsBirthValid] = useState<boolean>(false)
 
   function handleNameChange(value: string) {
     setName(value)
@@ -33,22 +37,35 @@ export default function Login() {
   }
 
   function handleBirthChange(value: string) {
-    const regex = /^[0-9]{0,6}$/
+    const regex = /^[0-9]{0,8}$/
     if (regex.test(value)) {
       setBirth(value)
-      setIsBirthValid(value.length === 6)
+      setIsBirthValid(value.length === 8)
     }
   }
 
   const isButtonDisabled = !isNameValid || !isNumberValid || !isBirthValid
 
   function handleSubmit() {
-    setPersonInfo(true)
-    router.replace('/home')
+    const year = birth?.slice(0, 4)
+    const month = birth?.slice(4, 6)
+    const day = birth?.slice(6, 8)
+    const formattedDate = `${year}-${month}-${day}`
+    const date = new Date(formattedDate).toISOString()
+    if (number) mutate({ number, date })
   }
+
+  useEffect(() => {
+    // isSuccess로 바꾸기
+    if (isError) {
+      setPersonInfo(true)
+      router.replace('/home')
+    }
+  }, [isError])
 
   return (
     <View style={styles.container}>
+      {isPending && <Skeleton />}
       <Text
         style={{
           fontSize: 19,
@@ -69,7 +86,7 @@ export default function Login() {
           activeOutlineColor="#BCDEC6"
           contentStyle={{ fontSize: 13 }}
           style={{ ...styles.textInput }}
-          error={!isNameValid}
+          error={!isNameValid && !!name?.length}
         />
         <TextInput
           value={number}
@@ -79,20 +96,20 @@ export default function Login() {
           activeOutlineColor="#BCDEC6"
           contentStyle={{ fontSize: 13 }}
           style={{ ...styles.textInput }}
-          error={!isNumberValid}
+          error={!isNumberValid && !!number?.length}
           keyboardType="number-pad"
           maxLength={11}
         />
         <TextInput
           value={birth}
           onChangeText={handleBirthChange}
-          placeholder="생년월일 6자리"
+          placeholder="생년월일 8자리 (20010101)"
           mode="outlined"
           activeOutlineColor="#BCDEC6"
           contentStyle={{ fontSize: 13 }}
-          error={!isBirthValid}
+          error={!isBirthValid && !!birth?.length}
           keyboardType="number-pad"
-          maxLength={6}
+          maxLength={8}
           style={{ ...styles.textInput, marginBottom: 20 }}
         />
       </View>
