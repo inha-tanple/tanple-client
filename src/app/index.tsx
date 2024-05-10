@@ -1,4 +1,7 @@
+/* eslint-disable no-restricted-exports */
+/* eslint-disable import/export */
 // index.tsx
+
 import { useRouter } from 'expo-router'
 
 import { useEffect, useState } from 'react'
@@ -6,6 +9,8 @@ import { Text, View } from 'react-native'
 import { ProgressBar } from 'react-native-paper'
 
 import Logo from '#assets/images/carbon-load.svg'
+
+// export { default } from '../../.storybook'
 
 export default function App() {
   const router = useRouter()

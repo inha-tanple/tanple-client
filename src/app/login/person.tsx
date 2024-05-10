@@ -6,10 +6,9 @@ import { useEffect, useState } from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import { Button, TextInput } from 'react-native-paper'
 
+import Spinner from '#components/Spinner/Spinner'
 import { useAuthStore } from '#store/client/useAuthStore'
 import usePersonQuery from '#store/server/useMember'
-
-import Skeleton from '#components/Skeleton'
 
 export default function Login() {
   const { userInfo, setUserInfo, setPersonInfo } = useAuthStore()
@@ -65,7 +64,7 @@ export default function Login() {
 
   return (
     <View style={styles.container}>
-      {isPending && <Skeleton />}
+      {isPending && <Spinner />}
       <Text
         style={{
           fontSize: 19,

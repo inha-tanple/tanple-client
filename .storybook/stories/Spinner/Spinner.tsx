@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import { ActivityIndicator } from 'react-native-paper'
 
-export default function Skeleton() {
+export default function Spinner() {
   return (
     <View
       style={{

@@ -7,8 +7,7 @@ import { useState } from 'react'
 import { Platform, TouchableOpacity } from 'react-native'
 
 import LogoTitle from '#assets/logo'
-
-import AnimeIcon from '#components/AnimeIcon'
+import AnimeIcon from '#components/AnimeIcon/AnimeIcon'
 
 export default function TabLayout() {
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars

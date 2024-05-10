@@ -9,7 +9,8 @@
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "eslint . --fix",
-    "prettier": "prettier . --write"
+    "prettier": "prettier . --write",
+    "storybook-generate": "sb-rn-get-stories"
   },
   "jest": {
     "preset": "jest-expo"
@@ -51,9 +52,16 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@react-native-async-storage/async-storage": "^1.23.1",
+    "@react-native-community/datetimepicker": "^8.0.0",
+    "@react-native-community/slider": "^4.5.2",
+    "@storybook/addon-ondevice-actions": "^7.6.18",
+    "@storybook/addon-ondevice-controls": "^7.6.18",
+    "@storybook/react-native": "^7.6.18",
     "@types/react": "~18.2.45",
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",
+    "babel-loader": "^8.3.0",
     "eslint": "^8.57.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^9.1.0",
