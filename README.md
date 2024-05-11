@@ -71,6 +71,14 @@ declare module '@env' {
 // NOTE: This file should not be edited and should be in your git ignore
 ```
 
+4. (Optional) You can toggle the Storybook screen by commenting out the below in '/src/app/_layout_.tsx'.
+
+```tsx
+// other codes ...
+export { default } from '../../.storybook'
+// other codes ...
+```
+
 <br/>
 
 ### Build

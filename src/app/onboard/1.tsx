@@ -4,13 +4,14 @@ import { router } from 'expo-router'
 
 import { Ionicons } from '@expo/vector-icons'
 import LottieView from 'lottie-react-native'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Platform } from 'react-native'
 
 import Receipts from '#assets/anime/receipts.json'
+import BlurView from '#components/BlurView/BlurView'
 
 export default function Onboard1() {
   return (
-    <View
+    <BlurView
       style={{
         flex: 1,
         justifyContent: 'flex-start',
@@ -86,12 +87,14 @@ export default function Onboard1() {
           onPress={() => {
             router.push('/onboard/2')
           }}
-          style={{ flexDirection: 'row' }}
+          style={{ flexDirection: 'row', alignItems: 'center' }}
         >
-          <Text style={{ marginTop: 3 }}>다음</Text>
+          <Text style={{ marginBottom: Platform.OS === 'ios' ? 0 : 3 }}>
+            다음
+          </Text>
           <Ionicons size={20} name="chevron-forward" />
         </TouchableOpacity>
       </View>
-    </View>
+    </BlurView>
   )
 }

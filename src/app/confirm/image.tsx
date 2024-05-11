@@ -4,6 +4,7 @@
 import { Stack, router } from 'expo-router'
 
 import { Ionicons } from '@expo/vector-icons'
+import { useTheme } from '@react-navigation/native'
 import * as ImagePicker from 'expo-image-picker'
 import { useEffect, useState } from 'react'
 import {
@@ -18,6 +19,7 @@ import {
 } from 'react-native'
 import { Modal, Portal, Button, Dialog } from 'react-native-paper'
 
+import MyButton from '#components/MyButton/MyButton'
 import { shadowStyle } from '#constants/styles'
 import useProductStore from '#store/client/useProductStore'
 import useUploadImages from '#store/server/useUploadImages'
@@ -37,6 +39,7 @@ export default function ConfirmImage() {
   const [images, setImages] = useState<ImageInfo[]>([])
   const [submitModal, setSubmitModal] = useState(false)
   const [alertModal, setAlertModal] = useState(false)
+  const { colors } = useTheme()
 
   const { selectedProducts, resetProduct } = useProductStore()
   const { mutate, isPending, isError, isSuccess, reset } = useUploadImages()
@@ -162,7 +165,11 @@ export default function ConfirmImage() {
         </TouchableOpacity>
       </View>
       <View
-        style={{ height: 1, backgroundColor: '#EAEAEA', marginVertical: 2 }}
+        style={{
+          height: 1,
+          backgroundColor: colors.lightGray,
+          marginVertical: 2,
+        }}
       />
     </>
   )
@@ -215,7 +222,7 @@ export default function ConfirmImage() {
         }}
       >
         {images.length <= 0 && (
-          <Text style={{ color: '#808080' }}>
+          <Text style={{ color: colors.darkGray }}>
             아래의 업로드하기 버튼을 클릭해 주세요
           </Text>
         )}
@@ -232,23 +239,16 @@ export default function ConfirmImage() {
           <Text style={styles.uploadButtonText}>업로드하기</Text>
         </TouchableOpacity>
       </View>
-      <Button
+      <MyButton
         onPress={() => setSubmitModal(true)}
-        mode="contained"
-        buttonColor="#5DB476"
+        text="제출하기"
         disabled={Object.keys(images).length <= 0}
         style={{
-          height: 45,
           width: 250,
-          borderWidth: 0.2,
-          borderColor: '#49A66D',
           borderRadius: 20,
-          display: 'flex',
-          justifyContent: 'center',
         }}
-      >
-        제출하기
-      </Button>
+      />
+
       <Portal>
         <Modal
           visible={submitModal}

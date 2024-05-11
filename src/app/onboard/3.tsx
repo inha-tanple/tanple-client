@@ -4,14 +4,21 @@ import { router } from 'expo-router'
 
 import { Ionicons } from '@expo/vector-icons'
 import LottieView from 'lottie-react-native'
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
-import { Button } from 'react-native-paper'
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Platform,
+} from 'react-native'
 
 import Trade from '#assets/anime/trade.json'
+import BlurView from '#components/BlurView/BlurView'
+import MyButton from '#components/MyButton/MyButton'
 
 export default function Onboard3() {
   return (
-    <View
+    <BlurView
       style={{
         flex: 1,
         justifyContent: 'flex-start',
@@ -75,31 +82,25 @@ export default function Onboard3() {
           onPress={() => {
             router.back()
           }}
-          style={{ flexDirection: 'row' }}
+          style={{ flexDirection: 'row', alignItems: 'center' }}
         >
           <Ionicons size={20} name="chevron-back" />
-          <Text style={{ marginTop: 3 }}>이전</Text>
+          <Text style={{ marginBottom: Platform.OS === 'ios' ? 0 : 3 }}>
+            이전
+          </Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.buttonConT}>
-        <Button
+        <MyButton
           onPress={() => router.replace('/login/')}
-          mode="contained"
-          buttonColor="#5DB476"
+          text="시작하기"
           style={{
-            height: 45,
-            borderWidth: 0.2,
-            borderColor: '#49A66D',
-            borderRadius: 8,
-            display: 'flex',
-            justifyContent: 'center',
+            width: '100%',
           }}
-        >
-          로그인 하기
-        </Button>
+        />
       </View>
-    </View>
+    </BlurView>
   )
 }
 

@@ -3,7 +3,8 @@
 import { router } from 'expo-router'
 
 import { Text, View } from 'react-native'
-import { Button } from 'react-native-paper'
+
+import MyButton from '#components/MyButton/MyButton'
 
 export default function Fail() {
   return (
@@ -23,24 +24,16 @@ export default function Fail() {
       <Text style={{ fontSize: 15, fontWeight: '600' }}>
         다시 시도해 보거나 문의해 주세요
       </Text>
-      <Button
+      <MyButton
         onPress={() => router.back()}
-        mode="contained"
-        buttonColor="#5DB476"
+        text="돌아가기"
         style={{
           position: 'absolute',
           bottom: 200,
           width: 250,
-          height: 45,
-          borderWidth: 0.2,
-          borderColor: '#49A66D',
           borderRadius: 20,
-          display: 'flex',
-          justifyContent: 'center',
         }}
-      >
-        돌아가기
-      </Button>
+      />
     </View>
   )
 }

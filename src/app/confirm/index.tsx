@@ -3,6 +3,7 @@
 
 import { Stack, router } from 'expo-router'
 
+import { useTheme } from '@react-navigation/native'
 import { useEffect, useState } from 'react'
 import {
   Text,
@@ -13,8 +14,9 @@ import {
   Platform,
   Dimensions,
 } from 'react-native'
-import { Button, Searchbar } from 'react-native-paper'
+import { Searchbar } from 'react-native-paper'
 
+import MyButton from '#components/MyButton/MyButton'
 import products from '#constants/dummy'
 import { shadowStyle } from '#constants/styles'
 import { ProductType } from '#constants/types'
@@ -26,6 +28,7 @@ export default function Product() {
   const [searchQuery, setSearchQuery] = useState('')
   const [items, setItems] = useState(products)
   const { selectedProducts, toggleProduct, resetProduct } = useProductStore()
+  const { colors } = useTheme()
 
   useEffect(() => {
     const filtered = products.filter((product) =>
@@ -57,7 +60,9 @@ export default function Product() {
               alignItems: 'center',
             }}
           >
-            <Text style={{ fontSize: 14, marginBottom: 5, color: '#808080' }}>
+            <Text
+              style={{ fontSize: 14, marginBottom: 5, color: colors.darkGray }}
+            >
               가격
             </Text>
             <Text style={{ fontSize: 15, marginBottom: 5 }}>
@@ -72,7 +77,9 @@ export default function Product() {
               alignItems: 'center',
             }}
           >
-            <Text style={{ fontSize: 14, marginBottom: 5, color: '#808080' }}>
+            <Text
+              style={{ fontSize: 14, marginBottom: 5, color: colors.darkGray }}
+            >
               적립률
             </Text>
             <Text style={{ fontSize: 15, marginBottom: 5 }}>
@@ -80,7 +87,11 @@ export default function Product() {
             </Text>
           </View>
           <View
-            style={{ height: 1, backgroundColor: '#EAEAEA', marginVertical: 2 }}
+            style={{
+              height: 1,
+              backgroundColor: colors.lightGray,
+              marginVertical: 2,
+            }}
           />
         </View>
       </TouchableOpacity>
@@ -133,30 +144,18 @@ export default function Product() {
         />
 
         <View style={{ flexDirection: 'row', marginBottom: 15, width: '90%' }}>
-          <Button
+          <MyButton
             onPress={resetProduct}
-            mode="contained"
-            buttonColor="#808080"
-            style={{
-              ...shadowStyle,
-              ...styles.buttonStyle,
-              marginRight: 10,
-            }}
-          >
-            선택 초기화
-          </Button>
-          <Button
+            text="선택 초기화"
+            color={colors.darkGray}
+            style={{ marginRight: 10, flexGrow: 1 }}
+          />
+          <MyButton
             onPress={() => router.push('/product/full')}
-            mode="contained"
-            buttonColor="#B3D567"
-            style={{
-              ...shadowStyle,
-              ...styles.buttonStyle,
-              marginLeft: 10,
-            }}
-          >
-            전체 목록
-          </Button>
+            text="전체 목록"
+            color={colors.secondary}
+            style={{ marginLeft: 10, flexGrow: 1 }}
+          />
         </View>
 
         <View
@@ -173,7 +172,7 @@ export default function Product() {
           }}
         >
           {items.length <= 0 && (
-            <Text style={{ color: '#808080' }}>
+            <Text style={{ color: colors.darkGray }}>
               아래의 업로드하기 버튼을 클릭해 주세요
             </Text>
           )}
@@ -188,23 +187,18 @@ export default function Product() {
           )}
         </View>
       </View>
-      <Button
+      <MyButton
         onPress={() => router.push('/confirm/image')}
-        mode="contained"
-        buttonColor="#5DB476"
+        text={`${selectedProducts.length}개의 물품 선택하기`}
         disabled={selectedProducts.length === 0}
         style={{
-          ...styles.buttonStyle,
-          shadowOpacity: 0.5,
-          elevation: 4,
           width: 200,
+          shadowOpacity: 0.5,
           alignSelf: 'center',
           position: 'absolute',
           bottom: 100,
         }}
-      >
-        {selectedProducts.length}개의 물품 선택하기
-      </Button>
+      />
     </>
   )
 }

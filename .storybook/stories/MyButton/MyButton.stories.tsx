@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import type { Meta, StoryObj } from '@storybook/react'
-import { MyButton } from './Button'
+import MyButton from './MyButton'
 
 const MyButtonMeta: Meta<typeof MyButton> = {
   title: 'MyButton',
@@ -24,8 +24,9 @@ export default MyButtonMeta
 
 export const Basic: StoryObj<typeof MyButton> = {}
 
-export const AnotherExample: StoryObj<typeof MyButton> = {
+export const green: StoryObj<typeof MyButton> = {
   args: {
-    text: 'Another example',
+    style: { heigt: 300, width: 300 },
+    text: 'green',
   },
 }

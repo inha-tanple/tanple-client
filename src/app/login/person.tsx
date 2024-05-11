@@ -2,10 +2,12 @@
 
 import { router } from 'expo-router'
 
+import { useTheme } from '@react-navigation/native'
 import { useEffect, useState } from 'react'
 import { View, StyleSheet, Text } from 'react-native'
-import { Button, TextInput } from 'react-native-paper'
+import { TextInput } from 'react-native-paper'
 
+import MyButton from '#components/MyButton/MyButton'
 import Spinner from '#components/Spinner/Spinner'
 import { useAuthStore } from '#store/client/useAuthStore'
 import usePersonQuery from '#store/server/useMember'
@@ -13,6 +15,7 @@ import usePersonQuery from '#store/server/useMember'
 export default function Login() {
   const { userInfo, setUserInfo, setPersonInfo } = useAuthStore()
   const { mutate, isSuccess, isError, isPending } = usePersonQuery()
+  const { colors } = useTheme()
 
   const [name, setName] = useState<string>()
   const [number, setNumber] = useState<string>()
@@ -113,44 +116,32 @@ export default function Login() {
         />
       </View>
       <View style={styles.buttonConT}>
-        <Button
+        <MyButton
           onPress={handleSubmit}
-          mode="contained"
-          buttonColor="#5DB476"
+          text="인증하기"
           disabled={isButtonDisabled}
           style={{
-            height: 45,
-            borderWidth: 0.2,
-            borderColor: '#49A66D',
-            borderRadius: 8,
-            display: 'flex',
-            justifyContent: 'center',
+            width: '100%',
           }}
-        >
-          인증하기
-        </Button>
-        <Button
+        />
+
+        <MyButton
           onPress={() => {
             setUserInfo(null)
             router.replace('/login/')
           }}
-          mode="contained"
-          buttonColor="#E6F7E6"
+          text="다른 아이디로 로그인 하기"
+          color="#E6F7E6"
           textColor="#369536"
           disabled={isButtonDisabled}
           style={{
-            height: 45,
+            width: '100%',
             borderWidth: 0.2,
             borderColor: '#49A66D',
-            borderRadius: 8,
-            display: 'flex',
-            justifyContent: 'center',
           }}
-        >
-          다른 아이디로 로그인 하기
-        </Button>
+        />
       </View>
-      <Text style={{ fontSize: 13, marginTop: 15, color: '#808080' }}>
+      <Text style={{ fontSize: 13, marginTop: 15, color: colors.darkGray }}>
         현재: {userInfo?.email}
       </Text>
     </View>

@@ -10,8 +10,6 @@ import { ProgressBar } from 'react-native-paper'
 
 import Logo from '#assets/images/carbon-load.svg'
 
-// export { default } from '../../.storybook'
-
 export default function App() {
   const router = useRouter()
   const [progress, setProgress] = useState(0)

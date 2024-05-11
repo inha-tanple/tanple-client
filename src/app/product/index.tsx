@@ -3,6 +3,7 @@
 
 import { Stack, router } from 'expo-router'
 
+import { useTheme } from '@react-navigation/native'
 import { useEffect, useState } from 'react'
 import {
   Text,
@@ -13,8 +14,9 @@ import {
   Platform,
   Dimensions,
 } from 'react-native'
-import { Button, Searchbar } from 'react-native-paper'
+import { Searchbar } from 'react-native-paper'
 
+import MyButton from '#components/MyButton/MyButton'
 import products from '#constants/dummy'
 import { shadowStyle } from '#constants/styles'
 import { ProductType } from '#constants/types'
@@ -24,6 +26,7 @@ const screenHeight = Dimensions.get('window').height
 export default function Product() {
   const [searchQuery, setSearchQuery] = useState('')
   const [items, setItems] = useState(products)
+  const { colors } = useTheme()
 
   useEffect(() => {
     const filtered = products.filter((product) =>
@@ -120,30 +123,17 @@ export default function Product() {
       />
 
       <View style={{ flexDirection: 'row', marginBottom: 15, width: '90%' }}>
-        <Button
+        <MyButton
           onPress={() => router.push('/product/goods')}
-          mode="contained"
-          buttonColor="#5DB476"
-          style={{
-            ...shadowStyle,
-            ...styles.buttonStyle,
-            marginRight: 10,
-          }}
-        >
-          물품 목록
-        </Button>
-        <Button
+          text="물품 목록"
+          style={{ marginRight: 10, flexGrow: 1 }}
+        />
+        <MyButton
           onPress={() => router.push('/product/foods')}
-          mode="contained"
-          buttonColor="#B3D567"
-          style={{
-            ...shadowStyle,
-            ...styles.buttonStyle,
-            marginLeft: 10,
-          }}
-        >
-          농산물 목록
-        </Button>
+          text="농산물 목록"
+          color={colors.secondary}
+          style={{ marginLeft: 10, flexGrow: 1 }}
+        />
       </View>
 
       <View
@@ -160,8 +150,8 @@ export default function Product() {
         }}
       >
         {items.length <= 0 && (
-          <Text style={{ color: '#808080' }}>
-            아래의 업로드하기 버튼을 클릭해 주세요
+          <Text style={{ color: colors.darkGray }}>
+            즐겨찾기 물품을 추가해 주세요
           </Text>
         )}
         {items.length > 0 && (
