@@ -1,7 +1,6 @@
-/* eslint-disable react/no-unstable-nested-components */
 // Credit.tsx
 
-import { Stack, router } from 'expo-router'
+import { Stack, router, useLocalSearchParams } from 'expo-router'
 
 import { LinearGradient } from 'expo-linear-gradient'
 import { useState } from 'react'
@@ -25,7 +24,9 @@ import {
 } from './creditDummy'
 
 export default function Credit() {
-  const [value, setValue] = useState('history')
+  const { segment } = useLocalSearchParams()
+  const valueCheck = segment === 'history' || segment === 'progress'
+  const [value, setValue] = useState(valueCheck ? segment : 'history')
 
   const historyContent = (
     <View style={styles.container}>
@@ -288,7 +289,7 @@ export default function Credit() {
           }}
         >
           <TouchableOpacity
-            // onPress={() => router.push('/product/')}
+            onPress={() => router.push('/credit/money/donate')}
             style={styles.buttonStyle}
           >
             <Text style={{ fontSize: 18 }}>기부하기</Text>
@@ -302,7 +303,7 @@ export default function Credit() {
             }}
           />
           <TouchableOpacity
-            // onPress={() => router.push('/confirm/')}
+            onPress={() => router.push('/credit/money/')}
             style={styles.buttonStyle}
           >
             <Text style={{ fontSize: 18 }}>환전하기</Text>

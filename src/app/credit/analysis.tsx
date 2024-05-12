@@ -1,6 +1,5 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable dot-notation */
-/* eslint-disable react/no-unstable-nested-components */
 // Credit.tsx
 
 import { Stack, router } from 'expo-router'

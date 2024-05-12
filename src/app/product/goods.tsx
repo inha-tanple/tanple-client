@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unstable-nested-components */
 // Goods.tsx
 
 import { Stack } from 'expo-router'

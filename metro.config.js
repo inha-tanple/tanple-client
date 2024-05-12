@@ -20,7 +20,7 @@ module.exports = (() => {
   config.resolver = {
     ...resolver,
     assetExts: resolver.assetExts.filter((ext) => ext !== 'svg'),
-    sourceExts: [...resolver.sourceExts, 'svg', 'mjs'],
+    sourceExts: [...resolver.sourceExts, 'svg', 'mjs', 'png'],
   }
 
   return config

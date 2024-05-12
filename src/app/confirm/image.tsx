@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unstable-nested-components */
 // Confirm.tsx
 
 import { Stack, router } from 'expo-router'
@@ -17,9 +16,10 @@ import {
   Alert,
   Platform,
 } from 'react-native'
-import { Modal, Portal, Button, Dialog } from 'react-native-paper'
+import { Portal, Button, Dialog } from 'react-native-paper'
 
 import MyButton from '#components/MyButton/MyButton'
+import SubmitModal from '#components/SubmitModal/SubmitModal'
 import { shadowStyle } from '#constants/styles'
 import useProductStore from '#store/client/useProductStore'
 import useUploadImages from '#store/server/useUploadImages'
@@ -249,63 +249,15 @@ export default function ConfirmImage() {
         }}
       />
 
+      <SubmitModal
+        open={submitModal}
+        setOpen={setSubmitModal}
+        content={isPending ? '제출 중' : '제출하시겠습니까?'}
+        submitText="제출"
+        onPress={() => mutate({ selectedProducts, images })}
+      />
+
       <Portal>
-        <Modal
-          visible={submitModal}
-          onDismiss={() => setSubmitModal(false)}
-          contentContainerStyle={{
-            alignSelf: 'center',
-            width: '75%',
-            height: 200,
-            backgroundColor: 'white',
-            borderRadius: 10,
-          }}
-        >
-          <Text
-            style={{
-              bottom: 10,
-              fontSize: 16,
-              fontWeight: '500',
-              textAlign: 'center',
-            }}
-          >
-            {isPending ? '제출 중' : '제출하시겠습니까?'}
-          </Text>
-          <View
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              height: 45,
-              width: '100%',
-              flexDirection: 'row',
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => setSubmitModal(false)}
-              style={{
-                flexGrow: 1,
-                alignItems: 'center',
-                borderBottomLeftRadius: 10,
-                justifyContent: 'center',
-                backgroundColor: '#EAEAEA',
-              }}
-            >
-              <Text>취소</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => mutate({ selectedProducts, images })}
-              style={{
-                flexGrow: 1,
-                alignItems: 'center',
-                borderBottomRightRadius: 10,
-                justifyContent: 'center',
-                backgroundColor: '#49A66D',
-              }}
-            >
-              <Text style={{ color: 'white' }}>제출</Text>
-            </TouchableOpacity>
-          </View>
-        </Modal>
         <Dialog
           visible={Platform.OS === 'android' && alertModal}
           onDismiss={() => setAlertModal(false)}

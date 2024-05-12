@@ -73,6 +73,8 @@ declare module '@env' {
 
 4. (Optional) You can toggle the Storybook screen by commenting out the below in '/src/app/_layout_.tsx'.
 
+   [Current react-native-skia version doesn't support storybook]
+
 ```tsx
 // other codes ...
 export { default } from '../../.storybook'

@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unstable-nested-components */
 import { Stack, router, useLocalSearchParams } from 'expo-router'
 
 import { Platform, Text, TouchableOpacity, View } from 'react-native'

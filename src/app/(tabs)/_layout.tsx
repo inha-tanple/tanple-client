@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/no-unstable-nested-components */
 import { Tabs, router } from 'expo-router'
 
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'

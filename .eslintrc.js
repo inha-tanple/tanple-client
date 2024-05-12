@@ -56,16 +56,6 @@ module.exports = {
             group: 'builtin',
             position: 'before',
           },
-          // {
-          //   pattern: 'react',
-          //   group: 'external',
-          //   position: 'before',
-          // },
-          // {
-          //   pattern: 'react-native',
-          //   group: 'external',
-          //   position: 'before',
-          // },
           {
             pattern: '#store/*',
             group: 'internal',
@@ -106,5 +96,6 @@ module.exports = {
     'react/jsx-no-bind': 'off',
     'no-use-before-define': 'off',
     'spaced-comment': 'off',
+    'react/no-unstable-nested-components': 'off',
   },
 }

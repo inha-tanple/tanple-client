@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-pascal-case */
-/* eslint-disable react/no-unstable-nested-components */
 // Asset.tsx
 
 import { router } from 'expo-router'
@@ -40,7 +39,7 @@ export default function Asset() {
           }}
         >
           <TouchableOpacity
-            onPress={() => router.push('/credit/')}
+            onPress={() => router.push('/credit/history')}
             style={{ flexDirection: 'row', paddingBottom: 10 }}
             activeOpacity={1}
           >
@@ -85,7 +84,7 @@ export default function Asset() {
           }}
         >
           <TouchableOpacity
-            // onPress={() => router.push('/product/')}
+            onPress={() => router.push('/credit/money/donate')}
             style={styles.buttonStyle}
           >
             <Text style={{ fontSize: 18 }}>기부하기</Text>
@@ -99,7 +98,7 @@ export default function Asset() {
             }}
           />
           <TouchableOpacity
-            // onPress={() => router.push('/confirm/')}
+            onPress={() => router.push('/credit/money/')}
             style={styles.buttonStyle}
           >
             <Text style={{ fontSize: 18 }}>환전하기</Text>

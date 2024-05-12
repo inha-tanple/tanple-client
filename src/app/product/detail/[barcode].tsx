@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unstable-nested-components */
 // [barcode].tsx
 import { Stack, router, useLocalSearchParams } from 'expo-router'
 
