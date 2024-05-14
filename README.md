@@ -96,13 +96,17 @@ You can build it by creating an [eas.json] file and adding env option.
     "preview": {
       "distribution": "internal",
       "env": {
-        "ANDROID_CLIENT_ID": ,
-        "IOS_CLIENT_ID": ,
-        "EXPO_CLIENT_ID": ,
-        "WEB_CLIENT_ID":
+        "ANDROID_CLIENT_ID": "",
+        "IOS_CLIENT_ID": "",
+        "EXPO_CLIENT_ID": "",
+        "WEB_CLIENT_ID": "",
+        "SERVER_URL": ""
       },
       "ios": {
         "simulator": true
+      },
+      "android": {
+        "ndk": "25.1.8937393"
       }
     },
     "production": {}
