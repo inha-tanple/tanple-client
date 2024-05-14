@@ -71,7 +71,30 @@ declare module '@env' {
 // NOTE: This file should not be edited and should be in your git ignore
 ```
 
-4. (Optional) You can toggle the Storybook screen by commenting out the below in '/src/app/_layout_.tsx'.
+4. Package Install & Edit file like this
+   <br/>
+   ./node_modules/react-native-snap-carousel/src/carousel/Carousel.js
+   <br/>
+   ./node_modules/react-native-snap-carousel/src/Pagination/Pagination.js
+   <br/>
+   ./node_modules/react-native-snap-carousel/src/Pagination/PaginationDot.js
+   <br/>
+   ./node_modules/react-native-snap-carousel/src/ParallaxImage/ParallaxImage.js
+
+```bash
+npm install
+```
+
+```js
+// from
+import { ... ,ViewPropTypes } from 'react-native';
+
+// to
+import { ... } from 'react-native';
+import {ViewPropTypes} from 'deprecated-react-native-prop-types';
+```
+
+5. (Optional) You can toggle the Storybook screen by commenting out the below in '/src/app/_layout_.tsx'.
 
    [Current react-native-skia version doesn't support storybook]
 

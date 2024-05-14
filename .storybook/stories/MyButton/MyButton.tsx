@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleProp, StyleSheet, ViewStyle } from 'react-native'
 import { Button } from 'react-native-paper'
 
 import { shadowStyle } from '#constants/styles'
@@ -9,7 +9,7 @@ export type MyButtonProps = {
   text: string
   color?: string
   textColor?: string
-  style?: object
+  style?: StyleProp<ViewStyle>
   disabled?: boolean
 }
 
