@@ -184,6 +184,7 @@ export default function Money() {
           backgroundColor: 'transparent',
           marginBottom: 50,
         }}
+        editable={false}
       />
 
       <MyButton

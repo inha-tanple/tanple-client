@@ -4,33 +4,16 @@
 import { router } from 'expo-router'
 
 import { Ionicons } from '@expo/vector-icons'
-import { LinearGradient } from 'expo-linear-gradient'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 
 import Coin from '#assets/images/coin.svg'
+import GradientView from '#components/GradientView/GradientView'
 import { shadowStyle } from '#constants/styles'
 
 export default function Asset() {
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        marginTop: 15,
-      }}
-    >
-      <LinearGradient
-        colors={['#64BA7D', '#338874']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-        style={{
-          ...shadowStyle,
-          width: '90%',
-          height: 150,
-          borderRadius: 20,
-          marginBottom: 20,
-        }}
-      >
+    <View style={{ flex: 1, alignItems: 'center', marginTop: 15 }}>
+      <GradientView style={{ marginBottom: 20 }}>
         <View
           style={{
             height: 100,
@@ -104,7 +87,7 @@ export default function Asset() {
             <Text style={{ fontSize: 18 }}>환전하기</Text>
           </TouchableOpacity>
         </View>
-      </LinearGradient>
+      </GradientView>
 
       <TouchableOpacity
         style={{

@@ -2,7 +2,6 @@
 
 import { Stack, router, useLocalSearchParams } from 'expo-router'
 
-import { LinearGradient } from 'expo-linear-gradient'
 import { useState } from 'react'
 import {
   Text,
@@ -14,6 +13,7 @@ import {
 } from 'react-native'
 import { SegmentedButtons } from 'react-native-paper'
 
+import GradientView from '#components/GradientView/GradientView'
 import { shadowStyle } from '#constants/styles'
 
 import {
@@ -254,19 +254,7 @@ export default function Credit() {
         }}
       />
 
-      <LinearGradient
-        colors={['#64BA7D', '#338874']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-        style={{
-          ...shadowStyle,
-          width: '90%',
-          height: 150,
-          paddingTop: 25,
-          borderRadius: 20,
-          marginBottom: 15,
-        }}
-      >
+      <GradientView style={{ paddingTop: 25, marginBottom: 15 }}>
         <View style={styles.contentStyle}>
           <Text style={styles.titleStyle}>총 보유 크레딧</Text>
           <Text style={styles.valueStyle}>10,000p</Text>
@@ -309,7 +297,7 @@ export default function Credit() {
             <Text style={{ fontSize: 18 }}>환전하기</Text>
           </TouchableOpacity>
         </View>
-      </LinearGradient>
+      </GradientView>
 
       <View
         style={{

@@ -3,9 +3,9 @@
 import { Redirect, router } from 'expo-router'
 
 import { Ionicons } from '@expo/vector-icons'
-import { LinearGradient } from 'expo-linear-gradient'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
+import GradientView from '#components/GradientView/GradientView'
 import MyCarousel from '#components/MyCarousel/MyCarousel'
 import { shadowStyle } from '#constants/styles'
 import { useAuthStore, useInitStore } from '#store/client/useAuthStore'
@@ -131,15 +131,8 @@ export default function Home() {
             overflow: 'hidden',
           }}
         >
-          <LinearGradient
-            colors={['#64BA7D', '#338874']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            style={{
-              width: '100%',
-              height: '100%',
-              flexDirection: 'row',
-            }}
+          <GradientView
+            style={{ width: '100%', height: '100%', flexDirection: 'row' }}
           >
             <TouchableOpacity
               onPress={() => router.push('/product/')}
@@ -183,7 +176,7 @@ export default function Home() {
                 인증하기
               </Text>
             </TouchableOpacity>
-          </LinearGradient>
+          </GradientView>
         </View>
       </View>
     </View>
