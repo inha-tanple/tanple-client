@@ -8,7 +8,7 @@ import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 
 import Coin from '#assets/images/coin.svg'
 import GradientView from '#components/GradientView/GradientView'
-import { shadowStyle } from '#constants/styles'
+import { defaultContainer } from '#constants/styles'
 
 export default function Asset() {
   return (
@@ -91,15 +91,11 @@ export default function Asset() {
 
       <TouchableOpacity
         style={{
-          ...shadowStyle,
+          ...defaultContainer,
           width: '90%',
           height: '15%',
-          backgroundColor: 'white',
-          borderRadius: 20,
-          padding: 15,
           marginBottom: 20,
-          flexDirection: 'row',
-          alignItems: 'center',
+          justifyContent: 'flex-start',
         }}
         activeOpacity={1}
         onPress={() => router.push('/credit/analysis')}

@@ -1,54 +1,57 @@
 // Trade.tsx
 
-import { Text, View, Dimensions } from 'react-native'
+import { router } from 'expo-router'
+
+import { Ionicons } from '@expo/vector-icons'
+import { Text, View, Dimensions, TouchableOpacity } from 'react-native'
 
 import GradientView from '#components/GradientView/GradientView'
+import { defaultContainer } from '#constants/styles'
 
 const { width } = Dimensions.get('window')
 const boxSize = width * 0.4
 
 export default function Trade() {
   return (
-    <View style={{ flex: 1, alignItems: 'center', marginTop: 15 }}>
-      <View
+    <View style={{ flex: 1, alignItems: 'center', padding: 20 }}>
+      <TouchableOpacity
+        onPress={() => router.push('/finance/hold')}
         style={{
-          width: '90%',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
+          ...defaultContainer,
+          width: '100%',
+          height: width * 0.35,
+          backgroundColor: '#6A6E7C',
+          alignItems: 'flex-start',
           marginBottom: 20,
+          padding: 25,
         }}
+        activeOpacity={1}
       >
-        <GradientView
-          colors={['#FF9A8B', '#FF6A88']}
-          style={{
-            width: boxSize,
-            height: boxSize,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>
-            Trade
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={{ color: 'white', fontSize: 20, fontWeight: '700' }}>
+            전체 순자산
           </Text>
-        </GradientView>
-        <GradientView
-          colors={['#FE8C00', '#F83600']}
-          style={{
-            width: boxSize,
-            height: boxSize,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>
-            Trade
-          </Text>
-        </GradientView>
-      </View>
+          <Ionicons
+            size={20}
+            name="chevron-forward"
+            style={{ color: 'white', alignSelf: 'center' }}
+          />
+        </View>
 
+        <Text
+          style={{
+            alignSelf: 'flex-end',
+            color: 'white',
+            fontSize: 22,
+            fontWeight: '700',
+          }}
+        >
+          140,800원
+        </Text>
+      </TouchableOpacity>
       <View
         style={{
-          width: '90%',
+          width: '100%',
           flexDirection: 'row',
           justifyContent: 'space-between',
           marginBottom: 20,
@@ -64,11 +67,11 @@ export default function Trade() {
           }}
         >
           <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>
-            Trade
+            시세 조회
           </Text>
         </GradientView>
         <GradientView
-          colors={['#FAD0C9', '#FFD1FF']}
+          colors={['#FF9A8B', '#FF6A88']}
           style={{
             width: boxSize,
             height: boxSize,
@@ -77,43 +80,7 @@ export default function Trade() {
           }}
         >
           <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>
-            Trade
-          </Text>
-        </GradientView>
-      </View>
-
-      <View
-        style={{
-          width: '90%',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          marginBottom: 20,
-        }}
-      >
-        <GradientView
-          colors={['#3D7E9F', '#38E54D']}
-          style={{
-            width: boxSize,
-            height: boxSize,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>
-            Trade
-          </Text>
-        </GradientView>
-        <GradientView
-          colors={['#0CEBEB', '#20E3B2']}
-          style={{
-            width: boxSize,
-            height: boxSize,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>
-            Trade
+            관심 목록
           </Text>
         </GradientView>
       </View>

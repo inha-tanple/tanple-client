@@ -7,7 +7,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
 import GradientView from '#components/GradientView/GradientView'
 import MyCarousel from '#components/MyCarousel/MyCarousel'
-import { shadowStyle } from '#constants/styles'
+import { defaultContainer } from '#constants/styles'
 import { useAuthStore, useInitStore } from '#store/client/useAuthStore'
 import { progressData } from 'app/credit/creditDummy'
 
@@ -51,7 +51,7 @@ export default function Home() {
       >
         <TouchableOpacity
           onPress={() => router.push('/credit/history')}
-          style={{ height: '40%', width: '90%', ...styles.container }}
+          style={{ ...styles.container, height: '40%', width: '90%' }}
           activeOpacity={1}
         >
           <Text style={{ fontSize: 17, fontWeight: '700' }}>크레딧 현황</Text>
@@ -59,10 +59,11 @@ export default function Home() {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={{ height: '40%', width: '90%', ...styles.container }}
+          onPress={() => router.push('/finance/hold')}
+          style={{ ...styles.container, height: '40%', width: '90%' }}
           activeOpacity={1}
         >
-          <Text style={{ fontSize: 17, fontWeight: '700' }}>거래 현황</Text>
+          <Text style={{ fontSize: 17, fontWeight: '700' }}>배출권 현황</Text>
           <Ionicons size={20} name="chevron-forward" />
         </TouchableOpacity>
       </View>
@@ -185,13 +186,7 @@ export default function Home() {
 
 const styles = StyleSheet.create({
   container: {
-    ...shadowStyle,
-    borderRadius: 20,
+    ...defaultContainer,
     marginBottom: 15,
-    padding: 20,
-    backgroundColor: 'white',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
   },
 })
