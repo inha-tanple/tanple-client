@@ -62,26 +62,44 @@ export default function Trade() {
           style={{
             width: boxSize,
             height: boxSize,
-            justifyContent: 'center',
-            alignItems: 'center',
           }}
         >
-          <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>
-            시세 조회
-          </Text>
+          <TouchableOpacity
+            onPress={() => router.push('/finance/stock/')}
+            activeOpacity={1}
+            style={{
+              width: '100%',
+              height: '100%',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>
+              시세 조회
+            </Text>
+          </TouchableOpacity>
         </GradientView>
         <GradientView
           colors={['#FF9A8B', '#FF6A88']}
           style={{
             width: boxSize,
             height: boxSize,
-            justifyContent: 'center',
-            alignItems: 'center',
           }}
         >
-          <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>
-            관심 목록
-          </Text>
+          <TouchableOpacity
+            onPress={() => router.push('/finance/stock/favorite')}
+            activeOpacity={1}
+            style={{
+              width: '100%',
+              height: '100%',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>
+              관심 목록
+            </Text>
+          </TouchableOpacity>
         </GradientView>
       </View>
     </View>

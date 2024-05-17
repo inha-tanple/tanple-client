@@ -1,96 +1,139 @@
+// Table.tsx
+
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  StyleProp,
+  ViewStyle,
+} from 'react-native'
 
 interface Props {
   tableHeaders?: string[][]
   tableData: (string | number)[][][]
   isLeftHead?: boolean
+  colorColumn?: number[]
+  headerStyle?: StyleProp<ViewStyle>
+  dataStyle?: StyleProp<ViewStyle>
 }
 
-const Table = ({ tableHeaders = [], tableData, isLeftHead = true }: Props) => {
-  const sliceNum = isLeftHead ? 1 : 0
-  return (
-    <View style={styles.container}>
-      {tableHeaders.length > 0 && (
-        <View style={styles.row}>
-          {tableHeaders.map((header, headerIndex) => (
-            <View
-              key={headerIndex}
-              style={{
-                ...styles.cell,
-                paddingVertical: 7,
-                backgroundColor: '#D6D6D6',
-              }}
-            >
-              {header.map((item, itemIndex) => (
-                <Text
-                  key={itemIndex}
-                  style={{
-                    ...styles.headerText,
-                    paddingTop: itemIndex > 0 ? 7 : 0,
-                  }}
-                >
-                  {item}
-                </Text>
-              ))}
-            </View>
-          ))}
-        </View>
-      )}
-      {tableData.map((rowData, rowIndex) => (
-        <View key={rowIndex} style={styles.row}>
-          {isLeftHead && (
+export default function Table({
+  tableHeaders = [],
+  tableData,
+  colorColumn = [],
+  isLeftHead = true,
+  ...props
+}: Props) {
+  const getColorStyle = (value: any) => {
+    const numericValue = parseFloat(value)
+    if (numericValue > 0) {
+      return { color: '#FB4330' }
+    } else if (numericValue < 0) {
+      return { color: '#3082FB' }
+    }
+    return null
+  }
+
+  const renderHeader = () => (
+    <View style={styles.headerRow}>
+      {tableHeaders.map((header, headerIndex) => (
+        <View key={headerIndex} style={[styles.headerCell, props.headerStyle]}>
+          {header.map((item, itemIndex) => (
             <Text
+              key={itemIndex}
               style={{
-                ...styles.cell,
                 ...styles.headerText,
-                backgroundColor: '#D6D6D6',
+                paddingTop: itemIndex > 0 ? 7 : 0,
               }}
             >
-              {rowData[0]}
+              {item}
             </Text>
-          )}
-          {rowData.slice(sliceNum).map((cellData, cellIndex) => (
-            <View key={cellIndex} style={{ ...styles.cell }}>
-              {cellData.map((item, itemIndex) => (
-                <Text
-                  key={itemIndex}
-                  style={{
-                    textAlign: 'center',
-                    paddingTop: itemIndex > 0 ? 7 : 0,
-                  }}
-                >
-                  {item}
-                </Text>
-              ))}
-            </View>
           ))}
         </View>
       ))}
     </View>
   )
+
+  const renderRow = ({ item }: { item: (string | number)[][] }) => (
+    <View style={styles.dataRow}>
+      {isLeftHead && (
+        <Text
+          style={{
+            ...styles.dataCell,
+            ...styles.headerText,
+            backgroundColor: '#D6D6D6',
+          }}
+        >
+          {item[0]}
+        </Text>
+      )}
+      {item.slice(isLeftHead ? 1 : 0).map((cellData, cellIndex) => (
+        <View key={cellIndex} style={[styles.dataCell, props.dataStyle]}>
+          {cellData.map((item, itemIndex) => (
+            <Text
+              key={itemIndex}
+              style={{
+                textAlign: 'center',
+                paddingTop: itemIndex > 0 ? 7 : 0,
+                ...(colorColumn.includes(cellIndex + (isLeftHead ? 1 : 0))
+                  ? getColorStyle(cellData[0])
+                  : null),
+              }}
+            >
+              {item}
+            </Text>
+          ))}
+        </View>
+      ))}
+    </View>
+  )
+
+  return (
+    <View style={styles.container}>
+      {tableHeaders.length > 0 && renderHeader()}
+      <FlatList
+        data={tableData}
+        renderItem={renderRow}
+        keyExtractor={(item, index) => index.toString()}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
+      />
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  row: {
+  container: { flex: 1 },
+  headerRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
+    backgroundColor: '#f5f5f5',
   },
-  cell: {
+  headerCell: {
     flex: 1,
-    textAlign: 'center',
-    paddingVertical: 12,
+    paddingVertical: 5,
+    paddingHorizontal: 8,
+    borderRightWidth: 1,
+    borderRightColor: '#ccc',
     justifyContent: 'center',
   },
   headerText: {
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  dataRow: {
+    flexDirection: 'row',
+  },
+  dataCell: {
+    flex: 1,
+    paddingVertical: 12,
+    paddingHorizontal: 8,
+    justifyContent: 'center',
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#ccc',
+  },
 })
-
-export default Table

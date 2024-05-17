@@ -77,6 +77,7 @@ export default function Hold() {
             [['KAU23'], ['10'], ['8,870', '7,810'], ['30,000', '12.3']],
             [['KAU25'], ['5'], ['8,610', '7,620'], ['13,000', '10.9']],
           ]}
+          colorColumn={[2, 3]}
           isLeftHead={false}
         />
       </View>
