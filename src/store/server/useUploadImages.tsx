@@ -1,8 +1,13 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable import/no-unresolved */
+
 // useUploadImages.tsx
 
 import { SERVER_URL } from '@env'
 import { useMutation } from '@tanstack/react-query'
+import * as ImageManipulator from 'expo-image-manipulator'
 
 import { ProductType } from '#constants/types'
 
@@ -18,24 +23,36 @@ interface UploadImagesType {
   images: ImageInfo[]
 }
 
+const convertToJpeg = async (uri: string): Promise<string> => {
+  const manipResult = await ImageManipulator.manipulateAsync(uri, [], {
+    compress: 0.5,
+    format: ImageManipulator.SaveFormat.JPEG,
+  })
+  return manipResult.uri
+}
+
 const uploadImages = async ({ selectedProducts, images }: UploadImagesType) => {
   const formData = new FormData()
-  const barcodes = selectedProducts.map((product) => product.barcode)
-  formData.append('barcodes', JSON.stringify(barcodes))
+  const barcodes = selectedProducts.map((product) => product.barcode).join(', ')
+  formData.append('barcodes', barcodes)
 
-  images.forEach((image) => {
-    const { uri, name, size, mimeType } = image
-    const blob = new Blob([uri], { type: mimeType })
-    formData.append('images', blob, name)
-    formData.append('imageInfo', JSON.stringify({ name, size, mimeType }))
-  })
+  for (const image of images) {
+    const jpegUri = await convertToJpeg(image.uri)
+    formData.append('photos', {
+      uri: jpegUri,
+      name: image.name,
+      type: 'image/jpeg',
+    } as any)
+  }
 
-  const response = await fetch(`${SERVER_URL}/api/v1/image`, {
+  const response = await fetch(`${SERVER_URL}/v1/photos`, {
     method: 'POST',
     body: formData,
   })
 
-  return response.json()
+  if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
+
+  return response
 }
 
 const useUploadImages = () => {

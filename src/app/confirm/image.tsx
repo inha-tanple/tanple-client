@@ -81,7 +81,6 @@ export default function ConfirmImage() {
               })
 
               if (!result.canceled) {
-                console.log(result.assets)
                 const newImages = result.assets.map((asset) => ({
                   uri: asset.uri,
                   name: asset.fileName || '',
@@ -176,10 +175,11 @@ export default function ConfirmImage() {
 
   useEffect(() => {
     if (isError) {
-      router.push('/request/fail')
       setSubmitModal(false)
+      router.push('/request/fail')
     }
     if (isSuccess) {
+      setSubmitModal(false)
       router.push('/request/success')
       resetProduct()
     }

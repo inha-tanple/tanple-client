@@ -15,7 +15,12 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.gwjun.bullet"
+      "bundleIdentifier": "com.gwjun.bullet",
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true
+        }
+      }
     },
     "android": {
       "adaptiveIcon": {
