@@ -10,7 +10,8 @@
     "test": "jest --watchAll",
     "lint": "eslint . --fix",
     "prettier": "prettier . --write",
-    "storybook-generate": "sb-rn-get-stories"
+    "storybook-generate": "sb-rn-get-stories",
+    "eas-build-post-install": "node scripts/prebuild.js"
   },
   "jest": {
     "preset": "jest-expo"
