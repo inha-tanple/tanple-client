@@ -123,7 +123,8 @@ You can build it by creating an [eas.json] file and adding env option.
         "IOS_CLIENT_ID": "",
         "EXPO_CLIENT_ID": "",
         "WEB_CLIENT_ID": "",
-        "SERVER_URL": ""
+        "SERVER_URL": "",
+        "ANDROID_NDK": "/home/expo/Android/Sdk/ndk/25.1.8937393"
       },
       "ios": {
         "simulator": true

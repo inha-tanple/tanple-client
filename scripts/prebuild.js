@@ -17,17 +17,3 @@ if (fs.existsSync(androidManifestPath)) {
   fs.writeFileSync(androidManifestPath, androidManifest)
   console.log('AndroidManifest.xml updated')
 }
-
-const androidLocalPropertiesPath = path.resolve(
-  __dirname,
-  '../android/local.properties',
-)
-
-// NDK 설정
-const ndkVersion = '25.1.8937393'
-fs.writeFileSync(
-  androidLocalPropertiesPath,
-  `ndk.dir=${process.env.ANDROID_HOME}/ndk/${ndkVersion}\n`,
-  { flag: 'a' },
-)
-console.log('NDK 설정 추가 완료')
