@@ -5,10 +5,14 @@ import { Stack, router } from 'expo-router'
 import { TouchableOpacity, View, Text } from 'react-native'
 
 import { useAuthStore, useInitStore } from '#store/client/useAuthStore'
+import { useProductStore } from '#store/client/useProductStore'
+
+import storage from '#store/storage'
 
 export default function Message() {
   const { userInfo, personInfo, setUserInfo } = useAuthStore()
   const { isInit, setIsInit } = useInitStore()
+  const { setProducts } = useProductStore()
 
   console.log(userInfo)
   console.log(isInit)
@@ -59,6 +63,15 @@ export default function Message() {
         }}
       >
         <Text>init-false</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          setProducts([])
+          storage.delete('products')
+          router.replace('/')
+        }}
+      >
+        <Text>init-products</Text>
       </TouchableOpacity>
     </View>
   )

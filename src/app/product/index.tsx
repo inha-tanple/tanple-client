@@ -16,15 +16,17 @@ import {
 import { Searchbar } from 'react-native-paper'
 
 import MyButton from '#components/MyButton/MyButton'
-import products from '#constants/dummy'
 import { shadowStyle } from '#constants/styles'
 import { ProductType } from '#constants/types'
+import { useProductStore } from '#store/client/useProductStore'
 
 const screenHeight = Dimensions.get('window').height
 
 export default function Product() {
   const [searchQuery, setSearchQuery] = useState('')
+  const { products } = useProductStore()
   const [items, setItems] = useState(products)
+
   const { colors } = useTheme()
 
   useEffect(() => {
@@ -39,7 +41,7 @@ export default function Product() {
       onPress={() => {
         router.push({
           pathname: '/product/detail/[barcode]',
-          params: { barcode: item.barcode },
+          params: { barcode: item.productBarcode },
         })
       }}
     >
@@ -68,7 +70,9 @@ export default function Product() {
           <Text style={{ fontSize: 14, marginBottom: 5, color: '#808080' }}>
             적립률
           </Text>
-          <Text style={{ fontSize: 15, marginBottom: 5 }}>{item.taxRate}</Text>
+          <Text style={{ fontSize: 15, marginBottom: 5 }}>
+            {item.earningRate * 100}%
+          </Text>
         </View>
         <View
           style={{ height: 1, backgroundColor: '#EAEAEA', marginVertical: 2 }}
@@ -157,7 +161,7 @@ export default function Product() {
           <FlatList
             data={items}
             renderItem={renderProductItem}
-            keyExtractor={(item) => item.barcode}
+            keyExtractor={(item) => item.productBarcode.toString()}
             contentContainerStyle={styles.productList}
             style={{ width: '100%' }}
           />

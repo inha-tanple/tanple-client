@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-// useMember.tsx
+// useMemberQueries.tsx
 
 import { SERVER_URL } from '@env'
 import { useMutation } from '@tanstack/react-query'

@@ -1,4 +1,5 @@
 // [barcode].tsx
+
 import { Stack, router, useLocalSearchParams } from 'expo-router'
 
 import { Ionicons } from '@expo/vector-icons'
@@ -10,20 +11,35 @@ import {
   Platform,
 } from 'react-native'
 
-export default function DetailScreen() {
-  const { id } = useLocalSearchParams()
+import Spinner from '#components/Spinner/Spinner'
+import { useFetchProduct } from '#store/server/useProductQueries'
 
-  const product = {
-    barcode: id,
-    company: '(주)삼양사',
-    productName: '큐원 갈색설탕[15kg]',
-    price: '25,800',
-    taxNumber: '101-86-66838',
-    taxIncludedPrice: '3,870',
-    category: '저탄소제품',
-    taxRate: '15.00%',
-    startDate: '2024-04-01',
-    endDate: '2025-08-29',
+export default function DetailScreen() {
+  const { barcode } = useLocalSearchParams()
+  const {
+    data: product,
+    isLoading,
+    isError,
+  } = useFetchProduct(barcode as string)
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Spinner />
+      </View>
+    )
+  }
+
+  if (isError) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Error fetching product details</Text>
+      </View>
+    )
+  }
+
+  if (!product) {
+    return null
   }
 
   return (
@@ -72,15 +88,15 @@ export default function DetailScreen() {
             <Text style={styles.contentTitle}>제조사:</Text>
             <Text>{product.company}</Text>
           </View>
-          {product.taxNumber && (
+          {product.businessRegistrationNumber && (
             <View style={styles.content}>
               <Text style={styles.contentTitle}>사업자 등록 번호:</Text>
-              <Text>{product.taxNumber}</Text>
+              <Text>{product.businessRegistrationNumber}</Text>
             </View>
           )}
           <View style={{ ...styles.content, marginBottom: 0 }}>
             <Text style={styles.contentTitle}>카테고리:</Text>
-            <Text>{product.category}</Text>
+            <Text>{product.certificationCategory}</Text>
           </View>
         </View>
 
@@ -89,11 +105,11 @@ export default function DetailScreen() {
 
           <View style={styles.content}>
             <Text style={styles.contentTitle}>인증 시작일:</Text>
-            <Text>{product.startDate}</Text>
+            <Text>{product.registerStartDate}</Text>
           </View>
           <View style={{ ...styles.content, marginBottom: 0 }}>
             <Text style={styles.contentTitle}>인증 종료일:</Text>
-            <Text>{product.endDate}</Text>
+            <Text>{product.registerEndDate}</Text>
           </View>
         </View>
 
@@ -106,11 +122,11 @@ export default function DetailScreen() {
           </View>
           <View style={styles.content}>
             <Text style={styles.contentTitle}>적립크레딧:</Text>
-            <Text>{product.taxIncludedPrice}p</Text>
+            <Text>{product.earnedCredit}p</Text>
           </View>
           <View style={styles.content}>
             <Text style={styles.contentTitle}>적립률:</Text>
-            <Text>{product.taxRate}</Text>
+            <Text>{product.earningRate * 100}%</Text>
           </View>
         </View>
         <TouchableOpacity

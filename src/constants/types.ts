@@ -1,12 +1,12 @@
 export interface ProductType {
-  barcode: string
+  productBarcode: number
   company: string
   productName: string
-  price: string
-  taxNumber?: string
-  taxIncludedPrice: string
-  category: string
-  taxRate: string
-  startDate: string
-  endDate: string
+  price: number
+  businessRegistrationNumber?: string
+  earnedCredit: number
+  certificationCategory: string
+  earningRate: number
+  registerStartDate: string
+  registerEndDate: string
 }

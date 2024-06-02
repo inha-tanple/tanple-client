@@ -1,5 +1,7 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-restricted-exports */
 /* eslint-disable import/export */
+
 // index.tsx
 
 import { useRouter } from 'expo-router'
@@ -9,32 +11,41 @@ import { Text, View } from 'react-native'
 import { ProgressBar } from 'react-native-paper'
 
 import Logo from '#assets/images/carbon-load.svg'
+import { useInitStore } from '#store/client/useAuthStore'
+import { useProductStore } from '#store/client/useProductStore'
+import { useFetchProducts } from '#store/server/useProductQueries'
+
+import storage from '#store/storage'
 
 export default function App() {
   const router = useRouter()
   const [progress, setProgress] = useState(0)
+  const setProducts = useProductStore((state) => state.setProducts)
+  const { data, isLoading, isSuccess } = useFetchProducts()
+  const { isInit } = useInitStore()
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prevProgress) => {
-        if (prevProgress >= 1) {
-          clearInterval(timer)
-          return 1
+    if (isLoading) {
+      const interval = setInterval(() => {
+        setProgress((prev) => (prev < 0.9 ? prev + 0.1 : prev))
+      }, 200)
+      return () => clearInterval(interval)
+    }
+  }, [isLoading])
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      setProducts(data)
+      storage.set('products', JSON.stringify(data))
+      setProgress(1)
+      setTimeout(() => {
+        if (isInit === true) {
+          router.replace('/onboard/1')
         }
-        return prevProgress + 0.1
-      })
-    }, 100)
-
-    return () => {
-      clearInterval(timer)
+        router.replace('/home')
+      }, 100)
     }
-  }, [])
-
-  useEffect(() => {
-    if (progress >= 1) {
-      router.replace('/home')
-    }
-  }, [progress])
+  }, [isSuccess, data, setProducts, router])
 
   return (
     <View
@@ -48,7 +59,7 @@ export default function App() {
       <Logo style={{ top: 4 }} />
       <View style={{ position: 'absolute', bottom: 150 }}>
         <Text style={{ marginBottom: 16, alignSelf: 'center' }}>
-          데이터을 불러오는 중...
+          {isLoading ? '로딩 중...' : '데이터를 가져오는 중...'}
         </Text>
         <ProgressBar
           progress={progress}

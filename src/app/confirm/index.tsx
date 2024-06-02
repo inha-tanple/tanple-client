@@ -16,17 +16,20 @@ import {
 import { Searchbar } from 'react-native-paper'
 
 import MyButton from '#components/MyButton/MyButton'
-import products from '#constants/dummy'
 import { shadowStyle } from '#constants/styles'
 import { ProductType } from '#constants/types'
-import useProductStore from '#store/client/useProductStore'
+import {
+  useProductStore,
+  useSelectedProduct,
+} from '#store/client/useProductStore'
 
 const screenHeight = Dimensions.get('window').height
 
 export default function Product() {
   const [searchQuery, setSearchQuery] = useState('')
+  const { products } = useProductStore()
   const [items, setItems] = useState(products)
-  const { selectedProducts, toggleProduct, resetProduct } = useProductStore()
+  const { selectedProducts, toggleProduct, resetProduct } = useSelectedProduct()
   const { colors } = useTheme()
 
   useEffect(() => {
@@ -38,7 +41,7 @@ export default function Product() {
 
   const renderProductItem = ({ item }: { item: ProductType }) => {
     const isSelected = selectedProducts.some(
-      (product) => product.barcode === item.barcode,
+      (product) => product.productBarcode === item.productBarcode,
     )
 
     return (
@@ -82,7 +85,7 @@ export default function Product() {
               적립률
             </Text>
             <Text style={{ fontSize: 15, marginBottom: 5 }}>
-              {item.taxRate}
+              {item.earningRate * 100}%
             </Text>
           </View>
           <View
@@ -179,7 +182,7 @@ export default function Product() {
             <FlatList
               data={items}
               renderItem={renderProductItem}
-              keyExtractor={(item) => item.barcode}
+              keyExtractor={(item) => item.productBarcode.toString()}
               contentContainerStyle={styles.productList}
               style={{ width: '100%' }}
             />

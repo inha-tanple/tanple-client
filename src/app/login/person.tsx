@@ -10,7 +10,7 @@ import { TextInput } from 'react-native-paper'
 import MyButton from '#components/MyButton/MyButton'
 import Spinner from '#components/Spinner/Spinner'
 import { useAuthStore } from '#store/client/useAuthStore'
-import usePersonQuery from '#store/server/useMember'
+import usePersonQuery from '#store/server/useMemberQueries'
 
 export default function Login() {
   const { userInfo, setUserInfo, setPersonInfo } = useAuthStore()

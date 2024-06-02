@@ -3,7 +3,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable import/no-unresolved */
 
-// useUploadImages.tsx
+// useImagesQueries.tsx
 
 import { SERVER_URL } from '@env'
 import { useMutation } from '@tanstack/react-query'
@@ -33,7 +33,9 @@ const convertToJpeg = async (uri: string): Promise<string> => {
 
 const uploadImages = async ({ selectedProducts, images }: UploadImagesType) => {
   const formData = new FormData()
-  const barcodes = selectedProducts.map((product) => product.barcode).join(', ')
+  const barcodes = selectedProducts
+    .map((product) => product.productBarcode)
+    .join(', ')
   formData.append('barcodes', barcodes)
 
   for (const image of images) {

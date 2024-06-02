@@ -21,8 +21,8 @@ import { Portal, Button, Dialog } from 'react-native-paper'
 import MyButton from '#components/MyButton/MyButton'
 import SubmitModal from '#components/SubmitModal/SubmitModal'
 import { shadowStyle } from '#constants/styles'
-import useProductStore from '#store/client/useProductStore'
-import useUploadImages from '#store/server/useUploadImages'
+import { useSelectedProduct } from '#store/client/useProductStore'
+import useUploadImages from '#store/server/useImagesQueries'
 
 interface ImageInfo {
   uri: string
@@ -41,7 +41,7 @@ export default function ConfirmImage() {
   const [alertModal, setAlertModal] = useState(false)
   const { colors } = useTheme()
 
-  const { selectedProducts, resetProduct } = useProductStore()
+  const { selectedProducts, resetProduct } = useSelectedProduct()
   const { mutate, isPending, isError, isSuccess, reset } = useUploadImages()
 
   const pickImage = async () => {
