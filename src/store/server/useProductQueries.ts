@@ -8,8 +8,8 @@ import { useQuery } from '@tanstack/react-query'
 const fetchProducts = async () => {
   const response = await fetch(`${SERVER_URL}/v1/products`)
   if (!response.ok) {
-    console.log(response.ok)
-    throw new Error('Network response was not ok')
+    console.log(response.status)
+    throw new Error(`HTTP error! status: ${response.status}`)
   }
   return response.json()
 }
@@ -24,7 +24,8 @@ const useFetchProducts = () => {
 const fetchProduct = async (barcode: string) => {
   const response = await fetch(`${SERVER_URL}/v1/products/${barcode}`)
   if (!response.ok) {
-    throw new Error('Network response was not ok')
+    console.log(response.status)
+    throw new Error(`HTTP error! status: ${response.status}`)
   }
   return response.json()
 }

@@ -52,7 +52,10 @@ const uploadImages = async ({ selectedProducts, images }: UploadImagesType) => {
     body: formData,
   })
 
-  if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
+  if (!response.ok) {
+    console.log(response.status)
+    throw new Error(`HTTP error! status: ${response.status}`)
+  }
 
   return response
 }

@@ -55,15 +55,17 @@ export default function Login() {
     const formattedDate = `${year}-${month}-${day}`
     const date = new Date(formattedDate).toISOString()
     if (number) mutate({ number, date })
+    // temp 나중에 삭제
+    setPersonInfo(true)
+    router.replace('/home')
   }
 
   useEffect(() => {
-    // isSuccess로 바꾸기
-    if (isError) {
+    if (isSuccess) {
       setPersonInfo(true)
       router.replace('/home')
     }
-  }, [isError])
+  }, [isSuccess])
 
   return (
     <View style={styles.container}>
