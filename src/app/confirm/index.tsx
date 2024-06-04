@@ -36,8 +36,22 @@ export default function Product() {
     const filtered = products.filter((product) =>
       product.productName.toLowerCase().includes(searchQuery.toLowerCase()),
     )
-    setItems(filtered)
-  }, [searchQuery])
+
+    const sortedItems = [
+      ...filtered.filter((product) =>
+        selectedProducts.some(
+          (selected) => selected.productBarcode === product.productBarcode,
+        ),
+      ),
+      ...filtered.filter(
+        (product) =>
+          !selectedProducts.some(
+            (selected) => selected.productBarcode === product.productBarcode,
+          ),
+      ),
+    ]
+    setItems(sortedItems)
+  }, [searchQuery, products, selectedProducts])
 
   const renderProductItem = ({ item }: { item: ProductType }) => {
     const isSelected = selectedProducts.some(
