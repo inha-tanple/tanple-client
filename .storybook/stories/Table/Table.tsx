@@ -1,5 +1,6 @@
 // Table.tsx
 
+import { router } from 'expo-router'
 import React from 'react'
 import {
   View,
@@ -8,6 +9,7 @@ import {
   FlatList,
   StyleProp,
   ViewStyle,
+  TouchableOpacity,
 } from 'react-native'
 
 interface Props {
@@ -57,7 +59,16 @@ export default function Table({
   )
 
   const renderRow = ({ item }: { item: (string | number)[][] }) => (
-    <View style={styles.dataRow}>
+    <TouchableOpacity
+      // temp onPress handler
+      onPress={() =>
+        router.push({
+          pathname: 'finance/stock/detail/[stockName]',
+          params: { stockName: (item[0][0] as string).toLowerCase() },
+        })
+      }
+      style={styles.dataRow}
+    >
       {isLeftHead && (
         <Text
           style={{
@@ -87,7 +98,7 @@ export default function Table({
           ))}
         </View>
       ))}
-    </View>
+    </TouchableOpacity>
   )
 
   return (

@@ -81,6 +81,14 @@ export default function AppLayout() {
                   headerShown: Platform.OS !== 'ios',
                 }}
               />
+              <Stack.Screen
+                name="finance/stock/detail/[stockName]"
+                options={{
+                  presentation: 'modal',
+                  headerShown: true,
+                  headerTransparent: true,
+                }}
+              />
             </Stack>
           </GestureHandlerRootView>
         </PaperProvider>

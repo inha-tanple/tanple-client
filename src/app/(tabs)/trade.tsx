@@ -3,13 +3,25 @@
 import { router } from 'expo-router'
 
 import { Ionicons } from '@expo/vector-icons'
-import { Text, View, Dimensions, TouchableOpacity } from 'react-native'
+import {
+  Text,
+  View,
+  Dimensions,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native'
 
 import GradientView from '#components/GradientView/GradientView'
 import { defaultContainer } from '#constants/styles'
 
 const { width } = Dimensions.get('window')
 const boxSize = width * 0.4
+
+const recentTrades = [
+  { id: 1, title: 'kau24', type: '매수', amount: '10주', price: '78,800원' },
+  { id: 2, title: 'kau31', type: '매도', amount: '5주', price: '84,200원' },
+  { id: 3, title: 'kau58', type: '매수', amount: '20주', price: '64,200원' },
+]
 
 export default function Trade() {
   return (
@@ -49,6 +61,7 @@ export default function Trade() {
           140,800원
         </Text>
       </TouchableOpacity>
+
       <View
         style={{
           width: '100%',
@@ -58,7 +71,7 @@ export default function Trade() {
         }}
       >
         <GradientView
-          colors={['#6B73FF', '#A857FF']}
+          colors={['#178E9E', '#766CAE']}
           style={{
             width: boxSize,
             height: boxSize,
@@ -80,7 +93,7 @@ export default function Trade() {
           </TouchableOpacity>
         </GradientView>
         <GradientView
-          colors={['#FF9A8B', '#FF6A88']}
+          colors={['#FF927C', '#DF7B91']}
           style={{
             width: boxSize,
             height: boxSize,
@@ -101,6 +114,40 @@ export default function Trade() {
             </Text>
           </TouchableOpacity>
         </GradientView>
+      </View>
+
+      <View style={{ width: '100%', marginVertical: 20 }}>
+        <Text style={{ fontSize: 20, fontWeight: '700', marginBottom: 10 }}>
+          최근 거래 목록
+        </Text>
+        <ScrollView style={{ maxHeight: 'auto' }}>
+          {recentTrades.map((trade) => (
+            <View
+              key={trade.id}
+              style={{
+                ...defaultContainer,
+                padding: 15,
+                marginBottom: 10,
+                borderRadius: 10,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <View>
+                <Text style={{ fontSize: 16, fontWeight: '600' }}>
+                  {trade.title}
+                </Text>
+                <Text style={{ fontSize: 14, color: '#555' }}>
+                  {trade.type} {trade.amount}
+                </Text>
+              </View>
+              <Text style={{ fontSize: 16, fontWeight: '600', color: '#333' }}>
+                {trade.price}
+              </Text>
+            </View>
+          ))}
+        </ScrollView>
       </View>
     </View>
   )

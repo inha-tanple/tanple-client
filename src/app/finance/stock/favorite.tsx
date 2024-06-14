@@ -9,14 +9,8 @@ import { Searchbar } from 'react-native-paper'
 import Table from '#components/Table/Table'
 import { shadowStyle } from '#constants/styles'
 
-const stocks = {
-  colorColumn: [2, 3],
-  data: [
-    [['KAU23'], ['8,870'], ['1,000'], ['1.33']],
-    [['KAU25'], ['8,610'], ['700'], ['0.91']],
-    [['KAU26'], ['8,110'], ['-900'], ['-1.12']],
-  ],
-}
+import stocks from './stockDummy'
+
 const { colorColumn, data } = stocks
 
 const screenHeight = Dimensions.get('window').height
