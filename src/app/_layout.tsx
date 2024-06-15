@@ -75,6 +75,13 @@ export default function AppLayout() {
                 }}
               />
               <Stack.Screen
+                name="webview/origin/[url]"
+                options={{
+                  presentation: 'modal',
+                  headerShown: Platform.OS !== 'ios',
+                }}
+              />
+              <Stack.Screen
                 name="credit/detail/[id]"
                 options={{
                   presentation: 'modal',

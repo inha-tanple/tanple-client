@@ -1,3 +1,8 @@
+// MyCarousel.tsx
+
+import { router } from 'expo-router'
+import { Image } from 'expo-image'
+
 import React, { useRef, useState } from 'react'
 import {
   View,
@@ -8,14 +13,16 @@ import {
   StyleProp,
   TouchableOpacity,
 } from 'react-native'
-import { Image } from 'expo-image'
+
 import Carousel from 'react-native-snap-carousel'
+
 import { shadowStyle } from '#constants/styles'
 
 const { width } = Dimensions.get('window')
 
 interface DataProps {
   imageUrl: string
+  contentUrl: string
   title: string
   content: string
 }
@@ -31,7 +38,12 @@ const CarouselComponent = ({ data, ...props }: MyCarouselProps) => {
 
   const renderItem = ({ item }: { item: DataProps }) => (
     <TouchableOpacity
-      onPress={() => console.log(activeIndex)}
+      onPress={() => {
+        router.push({
+          pathname: '/webview/origin/[url]',
+          params: { url: item.contentUrl },
+        })
+      }}
       style={[styles.slide, props.style]}
       activeOpacity={1}
     >

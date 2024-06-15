@@ -44,21 +44,44 @@ export default function Home() {
       <MyCarousel
         data={[
           {
-            imageUrl: 'https://picsum.photos/seed/696/3000/2000',
-            title: 'Item 1',
-            content: 'This is the content for item 1',
+            imageUrl:
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqLkzgmmmorYbGvp7i69XGMhkjfllivAZd_g&s',
+            contentUrl:
+              'https://me.go.kr/search/totalSearch/search_new.jsp?q=%ED%83%84%EC%86%8C%EC%A4%91%EB%A6%BD&searchField=ALL&targetSiteId=main',
+            title: '환경부의 탄소중립 최신 소식 바로가기',
+            content: '정부의 새로운 친환경 정책을 확인해보세요.',
           },
           {
             imageUrl:
-              'https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            title: 'Item 2',
-            content: 'This is the content for item 2',
+              'https://cdn.electimes.com/news/photo/202406/338632_541197_5335.jpg',
+            contentUrl:
+              'https://www.electimes.com/news/articleView.html?idxno=338632',
+            title: '탄소중립 속 도시가스 역할은?',
+            content: '도시가스 산업의 변화와 미래 전망을 살펴보세요.',
           },
           {
             imageUrl:
-              'https://previews.123rf.com/images/breakingdots/breakingdots2304/breakingdots230400781/202938341-%EA%B3%A0%EC%96%91%EC%9D%B4-%EA%B7%80%EC%97%AC%EC%9A%B4-%EC%BA%90%EB%A6%AD%ED%84%B0-%EB%A7%8C%ED%99%94-%EB%B2%A1%ED%84%B0-%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8-%EB%A0%88%EC%9D%B4%EC%85%98.jpg',
-            title: 'Item 3',
-            content: 'This is the content for item 3',
+              'https://image.newsis.com/2024/06/10/NISI20240610_0001571603_web.jpg?rnd=20240610104049',
+            contentUrl:
+              'https://www.newsis.com/view/?id=NISX20240610_0002766300&cID=10807&pID=10800',
+            title: '계룡시, 올해도 탄소중립포인트제 상시 접수',
+            content: '시민들의 적극적인 참여를 기다립니다.',
+          },
+          {
+            imageUrl:
+              'https://img2.yna.co.kr/etc/inner/KR/2024/06/12/AKR20240612122900002_01_i_P4.jpg',
+            contentUrl:
+              'https://www.yna.co.kr/view/AKR20240612122900002?input=1195m',
+            title: '기업은행·에너지공단, 중기 탄소중립 지원 협약',
+            content: '중소기업을 위한 다양한 지원 프로그램을 확인하세요.',
+          },
+          {
+            imageUrl:
+              'https://menu.mtn.co.kr/upload/article/2024/06/12/2024061216331812492_00_576.png',
+            contentUrl:
+              'https://news.mtn.co.kr/news-detail/2024061216331812492',
+            title: '카자흐스탄 탄소배출권 시장 개척, MOU 체결',
+            content: '국제 협력을 통해 탄소중립을 실현합니다.',
           },
         ]}
         style={{ marginTop: 15 }}
