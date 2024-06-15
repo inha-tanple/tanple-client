@@ -21,7 +21,7 @@ export default function WebViewScreen() {
       ) : (
         <Stack.Screen
           options={{
-            headerTitle: url as string,
+            headerTitle: '',
             headerTitleStyle: {
               fontSize: 16,
               fontWeight: '600',

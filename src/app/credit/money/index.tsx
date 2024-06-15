@@ -4,7 +4,13 @@ import { Stack } from 'expo-router'
 
 import { Image } from 'expo-image'
 import { useState } from 'react'
-import { FlatList, Text, TouchableOpacity, View } from 'react-native'
+import {
+  Dimensions,
+  FlatList,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import { TextInput, Modal, Portal } from 'react-native-paper'
 
 import ibk from '#assets/images/bank/ibk.png'
@@ -21,12 +27,13 @@ import SubmitModal from '#components/SubmitModal/SubmitModal'
 
 import { Banks, RecentAccout } from './Banks'
 
+const screenHeight = Dimensions.get('window').height
 const currBalance = 4500
 
 export default function Money() {
   const [bill, setBill] = useState('0')
   const [account, setAccount] = useState()
-  const [selectedBank, setSelectedBank] = useState()
+  const [selectedBank, setSelectedBank] = useState('')
   const [openModal, setOpenModal] = useState(false)
   const [submitModal, setSubmitModal] = useState(false)
 
@@ -73,7 +80,7 @@ export default function Money() {
       style={{
         flex: 1,
         alignItems: 'center',
-        top: '13%',
+        top: screenHeight * 0.13,
         paddingHorizontal: 20,
       }}
     >
@@ -164,6 +171,7 @@ export default function Money() {
         placeholder="계좌번호 입력"
         underlineStyle={{ backgroundColor: 'gray', height: 0.7 }}
         contentStyle={{ right: 15, fontSize: 18 }}
+        keyboardType="number-pad"
         style={{
           width: '100%',
           height: 45,
@@ -171,25 +179,22 @@ export default function Money() {
           marginBottom: 20,
         }}
       />
-      <TextInput
-        onPressIn={() => setOpenModal(true)}
-        value={selectedBank}
-        onChangeText={() => setSelectedBank(selectedBank)}
-        placeholder="은행 선택"
-        underlineStyle={{ backgroundColor: 'gray', height: 0.7 }}
-        contentStyle={{ right: 15, fontSize: 18 }}
+      <MyButton
+        onPress={() => setOpenModal(true)}
+        text={selectedBank || '은행 선택'}
+        color="#DDD"
+        textColor="black"
         style={{
           width: '100%',
           height: 45,
-          backgroundColor: 'transparent',
           marginBottom: 50,
         }}
-        editable={false}
       />
 
       <MyButton
         onPress={() => setSubmitModal(true)}
         text="환전"
+        disabled={bill === '0' || account || selectedBank.length === 0}
         style={{ width: 250, marginBottom: 50 }}
       />
 

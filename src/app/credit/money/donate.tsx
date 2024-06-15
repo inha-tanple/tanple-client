@@ -110,6 +110,7 @@ export default function Donate() {
       <MyButton
         onPress={() => setSubmitModal(true)}
         text="기부"
+        disabled={bill === '0'}
         style={{ width: 250 }}
       />
 
