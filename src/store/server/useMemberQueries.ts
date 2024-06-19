@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 // useMemberQueries.tsx
 
 import { SERVER_URL } from '@env'

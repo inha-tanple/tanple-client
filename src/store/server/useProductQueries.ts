@@ -1,5 +1,4 @@
 /* eslint-disable import/prefer-default-export */
-
 // useProductQueries.ts
 
 import { SERVER_URL } from '@env'

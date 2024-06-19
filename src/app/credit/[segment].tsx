@@ -89,7 +89,7 @@ export default function Credit() {
                             marginRight: 6,
                           }}
                         />
-                        <Text style={styles.methodText}>{item.method}</Text>
+                        <Text style={styles.methodText}>{item.type}</Text>
                       </View>
                       <Text style={styles.detailText}>{item.detail}</Text>
                     </View>
@@ -189,7 +189,7 @@ export default function Credit() {
                             marginRight: 6,
                           }}
                         />
-                        <Text style={styles.methodText}>{item.method}</Text>
+                        <Text style={styles.methodText}>{item.type}</Text>
                       </View>
                       <Text style={styles.detailText}>{item.detail}</Text>
                     </View>

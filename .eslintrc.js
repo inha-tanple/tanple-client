@@ -97,5 +97,7 @@ module.exports = {
     'no-use-before-define': 'off',
     'spaced-comment': 'off',
     'react/no-unstable-nested-components': 'off',
+    'array-callback-return': 'off',
+    'import/no-unresolved': 'off',
   },
 }

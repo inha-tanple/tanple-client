@@ -164,11 +164,11 @@ export default function Message() {
 async function schedulePushNotification() {
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: 'Youve got mail!📬',
-      body: 'Here is the notification body',
-      data: { data: 'goes here', test: { test1: 'more data' } },
+      title: '물품 인증 완료!',
+      body: '빙그레 우유 2개 구매로 3000p 적립 되었습니다.',
+      // data: { data: 'goes here', test: { test1: 'more data' } },
     },
-    trigger: { seconds: 2 },
+    trigger: { seconds: 6 },
   })
 }
 

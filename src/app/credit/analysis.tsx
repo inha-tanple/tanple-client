@@ -16,12 +16,10 @@ import {
   Dimensions,
 } from 'react-native'
 import { Calendar, LocaleConfig } from 'react-native-calendars'
-import { MarkedDates } from 'react-native-calendars/src/types'
 import { LineChart } from 'react-native-chart-kit'
 
 import { shadowStyle } from '#constants/styles'
 
-import { currentMonthData, lastMonthData } from './analDummy'
 import { creditData, creditDataType } from './creditDummy'
 
 const screenWidth = Dimensions.get('window').width
@@ -40,14 +38,16 @@ export default function Analysis() {
   const data = {
     datasets: [
       {
-        data: lastMonthData
+        data: [...creditData]
+          .reverse()
           .filter((item) => item.plusACC !== undefined)
           .map((item) => item.plusACC),
         color: (opacity = 1) => `rgba(128, 128, 128, ${opacity})`,
         strokeWidth: 3,
       },
       {
-        data: currentMonthData
+        data: [...creditData]
+          .reverse()
           .filter((item) => item.plusACC !== undefined)
           .map((item) => item.plusACC),
         color: (opacity = 0) => `rgba(0, 128, 0, ${opacity})`,
@@ -83,21 +83,6 @@ export default function Analysis() {
     dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
   }
   LocaleConfig.defaultLocale = 'kor'
-
-  const getMarkedDates = () => {
-    const markedDates: { [key: string]: unknown } = {}
-    currentMonthData.forEach((point) => {
-      markedDates[point.date] = {
-        customStyles: {
-          container: {
-            backgroundColor: 'white',
-            elevation: 2,
-          },
-        },
-      }
-    })
-    return markedDates
-  }
 
   const dateContent = (selected: string) => {
     const filteredData = creditData.filter((item) => item.date === selected)
@@ -168,7 +153,7 @@ export default function Analysis() {
                               marginRight: 6,
                             }}
                           />
-                          <Text style={styles.methodText}>{item.method}</Text>
+                          <Text style={styles.methodText}>{item.type}</Text>
                         </View>
                         <Text style={styles.detailText}>{item.detail}</Text>
                       </View>
@@ -259,7 +244,7 @@ export default function Analysis() {
           <Text
             style={{ fontSize: 16, fontWeight: '600', marginHorizontal: 8 }}
           >
-            5월
+            6월
           </Text>
           <Ionicons size={18} name="caret-forward-outline" />
         </View>
@@ -299,7 +284,6 @@ export default function Analysis() {
       </View>
 
       <Calendar
-        markedDates={getMarkedDates() as MarkedDates}
         renderHeader={() => null}
         onMonthChange={(month) => {
           console.log('month changed', month)
@@ -311,9 +295,16 @@ export default function Analysis() {
         disableAllTouchEventsForDisabledDays
         markingType="custom"
         dayComponent={({ date, state }) => {
-          const point = currentMonthData.find(
-            (p) => p.date === date?.dateString,
-          )
+          const points = creditData.filter((p) => p.date === date?.dateString)
+
+          let plus = 0
+          let minus = 0
+          if (points) {
+            points.map((it) => {
+              if (it.type === '적립') plus += it.credit
+              else minus += it.credit
+            })
+          }
 
           const isSelected = date?.dateString === selectedDate
           const isToday = date?.dateString === today
@@ -340,19 +331,15 @@ export default function Analysis() {
                 {date?.day}
               </Text>
 
-              {point && (
-                <>
-                  {point.plus && (
-                    <Text style={{ fontSize: 12, color: 'green' }}>
-                      +{point.plus}
-                    </Text>
-                  )}
-                  {point.minus && (
-                    <Text style={{ fontSize: 12, color: '#808080' }}>
-                      -{point.minus}
-                    </Text>
-                  )}
-                </>
+              {plus ? (
+                <Text style={{ fontSize: 12, color: 'green' }}>+{plus}</Text>
+              ) : (
+                ''
+              )}
+              {minus ? (
+                <Text style={{ fontSize: 12, color: '#808080' }}>-{minus}</Text>
+              ) : (
+                ''
               )}
             </TouchableOpacity>
           )
