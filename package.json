@@ -11,6 +11,7 @@
     "lint": "eslint . --fix",
     "prettier": "prettier . --write",
     "storybook-generate": "sb-rn-get-stories",
+    "eas-build-pre-install": "echo $GOOGLE_SERVICES_BASE64 | base64 --decode > ./google-services.json",
     "eas-build-post-install": "node scripts/prebuild.js"
   },
   "jest": {
@@ -24,12 +25,15 @@
     "@types/react-native-snap-carousel": "^3.8.11",
     "expo": "~50.0.14",
     "expo-auth-session": "~5.4.0",
+    "expo-constants": "~15.4.6",
     "expo-crypto": "~12.8.1",
     "expo-font": "~11.10.3",
     "expo-image": "~1.10.6",
+    "expo-image-manipulator": "~11.8.0",
     "expo-image-picker": "~14.7.1",
     "expo-linear-gradient": "~12.7.2",
     "expo-linking": "~6.2.2",
+    "expo-notifications": "~0.27.8",
     "expo-router": "~3.4.8",
     "expo-splash-screen": "~0.26.4",
     "expo-status-bar": "~1.11.1",
@@ -53,8 +57,7 @@
     "react-native-vector-icons": "^10.0.3",
     "react-native-web": "~0.19.6",
     "react-native-webview": "13.6.4",
-    "zustand": "^4.5.2",
-    "expo-image-manipulator": "~11.8.0"
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

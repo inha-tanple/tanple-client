@@ -27,7 +27,8 @@
         "foregroundImage": "./src/assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.gwjun.bullet"
+      "package": "com.gwjun.bullet",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "bundler": "metro",

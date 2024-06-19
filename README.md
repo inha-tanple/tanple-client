@@ -94,7 +94,14 @@ import { ... } from 'react-native';
 import {ViewPropTypes} from 'deprecated-react-native-prop-types';
 ```
 
-5. (Optional) You can toggle the Storybook screen by commenting out the below in '/src/app/_layout_.tsx'.
+5. Put google-services.json on root directory
+
+   You need to register a firebase key for the notification service.
+   <br/>
+   Follow the instructions at the address below.
+   https://docs.expo.dev/push-notifications/fcm-credentials/
+
+6. (Optional) You can toggle the Storybook screen by commenting out the below in '/src/app/_layout_.tsx'.
 
    [Current react-native-skia version doesn't support storybook]
 

@@ -44,6 +44,12 @@ export default function Home() {
       <MyCarousel
         data={[
           {
+            imageUrl: 'https://www.gihoo.or.kr/netzero/img/layout/gnb1.jpg',
+            contentUrl: 'https://www.gihoo.or.kr/menu.es?mid=a30101020000',
+            title: '탄소중립 정책 포털 바로가기',
+            content: '탄소중립의 정의와 현행 제도에 대해서 알아보아요.',
+          },
+          {
             imageUrl:
               'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqLkzgmmmorYbGvp7i69XGMhkjfllivAZd_g&s',
             contentUrl:
