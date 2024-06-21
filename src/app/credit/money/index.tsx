@@ -24,11 +24,11 @@ import sinhan from '#assets/images/bank/sinhan.png'
 import toss from '#assets/images/bank/toss.png'
 import MyButton from '#components/MyButton/MyButton'
 import SubmitModal from '#components/SubmitModal/SubmitModal'
+import { useFetchCredits } from '#store/server/useCreditsQueries'
 
 import { Banks, RecentAccout } from './Banks'
 
 const screenHeight = Dimensions.get('window').height
-const currBalance = 4500
 
 export default function Money() {
   const [bill, setBill] = useState('0')
@@ -36,6 +36,9 @@ export default function Money() {
   const [selectedBank, setSelectedBank] = useState('')
   const [openModal, setOpenModal] = useState(false)
   const [submitModal, setSubmitModal] = useState(false)
+
+  const { data } = useFetchCredits()
+  const currBalance = data?.totalCredits
 
   function srcBank(bankName) {
     if (bankName === 'kakao') return kakao
@@ -117,7 +120,7 @@ export default function Money() {
           marginBottom: 30,
         }}
       >
-        현재 잔액: {currBalance}p
+        현재 잔액: {currBalance?.toLocaleString()}p
       </Text>
       <View
         style={{
@@ -143,7 +146,7 @@ export default function Money() {
           onPress={() =>
             setBill((it) => {
               let value = parseInt(it, 10) + 1000
-              const curr = Math.floor(currBalance / 1000) * 1000
+              const curr = Math.floor(currBalance || 0 / 1000) * 1000
               value = value > curr ? curr : value
               return value.toString()
             })

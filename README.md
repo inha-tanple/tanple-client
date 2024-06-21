@@ -1,4 +1,18 @@
-# Carbon Credit Exchange Platform
+<div align="center">
+  <br>
+<p align="center" width="100%">
+    <img src="docs/images/logo.png" alt="tanple icon" style="width: 140px; height:140px; display: block; margin: auto; border-radius: 80%;">
+</p>
+  <h2>탄소저감 크레딧 플랫폼, 탄플 - 클라이언트</h2></hr>
+  <p align="center">
+    <img src="https://img.shields.io/badge/React_Native-61DAFB?style=flat-square&logo=react&logoColor=black" alt="React Native badge">
+    <img src="https://img.shields.io/badge/Expo-000020?style=flat-square&logo=expo&logoColor=white" alt="Expo badge">
+    <img src="https://img.shields.io/badge/Zustand-000000?style=flat-square&logo=zustand&logoColor=white" alt="Zustand badge">
+    <img src="https://img.shields.io/badge/TanStack_Query-FF4154?style=flat-square&logo=reactquery&logoColor=white" alt="TanStack Query badge">
+    <img src="https://img.shields.io/badge/React_Native_Paper-6200EE?style=flat-square&logo=react&logoColor=white" alt="React Native Paper badge">
+    <img src="https://img.shields.io/badge/Lottie-FF69B4?style=flat-square&logo=lottie&logoColor=white" alt="Lottie badge">
+  </p>
+</div>
 
 ## Getting Started
 

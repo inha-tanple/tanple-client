@@ -9,8 +9,11 @@ import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import Coin from '#assets/images/coin.svg'
 import GradientView from '#components/GradientView/GradientView'
 import { defaultContainer } from '#constants/styles'
+import { useFetchCredits } from '#store/server/useCreditsQueries'
 
 export default function Asset() {
+  const { data } = useFetchCredits()
+
   return (
     <View style={{ flex: 1, alignItems: 'center', marginTop: 15 }}>
       <GradientView style={{ marginBottom: 20 }}>
@@ -50,7 +53,7 @@ export default function Asset() {
               textAlign: 'right',
             }}
           >
-            10,000p
+            {data?.totalCredits.toLocaleString()}p
           </Text>
         </View>
 
@@ -112,9 +115,11 @@ export default function Asset() {
         <Coin style={{ marginRight: 15 }} />
         <View>
           <Text style={{ fontSize: 13, color: '#808080', marginBottom: 3 }}>
-            5월에 적립한 크레딧
+            {new Date().getMonth() + 1}월에 적립한 크레딧
           </Text>
-          <Text style={{ fontSize: 15, marginTop: 3 }}>2,000p</Text>
+          <Text style={{ fontSize: 15, marginTop: 3 }}>
+            {data?.thisMonthCredits.toLocaleString()}p
+          </Text>
         </View>
         <Ionicons
           size={20}

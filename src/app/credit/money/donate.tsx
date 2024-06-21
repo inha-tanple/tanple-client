@@ -8,12 +8,13 @@ import { TextInput } from 'react-native-paper'
 
 import MyButton from '#components/MyButton/MyButton'
 import SubmitModal from '#components/SubmitModal/SubmitModal'
-
-const currBalance = 4500
+import { useFetchCredits } from '#store/server/useCreditsQueries'
 
 export default function Donate() {
   const [bill, setBill] = useState('0')
   const [submitModal, setSubmitModal] = useState(false)
+  const { data } = useFetchCredits()
+  const currBalance = data?.totalCredits
 
   return (
     <View
@@ -57,7 +58,7 @@ export default function Donate() {
           marginBottom: 30,
         }}
       >
-        현재 잔액: {currBalance}p
+        현재 잔액: {currBalance?.toLocaleString()}p
       </Text>
       <View
         style={{
@@ -84,7 +85,7 @@ export default function Donate() {
           onPress={() =>
             setBill((it) => {
               let value = parseInt(it, 10) + 1000
-              const curr = Math.floor(currBalance / 1000) * 1000
+              const curr = Math.floor(currBalance || 0 / 1000) * 1000
               value = value > curr ? curr : value
               return value.toString()
             })

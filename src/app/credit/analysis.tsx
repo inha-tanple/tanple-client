@@ -19,14 +19,21 @@ import { Calendar, LocaleConfig } from 'react-native-calendars'
 import { LineChart } from 'react-native-chart-kit'
 
 import { shadowStyle } from '#constants/styles'
-
-import { creditData, creditDataType } from './creditDummy'
+import {
+  dateCreditsType,
+  useFetchCredits,
+  useFetchDateCredits,
+} from '#store/server/useCreditsQueries'
+import getDate from '#utils/getDate'
 
 const screenWidth = Dimensions.get('window').width
 
 export default function Analysis() {
   const today = new Date().toISOString().slice(0, 10)
   const [selectedDate, setSelectedDate] = useState(today)
+
+  const { data: credits } = useFetchCredits()
+  const { data: dateCredits } = useFetchDateCredits(getDate())
 
   const chartConfig = {
     backgroundGradientFrom: '#fff',
@@ -38,7 +45,7 @@ export default function Analysis() {
   const data = {
     datasets: [
       {
-        data: [...creditData]
+        data: [...dateCredits]
           .reverse()
           .filter((item) => item.plusACC !== undefined)
           .map((item) => item.plusACC),
@@ -46,7 +53,7 @@ export default function Analysis() {
         strokeWidth: 3,
       },
       {
-        data: [...creditData]
+        data: [...dateCredits]
           .reverse()
           .filter((item) => item.plusACC !== undefined)
           .map((item) => item.plusACC),
@@ -85,7 +92,9 @@ export default function Analysis() {
   LocaleConfig.defaultLocale = 'kor'
 
   const dateContent = (selected: string) => {
-    const filteredData = creditData.filter((item) => item.date === selected)
+    const filteredData: dateCreditsType[] = dateCredits.filter(
+      (item: dateCreditsType) => item.date === selected,
+    )
 
     if (filteredData.length === 0) {
       return (
@@ -113,7 +122,7 @@ export default function Analysis() {
                 acc[date].push(rest)
                 return acc
               },
-              {} as { [key: string]: Omit<creditDataType, 'date'>[] },
+              {} as { [key: string]: Omit<dateCreditsType, 'date'>[] },
             ),
           )}
           keyExtractor={([date]) => date}
@@ -153,7 +162,9 @@ export default function Analysis() {
                               marginRight: 6,
                             }}
                           />
-                          <Text style={styles.methodText}>{item.type}</Text>
+                          <Text style={styles.methodText}>
+                            {item.creditType}
+                          </Text>
                         </View>
                         <Text style={styles.detailText}>{item.detail}</Text>
                       </View>
@@ -164,12 +175,12 @@ export default function Analysis() {
                         <Text
                           style={[
                             styles.creditText,
-                            item.type === '적립'
+                            item.creditType === '적립'
                               ? styles.earnedText
                               : styles.spentText,
                           ]}
                         >
-                          {item.type === '적립' ? '+' : '-'}{' '}
+                          {item.creditType === '적립' ? '+' : '-'}{' '}
                           {item.credit.toLocaleString()}p
                         </Text>
                       </View>
@@ -258,10 +269,15 @@ export default function Analysis() {
         >
           <View>
             <Text style={{ fontSize: 20, fontWeight: '600', marginBottom: 5 }}>
-              2,000p
+              {credits?.totalCredits.toLocaleString()}p
             </Text>
             <Text style={{ fontSize: 12, color: '#808080' }}>
-              지난달보다 1,000p 더 적립했어요
+              지난달보다{' '}
+              {(
+                (credits?.thisMonthCredits || 0) -
+                (credits?.lastMonthCredits || 0)
+              ).toLocaleString()}
+              p 더 적립했어요
             </Text>
           </View>
 
@@ -295,13 +311,15 @@ export default function Analysis() {
         disableAllTouchEventsForDisabledDays
         markingType="custom"
         dayComponent={({ date, state }) => {
-          const points = creditData.filter((p) => p.date === date?.dateString)
+          const points: dateCreditsType[] = dateCredits.filter(
+            (item: dateCreditsType) => item.date === date?.dateString,
+          )
 
           let plus = 0
           let minus = 0
           if (points) {
             points.map((it) => {
-              if (it.type === '적립') plus += it.credit
+              if (it.creditType === '적립') plus += it.credit
               else minus += it.credit
             })
           }

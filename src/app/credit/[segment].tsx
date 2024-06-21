@@ -15,24 +15,28 @@ import { SegmentedButtons } from 'react-native-paper'
 
 import GradientView from '#components/GradientView/GradientView'
 import { shadowStyle } from '#constants/styles'
-
 import {
-  creditData,
-  creditDataType,
-  progressData,
-  progressDataType,
-} from './creditDummy'
+  dateCreditsType,
+  useFetchCredits,
+  useFetchDateCredits,
+} from '#store/server/useCreditsQueries'
+import getDate from '#utils/getDate'
+
+import { progressData } from './creditDummy'
 
 export default function Credit() {
   const { segment } = useLocalSearchParams()
   const valueCheck = segment === 'history' || segment === 'progress'
   const [value, setValue] = useState(valueCheck ? segment : 'history')
 
+  const { data: credits } = useFetchCredits()
+  const { data: dateCredits } = useFetchDateCredits(getDate())
+
   const historyContent = (
     <View style={styles.container}>
-      <FlatList
+      <FlatList<[string, Omit<dateCreditsType, 'date'>[]]>
         data={Object.entries(
-          creditData.reduce(
+          dateCredits.reduce(
             (acc, item) => {
               const { date, ...rest } = item
               if (!acc[date]) {
@@ -41,7 +45,7 @@ export default function Credit() {
               acc[date].push(rest)
               return acc
             },
-            {} as { [key: string]: Omit<creditDataType, 'date'>[] },
+            {} as { [key: string]: Omit<dateCreditsType, 'date'>[] },
           ),
         )}
         keyExtractor={([date]) => date}
@@ -89,7 +93,7 @@ export default function Credit() {
                             marginRight: 6,
                           }}
                         />
-                        <Text style={styles.methodText}>{item.type}</Text>
+                        <Text style={styles.methodText}>{item.creditType}</Text>
                       </View>
                       <Text style={styles.detailText}>{item.detail}</Text>
                     </View>
@@ -100,12 +104,12 @@ export default function Credit() {
                       <Text
                         style={[
                           styles.creditText,
-                          item.type === '적립'
+                          item.creditType === '적립'
                             ? styles.earnedText
                             : styles.spentText,
                         ]}
                       >
-                        {item.type === '적립' ? '+' : '-'}{' '}
+                        {item.creditType === '적립' ? '+' : '-'}{' '}
                         {item.credit.toLocaleString()}p
                       </Text>
                     </View>
@@ -130,7 +134,7 @@ export default function Credit() {
 
   const progressContent = (
     <View style={styles.container}>
-      <FlatList
+      <FlatList<[string, Omit<dateCreditsType, 'date'>[]]>
         data={Object.entries(
           progressData.reduce(
             (acc, item) => {
@@ -141,7 +145,7 @@ export default function Credit() {
               acc[date].push(rest)
               return acc
             },
-            {} as { [key: string]: Omit<progressDataType, 'date'>[] },
+            {} as { [key: string]: Omit<dateCreditsType, 'date'>[] },
           ),
         )}
         keyExtractor={([date]) => date}
@@ -189,7 +193,7 @@ export default function Credit() {
                             marginRight: 6,
                           }}
                         />
-                        <Text style={styles.methodText}>{item.type}</Text>
+                        <Text style={styles.methodText}>{item.creditType}</Text>
                       </View>
                       <Text style={styles.detailText}>{item.detail}</Text>
                     </View>
@@ -198,12 +202,12 @@ export default function Credit() {
                       <Text
                         style={[
                           styles.creditText,
-                          item.type === '적립'
+                          item.creditType === '적립'
                             ? styles.earnedText
                             : styles.spentText,
                         ]}
                       >
-                        {item.type === '적립' ? '+' : '-'}{' '}
+                        {item.creditType === '적립' ? '+' : '-'}{' '}
                         {item.credit.toLocaleString()}p
                       </Text>
                     </View>
@@ -257,11 +261,17 @@ export default function Credit() {
       <GradientView style={{ paddingTop: 25, marginBottom: 15 }}>
         <View style={styles.contentStyle}>
           <Text style={styles.titleStyle}>총 보유 크레딧</Text>
-          <Text style={styles.valueStyle}>10,000p</Text>
+          <Text style={styles.valueStyle}>
+            {credits?.totalCredits.toLocaleString()}p
+          </Text>
         </View>
         <View style={styles.contentStyle}>
-          <Text style={styles.titleStyle}>5월 적립 크레딧</Text>
-          <Text style={styles.valueStyle}>2,000p</Text>
+          <Text style={styles.titleStyle}>
+            {new Date().getMonth() + 1}월 적립 크레딧
+          </Text>
+          <Text style={styles.valueStyle}>
+            {credits?.thisMonthCredits.toLocaleString()}p
+          </Text>
         </View>
 
         <View
