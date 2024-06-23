@@ -9,10 +9,15 @@ import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import Coin from '#assets/images/coin.svg'
 import GradientView from '#components/GradientView/GradientView'
 import { defaultContainer } from '#constants/styles'
-import { useFetchCredits } from '#store/server/useCreditsQueries'
+import {
+  useFetchCredits,
+  useFetchDateCredits,
+} from '#store/server/useCreditsQueries'
+import { getDate } from '#utils/getDate'
 
 export default function Asset() {
   const { data } = useFetchCredits()
+  const { data: dateCredits } = useFetchDateCredits(getDate())
 
   return (
     <View style={{ flex: 1, alignItems: 'center', marginTop: 15 }}>
@@ -53,7 +58,7 @@ export default function Asset() {
               textAlign: 'right',
             }}
           >
-            {data?.totalCredits.toLocaleString()}p
+            {dateCredits[0]?.balance.toLocaleString()}p
           </Text>
         </View>
 

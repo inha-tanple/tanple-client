@@ -1,3 +1,5 @@
+/* eslint-disable no-plusplus */
+
 // Confirm.tsx
 
 import { Stack, router } from 'expo-router'
@@ -21,8 +23,11 @@ import { Portal, Button, Dialog } from 'react-native-paper'
 import MyButton from '#components/MyButton/MyButton'
 import SubmitModal from '#components/SubmitModal/SubmitModal'
 import { shadowStyle } from '#constants/styles'
+import { ProductType } from '#constants/types'
+import { useProgressDataStore } from '#store/client/useCreditStore'
 import { useSelectedProduct } from '#store/client/useProductStore'
 import useUploadImages from '#store/server/useImagesQueries'
+import { getFormatDate, getFormatTime } from '#utils/getDate'
 
 interface ImageInfo {
   uri: string
@@ -43,6 +48,7 @@ export default function ConfirmImage() {
 
   const { selectedProducts, resetProduct } = useSelectedProduct()
   const { mutate, isPending, isError, isSuccess, reset } = useUploadImages()
+  const { progressData, addProgressData } = useProgressDataStore()
 
   const pickImage = async () => {
     if (Platform.OS === 'ios') {
@@ -181,6 +187,21 @@ export default function ConfirmImage() {
     if (isSuccess) {
       setSubmitModal(false)
       router.push('/request/success')
+
+      let nextId = (progressData[0]?.id ?? 0) + 1
+      selectedProducts.map((it: ProductType) => {
+        console.log(progressData)
+        addProgressData({
+          id: nextId++,
+          credit: it.price,
+          date: getFormatDate(),
+          time: getFormatTime(),
+          detail: it.productName,
+          productBarcode: it.productBarcode,
+          creditType: '적립',
+        })
+      })
+
       resetProduct()
     }
     reset()

@@ -24,7 +24,7 @@ import {
   useFetchCredits,
   useFetchDateCredits,
 } from '#store/server/useCreditsQueries'
-import getDate from '#utils/getDate'
+import { getDate } from '#utils/getDate'
 
 const screenWidth = Dimensions.get('window').width
 

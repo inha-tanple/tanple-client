@@ -15,14 +15,13 @@ import { SegmentedButtons } from 'react-native-paper'
 
 import GradientView from '#components/GradientView/GradientView'
 import { shadowStyle } from '#constants/styles'
+import { useProgressDataStore } from '#store/client/useCreditStore'
 import {
   dateCreditsType,
   useFetchCredits,
   useFetchDateCredits,
 } from '#store/server/useCreditsQueries'
-import getDate from '#utils/getDate'
-
-import { progressData } from './creditDummy'
+import { getDate } from '#utils/getDate'
 
 export default function Credit() {
   const { segment } = useLocalSearchParams()
@@ -31,6 +30,7 @@ export default function Credit() {
 
   const { data: credits } = useFetchCredits()
   const { data: dateCredits } = useFetchDateCredits(getDate())
+  const { progressData } = useProgressDataStore()
 
   const historyContent = (
     <View style={styles.container}>
@@ -134,99 +134,121 @@ export default function Credit() {
 
   const progressContent = (
     <View style={styles.container}>
-      <FlatList<[string, Omit<dateCreditsType, 'date'>[]]>
-        data={Object.entries(
-          progressData.reduce(
-            (acc, item) => {
-              const { date, ...rest } = item
-              if (!acc[date]) {
-                acc[date] = []
-              }
-              acc[date].push(rest)
-              return acc
-            },
-            {} as { [key: string]: Omit<dateCreditsType, 'date'>[] },
-          ),
-        )}
-        keyExtractor={([date]) => date}
-        renderItem={({ item: [date, items] }) => (
-          <View style={{ marginBottom: 20 }}>
-            <Text style={styles.dateText}>{date}</Text>
-            <View
-              style={{
-                height: 2,
-                backgroundColor: '#808080',
-                marginTop: 5,
-                marginBottom: 10,
-              }}
-            />
-
-            {items.map((item) => (
-              <TouchableOpacity
-                onPress={() => {
-                  router.push({
-                    pathname: '/credit/detail/[id]',
-                    params: { id: item.id },
-                  })
+      {progressData.length ? (
+        <FlatList<[string, Omit<dateCreditsType, 'date'>[]]>
+          data={Object.entries(
+            progressData.reduce(
+              (acc, item) => {
+                const { date, ...rest } = item
+                if (!acc[date]) {
+                  acc[date] = []
+                }
+                acc[date].push(rest)
+                return acc
+              },
+              {} as { [key: string]: Omit<dateCreditsType, 'date'>[] },
+            ),
+          )}
+          keyExtractor={([date]) => date}
+          renderItem={({ item: [date, items] }) => (
+            <View style={{ marginBottom: 20 }}>
+              <Text style={styles.dateText}>{date}</Text>
+              <View
+                style={{
+                  height: 2,
+                  backgroundColor: '#808080',
+                  marginTop: 5,
+                  marginBottom: 10,
                 }}
-                key={item.id}
-              >
-                <View>
-                  <View style={styles.itemContainer}>
-                    <View>
-                      <View style={{ flexDirection: 'row', marginBottom: 10 }}>
-                        <Text
-                          style={{
-                            fontSize: 14,
-                            color: 'gray',
-                            marginRight: 6,
-                          }}
-                        >
-                          {item.time}
-                        </Text>
+              />
+
+              {items.map((item) => (
+                <TouchableOpacity
+                  onPress={() => {
+                    router.push({
+                      pathname: '/credit/detail/[id]',
+                      params: { id: item.id },
+                    })
+                  }}
+                  key={item.id}
+                >
+                  <View>
+                    <View style={styles.itemContainer}>
+                      <View>
                         <View
-                          style={{
-                            width: 1,
-                            height: '50%',
-                            backgroundColor: '#808080',
-                            alignSelf: 'center',
-                            marginRight: 6,
-                          }}
-                        />
-                        <Text style={styles.methodText}>{item.creditType}</Text>
+                          style={{ flexDirection: 'row', marginBottom: 10 }}
+                        >
+                          <Text
+                            style={{
+                              fontSize: 14,
+                              color: 'gray',
+                              marginRight: 6,
+                            }}
+                          >
+                            {item.time}
+                          </Text>
+                          <View
+                            style={{
+                              width: 1,
+                              height: '50%',
+                              backgroundColor: '#808080',
+                              alignSelf: 'center',
+                              marginRight: 6,
+                            }}
+                          />
+                          <Text style={styles.methodText}>
+                            {item.creditType}
+                          </Text>
+                        </View>
+                        <Text style={styles.detailText}>{item.detail}</Text>
                       </View>
-                      <Text style={styles.detailText}>{item.detail}</Text>
+                      <View style={styles.creditContainer}>
+                        <Text style={styles.amountText}>산정중</Text>
+                        <Text
+                          style={[
+                            styles.creditText,
+                            item.creditType === '적립'
+                              ? styles.earnedText
+                              : styles.spentText,
+                          ]}
+                        >
+                          {item.creditType === '적립' ? '+' : '-'}{' '}
+                          {item.credit.toLocaleString()}p
+                        </Text>
+                      </View>
                     </View>
-                    <View style={styles.creditContainer}>
-                      <Text style={styles.amountText}>산정중</Text>
-                      <Text
-                        style={[
-                          styles.creditText,
-                          item.creditType === '적립'
-                            ? styles.earnedText
-                            : styles.spentText,
-                        ]}
-                      >
-                        {item.creditType === '적립' ? '+' : '-'}{' '}
-                        {item.credit.toLocaleString()}p
-                      </Text>
-                    </View>
+                    <View
+                      style={{
+                        height: 1,
+                        width: '100%',
+                        backgroundColor: '#DEDEDE',
+                        marginBottom: 10,
+                      }}
+                    />
                   </View>
-                  <View
-                    style={{
-                      height: 1,
-                      width: '100%',
-                      backgroundColor: '#DEDEDE',
-                      marginBottom: 10,
-                    }}
-                  />
-                </View>
-              </TouchableOpacity>
-            ))}
-          </View>
-        )}
-        contentContainerStyle={{ paddingRight: 15 }}
-      />
+                </TouchableOpacity>
+              ))}
+            </View>
+          )}
+          contentContainerStyle={{ paddingRight: 15 }}
+        />
+      ) : (
+        <View style={{ alignSelf: 'center' }}>
+          <Text
+            style={{
+              fontSize: 15,
+              fontWeight: '500',
+              color: '#808080',
+              marginBottom: 5,
+            }}
+          >
+            처리 중인 데이터가 없습니다.
+          </Text>
+          <Text style={{ fontSize: 15, fontWeight: '500', color: '#808080' }}>
+            물품을 구매하고 영수증을 등록해 보세요!
+          </Text>
+        </View>
+      )}
     </View>
   )
 
@@ -262,7 +284,7 @@ export default function Credit() {
         <View style={styles.contentStyle}>
           <Text style={styles.titleStyle}>총 보유 크레딧</Text>
           <Text style={styles.valueStyle}>
-            {credits?.totalCredits.toLocaleString()}p
+            {dateCredits[0]?.balance.toLocaleString()}p
           </Text>
         </View>
         <View style={styles.contentStyle}>

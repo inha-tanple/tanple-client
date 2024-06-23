@@ -9,6 +9,7 @@ import { useState, useEffect, useRef } from 'react'
 import { TouchableOpacity, View, Text, Button, Platform } from 'react-native'
 
 import { useAuthStore, useInitStore } from '#store/client/useAuthStore'
+import { useProgressDataStore } from '#store/client/useCreditStore'
 import { useProductStore } from '#store/client/useProductStore'
 
 import storage from '#store/storage'
@@ -25,6 +26,7 @@ export default function Message() {
   const { userInfo, personInfo, setUserInfo } = useAuthStore()
   const { isInit, setIsInit } = useInitStore()
   const { setProducts } = useProductStore()
+  const { progressData, clearProgressData } = useProgressDataStore()
 
   const [expoPushToken, setExpoPushToken] = useState('')
   const [channels, setChannels] = useState<Notifications.NotificationChannel[]>(
@@ -68,6 +70,32 @@ export default function Message() {
         Notifications.removeNotificationSubscription(responseListener.current)
     }
   }, [])
+
+  async function schedulePushNotification() {
+    let body = ''
+    if (progressData.length) {
+      const count = progressData.length - 1
+      const name = progressData[0].detail
+      const points = progressData.reduce((acc, it) => acc + it.credit, 0)
+      body =
+        count > 0
+          ? `${name} 외 ${count}건의 구매로 ${points}p 적립 되었습니다.`
+          : `${name} 구매로 ${points}p 적립 되었습니다.`
+
+      setTimeout(() => {
+        clearProgressData()
+      }, 6000)
+    }
+
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: '물품 인증 완료!',
+        body,
+        data: { url: '/credit/history' },
+      },
+      trigger: { seconds: 6 },
+    })
+  }
 
   return (
     <View
@@ -159,17 +187,6 @@ export default function Message() {
       </View>
     </View>
   )
-}
-
-async function schedulePushNotification() {
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: '물품 인증 완료!',
-      body: '빙그레 우유 2개 구매로 3000p 적립 되었습니다.',
-      // data: { data: 'goes here', test: { test1: 'more data' } },
-    },
-    trigger: { seconds: 6 },
-  })
 }
 
 async function registerForPushNotificationsAsync() {

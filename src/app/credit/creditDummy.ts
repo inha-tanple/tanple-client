@@ -96,15 +96,22 @@ export const creditData: dateCreditsType[] = [
   },
 ]
 
-export const progressData: dateCreditsType[] = [
+export interface progressDataType {
+  id: number
+  credit: number
+  date: string
+  time: string
+  detail: string
+  productBarcode?: number
+  creditType: '적립' | '소비'
+}
+
+export const progressData: progressDataType[] = [
   {
-    id: 9,
+    id: 1,
     credit: 2780,
-    balance: 2780,
-    plusACC: 2780,
-    date: '2024-06-31',
+    date: '2024-06-22',
     time: '15:30',
-    creditMethod: 'PURCHASE',
     detail: '포밍 주방세제 시트러스향',
     productBarcode: 8801046397183,
     creditType: '적립',

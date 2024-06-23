@@ -9,11 +9,13 @@ import GradientView from '#components/GradientView/GradientView'
 import MyCarousel from '#components/MyCarousel/MyCarousel'
 import { defaultContainer } from '#constants/styles'
 import { useAuthStore, useInitStore } from '#store/client/useAuthStore'
-import { progressData } from 'app/credit/creditDummy'
+import { useProgressDataStore } from '#store/client/useCreditStore'
 
 export default function Home() {
   const { userInfo, personInfo, setUserInfo, setPersonInfo } = useAuthStore()
+  const { progressData } = useProgressDataStore()
   const { isInit } = useInitStore()
+
   const isPendingData = Object.keys(progressData).length > 0
 
   // dev temp Error
@@ -141,7 +143,7 @@ export default function Home() {
               </Text>
             </>
           ) : (
-            <Text style={{ fontSize: 15, fontWeight: '500' }}>
+            <Text style={{ fontSize: 15, fontWeight: '500', color: '#808080' }}>
               물품을 구매하고 크레딧을 적립해 볼 수 있어요
             </Text>
           )}
