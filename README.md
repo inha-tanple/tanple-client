@@ -14,6 +14,36 @@
   </p>
 </div>
 
+## 페이지 개요
+
+1. 온보딩
+
+   <img src="docs/demo/1.onboard.gif" width="200">
+
+2. 물품 목록
+
+   <img src="docs/demo/2.products.gif" width="200">
+
+3. 물품 인증
+
+   <img src="docs/demo/3.confirm.gif" width="200">
+
+4. 카드 웹뷰
+
+   <img src="docs/demo/4.webview.gif" width="200">
+
+5. 알림 확인
+
+   <img src="docs/demo/5.notification.gif" width="200">
+
+6. 크레딧 이용
+
+   <img src="docs/demo/6.credits.gif" width="200">
+
+7. 배출권 거래
+
+   <img src="docs/demo/7.trades.gif" width="200">
+
 ## Getting Started
 
 ### Information
