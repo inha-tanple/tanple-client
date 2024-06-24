@@ -73,11 +73,11 @@ export default function DetailScreen() {
           <Text style={{ fontSize: 22, fontWeight: 'bold', marginBottom: 5 }}>
             {stockName}
           </Text>
-          <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#d32f2f' }}>
-            8,000
+          <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#3082FB' }}>
+            8,110
           </Text>
-          <Text style={{ fontSize: 16, color: '#d32f2f', marginVertical: 5 }}>
-            ▼ 100 -1.23%
+          <Text style={{ fontSize: 16, color: '#3082FB', marginVertical: 5 }}>
+            ▼ 900 -1.12%
           </Text>
           <View
             style={{
@@ -87,8 +87,8 @@ export default function DetailScreen() {
               marginTop: 10,
             }}
           >
-            <Text style={{ fontSize: 14, color: '#555' }}>시가 8,050</Text>
-            <Text style={{ fontSize: 14, color: '#555' }}>고가 8,200</Text>
+            <Text style={{ fontSize: 14, color: '#555' }}>시가 9,010</Text>
+            <Text style={{ fontSize: 14, color: '#555' }}>고가 9,200</Text>
             <Text style={{ fontSize: 14, color: '#555' }}>저가 7,950</Text>
           </View>
         </View>
@@ -104,7 +104,7 @@ export default function DetailScreen() {
           }}
           width={Dimensions.get('window').width - 40}
           height={220}
-          yAxisLabel="₩"
+          yAxisLabel="₩ "
           yAxisSuffix=""
           chartConfig={{
             backgroundColor: '#3BBB71',
@@ -113,9 +113,6 @@ export default function DetailScreen() {
             decimalPlaces: 0,
             color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
             labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            style: {
-              borderRadius: 16,
-            },
             propsForDots: {
               r: '6',
               strokeWidth: '2',

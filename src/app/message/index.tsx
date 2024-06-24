@@ -11,6 +11,7 @@ import { TouchableOpacity, View, Text, Button, Platform } from 'react-native'
 import { useAuthStore, useInitStore } from '#store/client/useAuthStore'
 import { useProgressDataStore } from '#store/client/useCreditStore'
 import { useProductStore } from '#store/client/useProductStore'
+import { dateCredits, progressDataType } from 'app/credit/creditDummy'
 
 import storage from '#store/storage'
 
@@ -83,6 +84,15 @@ export default function Message() {
           : `${name} 구매로 ${points}p 적립 되었습니다.`
 
       setTimeout(() => {
+        progressData.map((it: progressDataType) => {
+          dateCredits.unshift({
+            ...it,
+            creditMethod: 'PURCHASE',
+            balance: dateCredits[0].balance + it.credit,
+            plusACC: dateCredits[0].plusACC + it.credit,
+          })
+        })
+
         clearProgressData()
       }, 6000)
     }

@@ -55,7 +55,7 @@ export default function Onboard3() {
             width: '70%',
           }}
         >
-          거래하기
+          발급 받은 크레딧으로 탄소 배출권을 구매하고 관리 할 수 있어요
         </Text>
       </View>
 

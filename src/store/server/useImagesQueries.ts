@@ -24,7 +24,7 @@ interface UploadImagesType {
 
 const convertToJpeg = async (uri: string): Promise<string> => {
   const manipResult = await ImageManipulator.manipulateAsync(uri, [], {
-    compress: 0.5,
+    compress: 0.25,
     format: ImageManipulator.SaveFormat.JPEG,
   })
   return manipResult.uri

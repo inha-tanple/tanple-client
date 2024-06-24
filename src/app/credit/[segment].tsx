@@ -18,17 +18,17 @@ import { shadowStyle } from '#constants/styles'
 import { useProgressDataStore } from '#store/client/useCreditStore'
 import {
   dateCreditsType,
-  useFetchCredits,
   useFetchDateCredits,
 } from '#store/server/useCreditsQueries'
 import { getDate } from '#utils/getDate'
+
+// import { dateCredits } from './creditDummy'
 
 export default function Credit() {
   const { segment } = useLocalSearchParams()
   const valueCheck = segment === 'history' || segment === 'progress'
   const [value, setValue] = useState(valueCheck ? segment : 'history')
 
-  const { data: credits } = useFetchCredits()
   const { data: dateCredits } = useFetchDateCredits(getDate())
   const { progressData } = useProgressDataStore()
 
@@ -292,7 +292,7 @@ export default function Credit() {
             {new Date().getMonth() + 1}월 적립 크레딧
           </Text>
           <Text style={styles.valueStyle}>
-            {credits?.thisMonthCredits.toLocaleString()}p
+            {dateCredits[0]?.plusACC.toLocaleString()}p
           </Text>
         </View>
 

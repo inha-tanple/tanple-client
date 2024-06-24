@@ -26,6 +26,8 @@ import {
 } from '#store/server/useCreditsQueries'
 import { getDate } from '#utils/getDate'
 
+import { lastDateCredits } from './creditDummy'
+
 const screenWidth = Dimensions.get('window').width
 
 export default function Analysis() {
@@ -45,7 +47,7 @@ export default function Analysis() {
   const data = {
     datasets: [
       {
-        data: [...dateCredits]
+        data: [...lastDateCredits]
           .reverse()
           .filter((item) => item.plusACC !== undefined)
           .map((item) => item.plusACC),
@@ -255,7 +257,7 @@ export default function Analysis() {
           <Text
             style={{ fontSize: 16, fontWeight: '600', marginHorizontal: 8 }}
           >
-            6월
+            {new Date().getMonth() + 1}월
           </Text>
           <Ionicons size={18} name="caret-forward-outline" />
         </View>
@@ -269,12 +271,12 @@ export default function Analysis() {
         >
           <View>
             <Text style={{ fontSize: 20, fontWeight: '600', marginBottom: 5 }}>
-              {credits?.totalCredits.toLocaleString()}p
+              {dateCredits[0]?.plusACC.toLocaleString()}p
             </Text>
             <Text style={{ fontSize: 12, color: '#808080' }}>
               지난달보다{' '}
               {(
-                (credits?.thisMonthCredits || 0) -
+                (dateCredits[0]?.plusACC || 0) -
                 (credits?.lastMonthCredits || 0)
               ).toLocaleString()}
               p 더 적립했어요

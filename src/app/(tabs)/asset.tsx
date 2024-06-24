@@ -9,14 +9,12 @@ import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import Coin from '#assets/images/coin.svg'
 import GradientView from '#components/GradientView/GradientView'
 import { defaultContainer } from '#constants/styles'
-import {
-  useFetchCredits,
-  useFetchDateCredits,
-} from '#store/server/useCreditsQueries'
+import { useFetchDateCredits } from '#store/server/useCreditsQueries'
 import { getDate } from '#utils/getDate'
 
+// import { dateCredits } from 'app/credit/creditDummy'
+
 export default function Asset() {
-  const { data } = useFetchCredits()
   const { data: dateCredits } = useFetchDateCredits(getDate())
 
   return (
@@ -123,7 +121,7 @@ export default function Asset() {
             {new Date().getMonth() + 1}월에 적립한 크레딧
           </Text>
           <Text style={{ fontSize: 15, marginTop: 3 }}>
-            {data?.thisMonthCredits.toLocaleString()}p
+            {dateCredits[0]?.plusACC.toLocaleString()}p
           </Text>
         </View>
         <Ionicons
